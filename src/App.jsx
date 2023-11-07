@@ -1,5 +1,6 @@
 import { Button } from "./components/ui/Button"
 import { ArticleCard } from "./components/ui/Card/ArticleCard"
+import { PatientTableRow } from "./components/ui/Cards/PatientTableRow";
 import { Select, Textarea } from "./components/ui/Form"
 
 function App() {
@@ -8,6 +9,15 @@ function App() {
     { value: 'aku2', label: 'Aku2' }
   ]
 
+  const data = {
+    name: "Joshua Kristin",
+    gender: "Male",
+    weight: "58kg",
+    disease: "Demam",
+    date: "17 Okt 23",
+    status: "Recover",
+    image: "https://placehold.co/600x400.png"
+  };
   return (
     <>
       <div className="container d-flex gap-3 flex-column">
@@ -31,10 +41,12 @@ function App() {
         >
           Success Button
         </Button>
-      </div>
 
+      <PatientTableRow data={data} />
+
+      </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
