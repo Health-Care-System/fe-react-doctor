@@ -1,10 +1,16 @@
 // Note:
 // 1. Cukup panggil komponen ini dengan dengan cara <Button className="" id="" type="" onClick={() => {}} > Children </Button>
 
-export const Button = ({ type, className, id, onClick, children }) => {
+export const Button = ({
+  children,
+  className,
+  onClick,
+  type,
+  id,
+}) => {
   return (
     <button
-      type={type ? type : "button"}
+      type={type || "button"}
       className={`btn ${className}`}
       id={id}
       onClick={onClick}
