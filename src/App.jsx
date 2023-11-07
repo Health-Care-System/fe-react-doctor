@@ -15,6 +15,7 @@ function App() {
     disease: "Demam",
     date: "17 Okt 23",
     status: "Recover",
+    image: "https://placehold.co/600x400.png"
   };
   return (
     <>
