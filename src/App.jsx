@@ -10,26 +10,25 @@ function App() {
   return (
     <>
       <div className="container d-flex gap-3 flex-column">
-      
+
         <label>
           Select Option
           <Select options={options} />
         </label>
-        
+
         <label>
           Textarea
           <Textarea />
         </label>
-        
+
         <Button
-          className="btn-success my-2"
+          className="btn-info my-2"
           onClick={() => { }}
           id="button"
         >
           Success Button
         </Button>
       </div>
-
     </>
   )
 }
