@@ -1,4 +1,5 @@
 import { Button } from "./components/ui/Button"
+import { ArticleCard } from "./components/ui/Card/ArticleCard"
 import { PatientTableRow } from "./components/ui/Cards/PatientTableRow";
 import { Select, Textarea } from "./components/ui/Form"
 
@@ -20,6 +21,8 @@ function App() {
   return (
     <>
       <div className="container d-flex gap-3 flex-column">
+
+        <ArticleCard title={"test"} content={"test"} date={'test'}/>
       
         <label>
           Select Option
