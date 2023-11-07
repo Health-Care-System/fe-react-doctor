@@ -22,27 +22,26 @@ function App() {
     <>
       <div className="container d-flex gap-3 flex-column">
 
-        <ArticleCard title={"test"} content={"test"} date={'test'}/>
-      
+        <ArticleCard title={"test"} content={"test"} date={'test'}/>      
         <label>
           Select Option
           <Select options={options} />
         </label>
-        
+
         <label>
           Textarea
           <Textarea />
         </label>
-        
+
         <Button
-          className="btn-success my-2"
+          className="btn-info my-2"
           onClick={() => { }}
           id="button"
         >
           Success Button
         </Button>
 
-      <PatientTableRow data={data} />
+        <PatientTableRow data={data} />
 
       </div>
     </>
