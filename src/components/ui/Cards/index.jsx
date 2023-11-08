@@ -39,3 +39,10 @@ export const ArticleCard = ({title, content, date}) => {
 }
 
 
+export const MedicalPrescriptioCard = () => {
+  return (
+    <div>
+    </div>
+  )
+}
+

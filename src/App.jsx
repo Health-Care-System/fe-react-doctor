@@ -1,6 +1,5 @@
 import { Button } from "./components/ui/Button"
-import { ArticleCard } from "./components/ui/Card/ArticleCard"
-import { PatientTableRow } from "./components/ui/Cards/PatientTableRow";
+ import { ArticleCard, MedicalPrescriptioCard, PatientTableRow } from "./components/ui/Cards";
 import { Select, Textarea } from "./components/ui/Form"
 
 function App() {
@@ -42,6 +41,7 @@ function App() {
         </Button>
 
         <PatientTableRow data={data} />
+        <MedicalPrescriptioCard />
 
       </div>
     </>
