@@ -1,6 +1,8 @@
+import { Sidebar } from "./components/Sidebar"
 
-export const layout = ({ children }) => {
+export const Layout = ({ children }) => {
   return (
-    <div>{children}</div>
+    
+    <Sidebar>{children}</Sidebar>
   )
 }
