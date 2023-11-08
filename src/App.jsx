@@ -40,7 +40,7 @@ function App() {
         <PatientTableRow data={data} />
 
         <Bubble className="bg-transparent rounded-top-3 rounded-end-3" text="Hallo dok, saya punya keluhan diare udah 10 kali bolak-balik kamar mandi, mual-mual, dan pusing sekali. Saya sudah coba minum norit tapi ga pengaruh sama sekali, kira-kira kenapa ya dok? tks" />
-        <Bubble className="bg-success-subtle rounded-top-3 rounded-start-3 align-self-end " text="Hallo dok, saya punya keluhan diare udah 10 kali bolak-balik kamar mandi, mual-mual, dan pusing sekali. Saya sudah coba minum norit tapi ga pengaruh sama sekali, kira-kira kenapa ya dok? tks" />
+        <Bubble className="bg-success-subtle rounded-top-3 rounded-start-3 align-self-end " text="Halo fito, apakah kamu juga mengalami gejala keram di perut dan apakah bisa difotokan lidahnya? " />
       </div>
     </>
   );
