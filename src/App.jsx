@@ -1,51 +1,20 @@
-import { Button } from "./components/ui/Button"
-import { ArticleCard } from "./components/ui/Card/ArticleCard"
-import { PatientTableRow } from "./components/ui/Cards/PatientTableRow";
-import { Select, Textarea } from "./components/ui/Form"
+import { Route, Routes } from "react-router-dom";
+import HomePage from './pages/Home/HomePage'
+import LoginPage from "./pages/Login/LoginPage";
+import PatientPage from "./pages/Patient/PatientPage";
+import SettingPage from "./pages/Setting/SettingPage";
 
 function App() {
-  const options = [
-    { value: 'aku', label: 'Aku' },
-    { value: 'aku2', label: 'Aku2' }
-  ]
 
-  const data = {
-    name: "Joshua Kristin",
-    gender: "Male",
-    weight: "58kg",
-    disease: "Demam",
-    date: "17 Okt 23",
-    status: "Recover",
-    image: "https://placehold.co/600x400.png"
-  };
   return (
-    <>
-      <div className="container d-flex gap-3 flex-column">
 
-        <ArticleCard title={"test"} content={"test"} date={'test'}/>
-      
-        <label>
-          Select Option
-          <Select options={options} />
-        </label>
-        
-        <label>
-          Textarea
-          <Textarea />
-        </label>
-        
-        <Button
-          className="btn-success my-2"
-          onClick={() => { }}
-          id="button"
-        >
-          Success Button
-        </Button>
+     <Routes>     
+       <Route exact path="/" element={<HomePage/>}/>
+       <Route path="/login" element={<LoginPage/>}/>
+       <Route path="/patients" element={<PatientPage/>}/>
+       <Route path="/settings" element={<SettingPage/>}/>
+     </Routes>
 
-      <PatientTableRow data={data} />
-
-      </div>
-    </>
   );
 }
 
