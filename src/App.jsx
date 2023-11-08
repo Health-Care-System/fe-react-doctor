@@ -7,13 +7,17 @@ import SettingPage from "./pages/Setting/SettingPage";
 function App() {
 
   return (
-
-     <Routes>     
+ 
+     <Routes>
+       
        <Route exact path="/" element={<HomePage/>}/>
        <Route path="/login" element={<LoginPage/>}/>
        <Route path="/patients" element={<PatientPage/>}/>
        <Route path="/settings" element={<SettingPage/>}/>
+
+
      </Routes>
+
 
   );
 }
