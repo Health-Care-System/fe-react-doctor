@@ -38,3 +38,4 @@ export const ArticleCard = ({title, content, date}) => {
   )
 }
 
+
