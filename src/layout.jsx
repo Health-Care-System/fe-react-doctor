@@ -1,6 +1,14 @@
+import React from "react";
+import { Sidebar } from "./components/Sidebar";
+const MemoizedSidebar = React.memo(Sidebar);
 
-export const layout = ({ children }) => {
+export const Layout = ({ children }) => {
   return (
-    <div>{children}</div>
+    <main className="h-100 d-flex flex-row">
+      <MemoizedSidebar/>
+      <div className="drawer-content">
+        {children}
+      </div>
+    </main>
   )
 }
