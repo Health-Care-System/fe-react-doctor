@@ -1,4 +1,6 @@
 import { Button } from "../Button";
+import drugIcon from '../../../assets/icon/medicine.svg'
+import './Card.Module.css'
 
 export const PatientTableRow = ({ data }) => {
   const { name, gender, weight, discase, date, status, image } = data;
@@ -16,7 +18,7 @@ export const PatientTableRow = ({ data }) => {
       <td>{date}</td>
       <td>{status}</td>
       <td>
-        <Button className="btn-dark rounded-pill px-5" onClick={() => {}}>
+        <Button className="btn-dark rounded-pill px-5" onClick={() => { }}>
           Edit
         </Button>
       </td>
@@ -24,25 +26,49 @@ export const PatientTableRow = ({ data }) => {
   );
 };
 
-export const ArticleCard = ({title, content, date}) => {
-  
+export const ArticleCard = ({ title, content, date }) => {
+
   return (
-  <div className="card" style={{ width : '18rem' }}>
+    <div className="card" style={{ width: '18rem' }}>
       <div className="card-body">
-          <h5 className="card-title">{title}</h5>
-          <p className="card-text">{content}</p>
-          <p className="text-end me-2">{date}</p>
+        <h5 className="card-title">{title}</h5>
+        <p className="card-text">{content}</p>
+        <p className="text-end me-2">{date}</p>
       </div>
-      </div>
+    </div>
 
   )
 }
 
 
-export const MedicalPrescriptioCard = () => {
+export const MedicalPrescriptionCard = ({ data }) => {
   return (
-    <div>
+    <div className="card shadow rounded-4 border-0 medical-card">
+      <div className="card-body px-0">
+        <figure className="d-flex px-2 border-bottom border-black pb-2 gap-2">
+          <img src={drugIcon} alt="Drug" />
+          <h5 className="mt-2">Resep Digital</h5>
+        </figure>
+        <section className="d-flex justify-content-between text-body-secondary fs-4 px-2">
+          <p>Nama Produk</p>
+          <p>Jumlah</p>
+        </section>
+        <ul className="list-group">
+          {data?.map((item, index) => (
+            <li key={index} className="list-group-item border-0 d-flex justify-content-between align-items-center p-0">
+              <p>{item.name}</p>
+              <p>{`${item.quantity} per Stripe`}</p>
+            </li>
+          ))
+          }
+        </ul>
+
+        <div className="d-flex justify-content-center">
+          <Button className={'btn-primary text-white w-75'}>Beli Obat</Button>
+        </div>
+      </div>
     </div>
+
   )
 }
 
