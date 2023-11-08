@@ -4,7 +4,12 @@ Note:
 2. Cara pemanggilan jika ingin bubble berada di sebelah kanan: className="bg-transparent rounded-top-3 rounded-end-3"
 */
 
-export const Bubble = ({ text, className }) => {
+export const Bubble = ({ text, author }) => {
+  const className =
+    author === "user"
+      ? "bg-transparent rounded-top-3 rounded-end-3"
+      : "bg-success-subtle rounded-top-3 rounded-start-3 align-self-end";
+
   return (
     <div
       className={`bubble d-flex align-items-baseline px-1 py-1 ${className}`}
