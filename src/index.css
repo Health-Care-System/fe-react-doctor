@@ -1,0 +1,13 @@
+/* Component Bubble CSS */
+.bubble {
+	height: auto;
+	width: auto;
+	max-width: 16.5rem;
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) { 
+	.bubble {
+		max-width: 19.4rem;
+	}
+ }
