@@ -6,6 +6,16 @@
   width: 30px;
   margin:0;
 }
+
+.navbar__bottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 1.5rem;
+  background: #F6F6F6; 
+}
   
 @media (min-width: 768px) {
   .navbar{
