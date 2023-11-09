@@ -1,3 +1,13 @@
+.sidebar {
+  position: fixed;
+  width: fit-content;
+  height: 100vh;
+  max-width: 100vh;
+  padding: 1.5rem 0.625rem;
+  background-color: #F8F8F8;
+  z-index: 50;
+}
+
 .navBtn {
   display: inline-flex;
   align-items: center;
@@ -7,17 +17,6 @@
   gap: 0.94rem;
 }
 
-.sidebar {
-  display: flex;
-  position: fixed;
-  width: fit-content;
-  height: 100%;
-  padding: 1.5rem 0.625rem;
-  flex-direction: column;
-  align-items: center;
-  background-color: #F8F8F8;
-}
-
 .figure {
   display: flex;
   flex-direction: column;
@@ -25,16 +24,20 @@
   width: 15rem;
   padding: 0.9375rem; 
   gap: 1.25rem;
+  margin-bottom: 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.25);
 }
 
-.iconActive {
-  fill: #fff;
+.btnWrapper {
+  width: fit-content;
+  list-style: none;
+  bottom: 2rem;
 }
 
 .logoutBtn {
   display: flex;
   width: 15rem;
+  margin-top: 0.6rem;
   justify-content: space-between;
   padding: 2 1rem;
 }
@@ -44,10 +47,13 @@
   color: #000000;
 }
 
+/* Buat responsive tata letak logout button jika tinggi layar kecil */
+@media (min-height: 720px) {
   .btnWrapper {
-    width: fit-content;
     position: absolute;
-    list-style: none;
-    bottom: 0;
   }
+  .logoutBtn {
+    margin-top: 0;
+  }
+}
 

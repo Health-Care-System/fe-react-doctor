@@ -9,8 +9,12 @@ p {
 }
 
 .drawer-content {
-  margin-left: 17rem;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
 }
+
 /* Component Bubble CSS */
 .bubble {
 	height: auto;
@@ -22,5 +26,11 @@ p {
 @media (min-width: 576px) { 
 	.bubble {
 		max-width: 19.4rem;
+	}
+ }
+ 
+ @media (min-width: 720px) {
+  .drawer-content {
+		margin-left: 17rem;
 	}
  }
