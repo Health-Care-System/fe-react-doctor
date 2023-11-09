@@ -1,0 +1,45 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+p {
+  margin: 0;
+}
+
+.drawer-content {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+}
+
+/* Component Bubble CSS */
+.bubble {
+	height: auto;
+	width: auto;
+	max-width: 16.5rem;
+}
+
+
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) { 
+	.bubble {
+		max-width: 19.4rem;
+	}
+ }
+ 
+ @media (min-width: 768px) {
+  .drawer-content {
+		margin-left: 17rem;
+	}
+ }
