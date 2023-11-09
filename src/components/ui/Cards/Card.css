@@ -1,0 +1,9 @@
+.medical-card{
+  width: 20rem;
+}
+
+.chatList:hover {
+  border-radius: 8px; 
+  background: #F0F0F0;
+  cursor: pointer;
+}
