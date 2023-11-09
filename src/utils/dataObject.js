@@ -52,3 +52,31 @@ export const menus = [
     link: '/settings'
   },
 ]
+
+export const navbarTitle = [
+  {
+    route: '/',
+    title: 'Dashboard',
+    content: 'You Have Following appointments today'
+  },
+  {
+    route: '/patients',
+    title: 'Manage Pasien',
+    content: 'Simpan perubahan pasien'
+  },
+  {
+    route: '/article',
+    title: 'Manage Artikel',
+    content: 'Kelola informasi kesehatan'
+  },
+  {
+    route: '/feedback',
+    title: 'Feedback',
+    content: 'Saran dan Masukan'
+  },
+  {
+    route: '/settings',
+    title: 'Pengaturan',
+    content: 'Kelola pengaturan'
+  },
+]
