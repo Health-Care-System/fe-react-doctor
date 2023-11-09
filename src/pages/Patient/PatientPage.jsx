@@ -2,7 +2,7 @@ const PatientPage = () => {
 
     return (
         <>
-
+            <h1>Pasien</h1>
         </>
     )
 }

@@ -29,6 +29,8 @@ p {
 	max-width: 16.5rem;
 }
 
+
+
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) { 
 	.bubble {
@@ -36,7 +38,7 @@ p {
 	}
  }
  
- @media (min-width: 720px) {
+ @media (min-width: 768px) {
   .drawer-content {
 		margin-left: 17rem;
 	}
