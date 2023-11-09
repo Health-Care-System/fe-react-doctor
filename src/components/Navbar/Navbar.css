@@ -15,7 +15,7 @@
   width: 100%;
   gap: 1.5rem;
   background: #F6F6F6; 
-}
+} 
   
 @media (min-width: 768px) {
   .navbar{

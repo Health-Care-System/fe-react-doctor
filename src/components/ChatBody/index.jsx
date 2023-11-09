@@ -23,7 +23,7 @@ export const Chatbody = () => {
             ))
           }
         </div>
-        <NavbarBottomChat />
+      <NavbarBottomChat />
       </section>
     </>
   )

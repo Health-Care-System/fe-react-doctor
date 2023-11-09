@@ -92,21 +92,48 @@ export const NavbarChat = () => {
 import emojiIcon from '../../assets/icon/emoji.png'
 import plusIcon from '../../assets/icon/plus-icon.svg'
 import voiceIcon from '../../assets/icon/voice.svg'
+import { Button } from '../ui/Button'
+import { useState } from 'react';
+import EmojiPicker from 'emoji-picker-react';
 
 export const NavbarBottomChat = () => {
+  const [showEmoji, setShowEmoji] = useState(false);
+  const [text, setText] = useState('');
+
+  const handleInput = (e) => {
+    setText(e.target.value);
+  }
+  
+  const onEmojiClick = (emojiData) => {
+    setText((prevText) => prevText + emojiData.emoji);
+  };
+  
   return (
     <>
-      <nav className='sticky-bottom py-2 px-4 navbar__bottom'>
-        <img height={'24px'} src={emojiIcon} alt='Emoji' />
-        <img height={'24px'} src={plusIcon} alt='Insert' />
-        <input
-          type='text'
-          className='form-control border-0 rounded-4'
-          placeholder='Say something...'
-          style={{ height: '48px' }}
-        />
-        <img height={'24px'} src={voiceIcon} alt='Insert' />
-      </nav>
+      <div className='sticky-bottom'>
+        {showEmoji &&
+          <EmojiPicker
+            onEmojiClick={onEmojiClick}
+          />
+        }
+        <nav className='sticky-bottom py-2 px-4 navbar__bottom'>
+          <Button
+            onClick={() => setShowEmoji(!showEmoji)}
+          >
+            <img height={'24px'} src={emojiIcon} alt='Emoji' />
+          </Button>
+          <img height={'24px'} src={plusIcon} alt='Insert' />
+          <input
+            type='text'
+            value={text}
+            onChange={(e) => handleInput(e)}
+            className='form-control border-0 rounded-4'
+            placeholder='Say something...'
+            style={{ height: '48px' }}
+          />
+          <img height={'24px'} src={voiceIcon} alt='Insert' />
+        </nav>
+      </div>
     </>
   )
 }

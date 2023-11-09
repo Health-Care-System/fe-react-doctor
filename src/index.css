@@ -42,10 +42,8 @@ p {
 }
 .chatBody{
   width: 100%;
-  overflow-y: scroll;
   background: #FAFAFA;
 }
-
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) { 
