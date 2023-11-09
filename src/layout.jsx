@@ -4,20 +4,14 @@ import menuIcon from './assets/icon/menu.svg'
 import { Button } from "./components/ui/Button";
 import { Transparent } from "./components/ui/Container";
 import { Navbar } from "./components/Navbar";
-import { Outlet, useLocation } from "react-router-dom";
-import { navbarTitle } from "./utils/dataObject";
+import { Outlet } from "react-router-dom";
 
 // Sidebar di memo agar tidak melakukan rerender saat pindah route
 const MemoizedSidebar = React.memo(Sidebar);
 const MemoizedNavbar = React.memo(Navbar);
 
-
 export const Layout = () => {
   const [menu, setMenu] = useState(false);
-  const location = useLocation();
-  const currentRoute = location.pathname;
-  const currentNavItem = navbarTitle.find((item) => item.route === currentRoute);
-
 
   return (
     <main className="h-100 d-flex flex-row">
@@ -28,10 +22,7 @@ export const Layout = () => {
 
       <div className="drawer-content">
         <div className="d-flex justify-content-between m-2">
-          <MemoizedNavbar
-            title={currentNavItem ? currentNavItem.title : "Title Default"}
-            content={currentNavItem ? currentNavItem.content : "Content Default"}
-          />
+          <MemoizedNavbar />
           <Button
             className={'p-0 d-flex d-md-none'}
             onClick={() => setMenu(!menu)}
