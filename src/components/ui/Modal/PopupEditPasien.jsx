@@ -35,7 +35,7 @@ export const PopupEditPasien = ({ closeModal, patientData }) => {
       <div className={`mx-2 ${styles.modalContainer}`}>
         <div className="d-flex justify-content-between align-items-center border-bottom pb-2 pb-lg-3 container-fluid ">
           <h5 className={styles.font__size}>Edit</h5>
-          <Button className="btn">
+          <Button className="btn p-0 m-0">
             <img
               src={closeMenu}
               alt="closeMenu"
@@ -51,7 +51,7 @@ export const PopupEditPasien = ({ closeModal, patientData }) => {
               alt="avatarIcon"
               className={styles.avatarIcon}
             />
-            <div className="row row-cols-2 py-3 text-nowrap row-gap-lg-3 p-lg-0">
+            <div className="row row-cols-2 py-3 row-gap-2  text-nowrap row-gap-lg-3 p-lg-0">
               {[
                 { label: "Nama Pasien", value: name },
                 { label: "Berat Badan", value: weight },
