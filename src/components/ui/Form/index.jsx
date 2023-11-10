@@ -1,3 +1,7 @@
+import './style.css'
+
+
+
 /* 
 Note:
 1. Cukup panggil komponen ini dengan dengan cara 
@@ -40,11 +44,24 @@ Note:
 
 }
 
-export const Input = () => {
+export const InputText = ({
+  placeHolder,
+  name,
+  value,
+  handleChange
+}) => {
   return (
-    <input>index</input>
+    <input
+      type="text"
+      name={name}
+      value={value}
+      onChange={handleChange}
+      placeholder="Masukkan placehorder disini..."
+      className="form-control-inputText"
+    />
   )
 }
+
 
 /* 
 Note:
