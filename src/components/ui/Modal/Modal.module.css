@@ -1,0 +1,18 @@
+.avatar {
+  width: 98px;
+  height: 98px;
+}
+
+@media (min-width: 1024px) {
+  .modal__dialog {
+	width: 100%;
+	min-width: 680px;
+  }
+}
+
+@media (min-width: 1440px) {
+	.modal__dialog {
+	  width: 100%;
+	  min-width: 820px;
+	}
+  }
