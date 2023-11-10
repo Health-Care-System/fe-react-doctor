@@ -2,7 +2,7 @@ const SettingPage = () => {
 
     return (
         <>
-
+            <h2>Pengaturan</h2>
         </>
     )
 }

@@ -1,4 +1,3 @@
-import { MedicalPrescriptionCard } from "../../components/ui/Cards"
 import {InputText}from "../../components/ui/Form"
 
 

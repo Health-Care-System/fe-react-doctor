@@ -56,7 +56,7 @@ export const InputText = ({
       name={name}
       value={value}
       onChange={handleChange}
-      placeholder="Masukkan placehorder disini..."
+      placeholder={placeHolder}
       className="form-control-inputText"
     />
   )

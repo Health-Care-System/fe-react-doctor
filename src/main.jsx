@@ -6,14 +6,16 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './scss/bootstrap.config.scss'
 import './index.css'
 import { BrowserRouter } from 'react-router-dom';
-import { Layout } from './layout.jsx';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Layout>
-        <App/>
-      </Layout>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </QueryClientProvider>
   </React.StrictMode>,
 )
