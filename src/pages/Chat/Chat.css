@@ -1,3 +1,11 @@
+.searchIcon {
+  top: 10px;
+  left: 1rem;
+}
+.chat-userlist__wrapper {
+  width: 100%;
+}
+
 .chatWrapper {
   display: flex;
   flex-direction: column;
@@ -15,9 +23,13 @@
   width: 100%;
 }
 
+
 @media (min-width: 768px) {
   .chatWrapper{
     width: 21.8rem;
+  }
+  .chat-userlist__wrapper {
+    max-width: 21.4375rem;
   }
 }
 

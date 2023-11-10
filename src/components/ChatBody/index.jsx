@@ -1,17 +1,52 @@
-import React from "react"
+import React, { useState } from "react"
 import messages from "../../utils/dataObject"
 import { Bubble } from "../ui/Bubble"
 import { NavbarBottomChat, NavbarChat } from "../Navbar"
 import './Chatbody.css'
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { Message } from "../../services/ChatService"
 
 export const Chatbody = () => {
+  const [message, setMessage] = useState('')
+
+  // Setup query client buat fetching data messages ke BE nantinya, 
+  // sementara masih nge-spread/cloning data array [messages]
+  const queryClient = useQueryClient();
+  const chatsQuery = useQuery({
+    queryKey: ['chats'],
+    queryFn: () => [...messages]
+  })
+
+  // Buat mutasi/edit data chat misal kirim pesan
+  const newMsgMutation = useMutation({
+    mutationFn: newMsg => {
+      return messages.push(newMsg)
+    },
+    // Jika data pesan berhasil terkirim, maka kode berikut akan melakukan 
+    // refetching untuk merender data pesan baru di chat body
+    onSuccess: () => {
+      queryClient.invalidateQueries(['chats'])
+    }
+  })
+
+  // Pesan akan terkirim jika klik user Enter
+  const onEnter = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      // Kode berikut akan mengirim atau push data object baru yang dibuat dari sebuah Class, 
+      // nantinya data baru ini akan dipush ke dalam array chats
+      newMsgMutation.mutate(new Message('doctor', message, 'text'))
+      setMessage('')
+    }
+  }
+
   return (
     <>
-      <section className="d-flex flex-column w-100 overflow-y-hidden bodyChat">
+      <section className="chat-body-wrapper position-relative">
         <NavbarChat />
-        <div className="d-flex flex-column chatBody gap-3 px-4 py-5 overflow-y-scroll">
+        <div className="chat-body">
           {
-            messages?.map((message, index) => (
+            chatsQuery.data?.map((message, index) => (
               <React.Fragment key={index}>
                 <Bubble
                   author={message.author}
@@ -24,7 +59,11 @@ export const Chatbody = () => {
             ))
           }
         </div>
-      <NavbarBottomChat />
+        <NavbarBottomChat
+          message={message}
+          setMessage={setMessage}
+          onEnter={onEnter}
+        />
       </section>
     </>
   )
