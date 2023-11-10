@@ -40,10 +40,6 @@ p {
 .bubble {
 	max-width: 16.5rem;
 }
-.chatBody{
-  width: 100%;
-  background: #FAFAFA;
-}
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) { 

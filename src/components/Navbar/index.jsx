@@ -66,7 +66,7 @@ export const NavbarChat = () => {
 
   return (
     <>
-      <nav className='sticky-top bg-white d-flex flex-row justify-content-between w-100 px-4 pt-3 shadow-sm'>
+      <nav className='sticky-top z-1 bg-white d-flex flex-row justify-content-between w-100 px-4 pt-3 shadow-sm'>
         <figure className=' d-inline-flex gap-3 align-items-center'>
           <img width={'60'} height={'60'} className="rounded-3 object-fit-cover" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Profile Picture" />
           <div className="w-75 m-0">
@@ -110,7 +110,7 @@ export const NavbarBottomChat = () => {
   
   return (
     <>
-      <div className='sticky-bottom'>
+      <div className='sticky-bottom z-1'>
         {showEmoji &&
           <EmojiPicker
             onEmojiClick={onEmojiClick}

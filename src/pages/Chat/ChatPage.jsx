@@ -34,8 +34,8 @@ export const ChatPage = () => {
 
   return (
     <>
-      <div className="d-flex flex-row h-100 w-100 -mt-5">
-        <section className="chatWrapper mt-0 px-0">
+      <div className="d-flex flex-row h-100 w-100">
+        <section className="chatWrapper mt-0 px-0 d-none d-lg-flex">
           <div className="sticky-top bg-white d-flex flex-column gap-3 px-3">
             <input type="text" className="form-control rounded-5" placeholder="Search or start a new chat" />
             <div
