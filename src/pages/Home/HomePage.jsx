@@ -1,16 +1,22 @@
+import { useState } from "react";
+import { Button } from "../../components/ui/Button";
 import { PopupEditPasien } from "../../components/ui/Modal/PopupEditPasien";
 
 const HomePage = () => {
+  const [openModal, setOpenModal] = useState(false)
+
+  const patientData = {
+    name: 'Joshua Kristin',
+    weight: '58 Kg',
+    gender: 'Laki-laki',
+    consultationDate: '17 Oktober 2023',
+  };
+
   return (
     <>
       {/* <h1>Home</h1> */}
-      <PopupEditPasien
-        title="Edit"
-        name="Joshua Kristin"
-        gender="Laki-laki"
-        weight="58 Kg"
-        date="17 Okt 2023"
-      />
+      <Button onClick={() => setOpenModal(true)}>Open Modal</Button>
+      {openModal && <PopupEditPasien closeModal={setOpenModal} patientData={patientData}/>}
     </>
   );
 };
