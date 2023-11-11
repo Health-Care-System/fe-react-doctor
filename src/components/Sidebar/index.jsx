@@ -28,7 +28,8 @@ export const Sidebar = () => {
         {/* Container list navigasi */}
         <ul className='list-group gap-2 mt-4'>
           {menus?.map((item, index) => {
-            const active = item.link === location.pathname && 'btn-primary text-white';
+            const currentRoute = location.pathname.split('/')[1];
+            const active = currentRoute === item.link.split('/')[1] && 'btn-primary text-white';
 
             return (
               <li key={index} className={`list-unstyled`}>
@@ -36,7 +37,7 @@ export const Sidebar = () => {
                   <div className={`${active} d-flex navBtn btn`}>
                     <img
                       src={
-                        item.link === location.pathname
+                        currentRoute === item.link.split('/')[1]
                           ? item.icon2
                           : item.icon
                       }
