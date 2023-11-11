@@ -12,7 +12,6 @@ import { Input } from "../../components/ui/Form"
 import { fetchUserChat } from "../../services/ChatService"
 
 export const ChatPage = () => {
-  
   // Buat nyari query url saat ini
   const navigate = useNavigate();
   const location = useLocation();
@@ -22,7 +21,6 @@ export const ChatPage = () => {
     searchParams.set("status", value);
     navigate(`${location.pathname}?${searchParams.toString()}`);
   };
-  
   
   const handleCurrentUserChat = (id) => {
     searchParams.set("userId", id);

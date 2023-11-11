@@ -5,9 +5,11 @@ import { NavbarBottomChat, NavbarChat } from "../Navbar"
 import './Chatbody.css'
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { Message } from "../../services/ChatService"
+import useAutoScroll from "../../hooks/useAutoScroll"
 
 export const Chatbody = () => {
   const [message, setMessage] = useState('')
+  const { bottomRef, scrollToBottom } = useAutoScroll()
 
   // Setup query client buat fetching data messages ke BE nantinya, 
   // sementara masih nge-spread/cloning data array [messages]
@@ -26,6 +28,7 @@ export const Chatbody = () => {
     // refetching untuk merender data pesan baru di chat body
     onSuccess: () => {
       queryClient.invalidateQueries(['chats'])
+      scrollToBottom();
     }
   })
 
@@ -39,6 +42,7 @@ export const Chatbody = () => {
       setMessage('')
     }
   }
+
 
   return (
     <>
@@ -58,6 +62,7 @@ export const Chatbody = () => {
               </React.Fragment>
             ))
           }
+          <div ref={bottomRef} />
         </div>
         <NavbarBottomChat
           message={message}
