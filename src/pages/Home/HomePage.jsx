@@ -1,11 +1,24 @@
+import { useState } from "react";
+import { Button } from "../../components/ui/Button";
+import { PopupEditPasien } from "../../components/ui/Modal/PopupEditPasien";
+
 const HomePage = () => {
+  const [openModal, setOpenModal] = useState(false)
 
-    return (
-        <>
-            <h1>Home</h1>
-        </>
-    )
-}
+  const patientData = {
+    name: 'Joshua Kristin',
+    weight: '58 Kg',
+    gender: 'Laki-laki',
+    consultationDate: '17 Oktober 2023',
+  };
 
+  return (
+    <>
+      {/* <h1>Home</h1> */}
+      <Button onClick={() => setOpenModal(true)}>Open Modal</Button>
+      {openModal && <PopupEditPasien closeModal={setOpenModal} patientData={patientData}/>}
+    </>
+  );
+};
 
-export default HomePage
+export default HomePage;
