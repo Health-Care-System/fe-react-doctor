@@ -1,0 +1,19 @@
+.chat-body-wrapper {
+  display: flex;
+  flex-direction: column;
+  overflow-y: hidden;
+  width: 100%;
+  height: 100vh;
+}
+.chat-body{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem 1rem;
+  padding-bottom: 5rem;
+  overflow-y: scroll;
+  width: 100%;
+  height: 100vh;
+  background: #FAFAFA;
+}
+

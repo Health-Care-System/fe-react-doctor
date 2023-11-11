@@ -44,20 +44,22 @@ Note:
 
 }
 
-export const InputText = ({
+export const Input = ({
   placeHolder,
   name,
   value,
-  handleChange
+  handleChange,
+  type,
+  className
 }) => {
   return (
     <input
-      type="text"
+      type={type}
       name={name}
       value={value}
       onChange={handleChange}
       placeholder={placeHolder}
-      className="form-control-inputText"
+      className={`form-control ${className}`}
     />
   )
 }

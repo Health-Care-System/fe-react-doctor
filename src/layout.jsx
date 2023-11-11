@@ -21,15 +21,19 @@ export const Layout = () => {
       </div>
 
       <div className="drawer-content">
-        <div className="d-flex justify-content-between m-2">
-          <MemoizedNavbar />
-          <Button
-            className={'p-0 d-flex d-md-none'}
-            onClick={() => setMenu(!menu)}
-          >
-            <img src={menuIcon} alt="Menu" />
-          </Button>
-        </div>
+        {location.pathname.startsWith('/chat')
+          ? null
+          :
+          <div className="d-flex justify-content-between m-2">
+            <MemoizedNavbar />
+            <Button
+              className={'p-0 d-flex d-md-none'}
+              onClick={() => setMenu(!menu)}
+            >
+              <img src={menuIcon} alt="Menu" />
+            </Button>
+          </div>
+        }
 
         {menu &&
           <div className="position-fixed d-flex d-md-none z-3 w-full h-100">
