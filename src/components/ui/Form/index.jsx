@@ -64,7 +64,6 @@ export const Input = ({
   )
 }
 
-
 /* 
 Note:
 1. Cukup panggil komponen ini dengan dengan cara 
