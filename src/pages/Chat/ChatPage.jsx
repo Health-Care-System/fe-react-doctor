@@ -22,17 +22,17 @@ export const ChatPage = () => {
     navigate(`${location.pathname}?${searchParams.toString()}`);
   };
   
+
   const handleCurrentUserChat = (id) => {
     searchParams.set("userId", id);
     navigate(`/chat/user?${searchParams.toString()}`);
   };
-  
+
   // Tanstack query untuk fetching semua data chat user
   const usersQuery = useQuery({
     queryKey: ['users'],
     queryFn: () => fetchUserChat(),
   })
-  
   
   const chatListStyle = location.pathname === '/chat/user' 
     ? 'd-none d-lg-flex' 
