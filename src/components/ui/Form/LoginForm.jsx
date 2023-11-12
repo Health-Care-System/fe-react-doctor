@@ -1,11 +1,20 @@
 export const LoginForm = () => {
     
     return (
-        <form>
+        <form action='#' className="mt-4">
+            <div className="mb-3">
+                <h3 className="fw-bold">Portal Dokter</h3>
+                <p>Kelola informasi kesehatan dengan aman, Silahkan masuk untuk melanjutkan</p>
+            </div>
+            <div className="mb-3 d-flex flex-column gap-3">
+                <button className="btn btn-primary text-light">Sign in with Google </button>
+                <button className="btn btn-primary text-light">Sign in with Facebook</button>
+            </div>
+            <p className="text-center"> or </p>
+
             <div className="mb-3">
                 <label className="form-label">Email address</label>
                 <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-                <div id="emailHelp" className="form-text">We&apos;ll never share your email with anyone else.</div>
             </div>
             <div className="mb-3">
                 <label className="form-label">Password</label>
@@ -13,9 +22,9 @@ export const LoginForm = () => {
             </div>
             <div className="mb-3 form-check">
                 <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
-                    <label className="form-check-label" >Check me out</label>
+                    <label className="form-check-label" >Remember Me</label>
             </div>
-            <button type="submit" className="btn btn-primary">Submit</button>
+            <button type="submit mt-2" className="btn btn-primary text-light">Submit</button>
         </form>
     )
 }
