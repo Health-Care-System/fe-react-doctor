@@ -1,50 +1,35 @@
-import searchIcon from '../../assets/icon/search.svg';
+import mailIcon from '../../assets/icon/mail-fill.svg';
 import notifIcon from '../../assets/icon/notif.svg';
-import './Navbar.css'
 import { Link, useLocation } from 'react-router-dom';
 import { navbarTitle } from '../../utils/dataObject';
+import './Navbar.css'
 
 export const Navbar = () => {
-
-  // Buat dapetin jam saat ini
-  const currentTime = new Date();
-  const hours = currentTime.getHours();
-  const minutes = currentTime.getMinutes();
-
-  // Buat nyari lokasi route active saat ini, kalau routenya di /chat maka return null/kosongan karna di dalam halaman chat tidak ada navbar
-  const location = useLocation();
-  if (location.pathname.startsWith('/chat')) return null;
-
+  
   // Buat render title dan content secara dinamis berdasarkan rute
-  const currentRoute = location.pathname;
+  const location = useLocation();
+  const currentRoute = location.pathname.split('/')[1];
   const currentNavItem = navbarTitle.find((item) => item.route === currentRoute);
 
   return (
-    <header className='navbar'>
-      <nav className='d-flex w-100 justify-content-between align-items-center'>
-        <div>
-          <h5 className='fw-bold m-0'>
+  
+    <header className='navbar p-0'>
+      <nav className='navbar-content'>
+        <div >
+          <h5 className='fw-semibold m-0 text-secondary'>
             {
               currentNavItem
                 ? currentNavItem.title
                 : null
             }
           </h5>
-          <p className='fw-medium'>
-            {
-              currentNavItem
-                ? currentNavItem.content
-                : null
-            }
-          </p>
         </div>
 
         <div className='d-flex flex-row-reverse  flex-md-column pe-3 pe-md-0'>
-          <div className='d-flex align-items-center gap-3'>
-            <img src={searchIcon} className='icon-size' alt='Search' />
+          <div className='d-flex align-items-center gap-4'>
             <img src={notifIcon} className='icon-size' alt='Notification' />
+            <img src={mailIcon} className='icon-size' alt='Search' />
           </div>
-          <p className='d-none d-md-block fs-2 m-0 fw-semibold text-end'>{`${hours}:${minutes} WIB`}</p>
         </div>
 
       </nav>

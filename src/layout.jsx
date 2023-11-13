@@ -20,11 +20,11 @@ export const Layout = () => {
         <MemoizedSidebar />
       </div>
 
-      <div className="drawer-content">
+      <div className="drawer-content ">
         {location.pathname.startsWith('/chat')
           ? null
           :
-          <div className="d-flex justify-content-between m-2">
+          <div className="d-flex justify-content-between">
             <MemoizedNavbar />
             <Button
               className={'p-0 d-flex d-md-none'}
