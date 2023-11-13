@@ -5,14 +5,14 @@ import { navbarTitle } from '../../utils/dataObject';
 import './Navbar.css'
 
 export const Navbar = () => {
-  
+
   // Buat render title dan content secara dinamis berdasarkan rute
   const location = useLocation();
   const currentRoute = location.pathname.split('/')[1];
   const currentNavItem = navbarTitle.find((item) => item.route === currentRoute);
 
   return (
-  
+
     <header className='navbar p-0'>
       <nav className='navbar-content'>
         <div >
@@ -52,7 +52,7 @@ export const NavbarChat = () => {
 
   return (
     <>
-      <nav className='sticky-top z-1 bg-white d-flex flex-row justify-content-between w-100 px-4 pt-3 shadow-sm'>
+      <nav className='sticky-top z-1 text-white d-flex flex-row justify-content-between w-100 px-4 pt-3 shadow-sm bg-primary'>
         <figure className='d-inline-flex gap-3 align-items-center'>
           <Link className=' d-lg-none' to={'/chat'}>
             <img src={arrowLeftIcon} width={24} alt='Back' />
@@ -84,13 +84,16 @@ import voiceIcon from '../../assets/icon/voice.svg'
 import { Button } from '../ui/Button'
 import { useState } from 'react';
 import EmojiPicker from 'emoji-picker-react';
+import useShortCutKeyboard from '../../hooks/useShortcutKeyboard';
 
 export const NavbarBottomChat = ({ message, setMessage, onEnter }) => {
   const [showEmoji, setShowEmoji] = useState(false);
 
+  const { shortcutDiv } = useShortCutKeyboard('k');
   const onEmojiClick = (emojiData) => {
     setMessage((prevMsg) => prevMsg + emojiData.emoji);
   };
+
 
   return (
     <>
@@ -109,13 +112,14 @@ export const NavbarBottomChat = ({ message, setMessage, onEnter }) => {
             <img height={'24px'} src={plusIcon} alt='Insert' />
           </Button>
           <input
+            ref={shortcutDiv}
             type='text'
             name='message'
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             onKeyDown={(e) => onEnter(e)}
             className='form-control border-0 rounded-4'
-            placeholder='Say something...'
+            placeholder='Tulis pesan...'
             style={{ height: '48px' }}
           />
           <Button className={'p-0'}>

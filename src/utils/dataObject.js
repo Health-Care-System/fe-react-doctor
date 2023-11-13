@@ -25,7 +25,7 @@ export const menus = [
     icon: chatIcon,
     icon2: chatIconWhite,
     label: 'Chat Pasien',
-    link: '/chat'
+    link: '/chat?status=all'
   },
   {
     icon: patientIcon,
