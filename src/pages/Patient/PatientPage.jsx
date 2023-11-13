@@ -1,33 +1,51 @@
+import {
+  CardTotalPasien,
+  ChartGenderPasien,
+  ChatDashboardCard,
+  ConsultationChatCard,
+} from "../../components/ui/Cards";
 import "./Patient.module.css";
-import avatarIcon from '../../assets/icon/avatar.svg'
-import { CardTotalPasien, ChartGenderPasien, ChatDashboardCard, ConsultationChatCard } from "../../components/ui/Cards";
+import avatarIcon from "../../assets/icon/avatar.svg";
+import searchIcon from "../../assets/icon/search.svg";
+import { Input } from "../../components/ui/Form";
+import { Button } from "../../components/ui/Button";
 
 const PatientPage = () => {
-
   const chatMessages = [
     {
       avatar: avatarIcon,
       name: "John",
       date: "15 Sep",
-      chat: "Halo, bagaimana kabarmu?"
+      chat: "Halo, bagaimana kabarmu?",
     },
     {
       avatar: avatarIcon,
       name: "Alice",
       date: "15 Sep",
-      chat: "Hai, aku baik. Terima kasih!"
+      chat: "Hai, aku baik. Terima kasih!",
+    },
+  ];
+
+  const data = [
+    {
+      nama: "Joshua Kristin",
+      jenisKelamin: "Pria",
+      beratBadan: "58 kg",
+      diagnosa: "Demam",
+      tglKonsultasi: "17 Okt 2023",
+      status: "Konsultasi Lanjutan",
     },
   ];
 
   return (
-    <section className="container-fluid d-grid gap-3">
-      <div className="layout container ">
-        <div className="row gap-xl-0 gap-3 mx-lg-2 my-lg-3 ">
-          <div className="col-xl-3 col-lg-5 col-12 d-flex align-items-center justify-content-center gap-3 m-0 p-0 ">
+    <section className="container-fluid ">
+      <div className="d-grid mx-lg-3 my-3 gap-3 ">
+        <div className="d-grid d-lg-flex align-items-start gap-3">
+          <div className="d-flex justify-content-center align-items-center gap-2">
             <ChartGenderPasien
               data={{ womanPercentage: "49%", manPercentage: "51%" }}
             />
-            <div className="d-grid gap-2 justify-content-center align-items-center ">
+            <div className="d-grid gap-2 align-items-center  ">
               <CardTotalPasien
                 percentage="51%"
                 title="Pasien Baru"
@@ -40,11 +58,64 @@ const PatientPage = () => {
               />
             </div>
           </div>
-          <div className="col-xl-3 col-lg-6 col-12 d-lg-inline d-grid justify-content-center px-xl-4 ">
+          <div className="d-grid justify-content-center align-items-center ">
             <ChatDashboardCard chatMessages={chatMessages} />
           </div>
-          <div className="col-xl-6 col-lg-12 col-12 mt-xl-0 mt-lg-3 justify-content-lg-start d-grid justify-content-center m-0 px-xl-4   ">
+          <div className="d-grid justify-content-center align-items-center">
             <ConsultationChatCard gender="Wanita" name="Joshua Kristin" />
+          </div>
+        </div>
+        {/* Table Daftar Pasien */}
+        <div className="d-grid  align-items-center gap-2">
+          <div className="d-flex justify-content-between align-items-center">
+            <h1 className="fw-bold fs-1">Daftar Pasien</h1>
+            <div className="position-relative ">
+              <Input
+                placeHolder="Nama, Gejala, Status "
+                className="border-0 ps-5  "
+              />
+              <button className="border-0 bg-transparent position-absolute start-0 ps-2 top-0 mt-1">
+                <img src={searchIcon} alt="searchIcon" className="w-75" />
+              </button>
+            </div>
+          </div>
+          <div className="table-responsive p-2 text-nowrap ">
+            <table className="table table-borderless ">
+              <thead>
+                <tr>
+                  <th scope="col">Nama</th>
+                  <th scope="col">Jenis Kelamin</th>
+                  <th scope="col">Berat Badan</th>
+                  <th scope="col">Diagnosa</th>
+                  <th scope="col">Tgl Konsultasi</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((entry, index) => (
+                  <tr key={index} className="align-middle">
+                    <td className="d-flex align-items-center gap-2">
+                      <img
+                        src={avatarIcon}
+                        alt="avatarIcon"
+                        className="rounded-circle avatar_icon"
+                      />
+                      <p>{entry.nama}</p>
+                    </td>
+                    <td>{entry.jenisKelamin}</td>
+                    <td>{entry.beratBadan}</td>
+                    <td>{entry.diagnosa}</td>
+                    <td>{entry.tglKonsultasi}</td>
+                    <td>{entry.status}</td>
+                    <td>
+                      <Button className="btn-primary text-white px-4">
+                        Edit
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

@@ -122,24 +122,24 @@ import chartjs from "../../../assets/icon/chartjs.svg";
 
 export const ChartGenderPasien = ({ data }) => {
   return (
-    <div className="chart_gender shadow rounded-4">
-      <div className="d-grid gap-4 p-2">
+    <div className="chart_gender shadow rounded-4 d-grid align-content-center  ">
+      <div className="d-grid gap-4">
         <img src={chartjs} alt="chatjs" className="chart_gender_img mx-auto " />
-        <div className="d-grid gap-2">
-          <div className="d-flex gap-2 align-items-center justify-content-start ">
+        <div className="d-grid gap-1">
+          <div className="d-flex gap-1 align-items-center justify-content-start ">
             <img
               src={circleWoman}
               alt="circle"
               className="chart_gender_circle"
             />
-            <p>Wanita</p>
-            <span>{data.womanPercentage}</span>
+            <p className="fs-4 ">Wanita</p>
+            <span className="fs-4 ">{data.womanPercentage}</span>
           </div>
 
-          <div className="d-flex gap-2 align-items-center justify-content-start ">
+          <div className="d-flex gap-1 align-items-center justify-content-start ">
             <img src={circleMan} alt="circle" className="chart_gender_circle" />
-            <p>Pria</p>
-            <span>{data.manPercentage}</span>
+            <p className="fs-4">Pria</p>
+            <span className="fs-4 ">{data.manPercentage}</span>
           </div>
         </div>
       </div>
@@ -214,36 +214,37 @@ import personIcon from "../../../assets/icon/person.svg";
 
 export const ConsultationChatCard = ({ name, gender }) => {
   return (
-    <div className="rounded-4 d-grid container consultation__chat__section">
-      <h3 className="fw-semibold m-0 fs-2 ps-2 ">Pasien Baru</h3>
-      <div className="table-responsive text-nowrap ">
-        <table className="table table-borderless">
-          <thead>
-            <tr>
-              <th scope="col">Nama</th>
-              <th scope="col">Jenis Kelamin</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="align-middle ">
-              <td className="d-flex gap-2 align-items-center ">
-                <img
-                  src={personIcon}
-                  alt="avatarIcon"
-                  className="border border-2 rounded-circle p-2"
-                />
-                <p className="fs-3 limit__text__name">{name}</p>
-              </td>
-              <td className="">{gender}</td>
-              <td>
-                <Button className="btn-primary text-nowrap text-white rounded-pill">
-                  Mulai Percakapan
-                </Button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    <div className="rounded-4 table-responsive shadow consultation__chat">
+      <div className="p-0 ">
+        <h3 className="fw-semibold m-0 fs-2 ps-2 ">Pasien Baru</h3>
+        <div className="text-nowrap ">
+          <table className="table table-borderless">
+            <thead>
+              <tr>
+                <th scope="col">Nama</th>
+                <th scope="col">Jenis Kelamin</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="align-middle ">
+                <td className="d-flex gap-2 align-items-center ">
+                  <img
+                    src={personIcon}
+                    alt="avatarIcon"
+                    className="border border-2 rounded-circle p-2"
+                  />
+                  <p className="fs-3 limit__text__name">{name}</p>
+                </td>
+                <td className="">{gender}</td>
+                <td className="p-0">
+                  <Button className="btn-primary text-nowrap text-white rounded-pill">
+                    Mulai Percakapan
+                  </Button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
