@@ -30,13 +30,13 @@ export const menus = [
   {
     icon: patientIcon,
     icon2: patientIconWhite,
-    label: 'Pasien',
+    label: 'Kelola Pasien',
     link: '/patients'
   },
   {
     icon: articleIcon,
     icon2: articleIconWhite,
-    label: 'Artikel',
+    label: 'Kelola Artikel',
     link: '/article'
   },
   {
@@ -55,29 +55,28 @@ export const menus = [
 
 export const navbarTitle = [
   {
-    route: '/',
+    route: '',
     title: 'Dashboard',
-    content: 'You Have Following appointments today'
   },
   {
-    route: '/patients',
-    title: 'Manage Pasien',
-    content: 'Simpan perubahan pasien'
+    route: 'chat',
+    title: 'Chat Pasien',
   },
   {
-    route: '/article',
-    title: 'Manage Artikel',
-    content: 'Kelola informasi kesehatan'
+    route: 'patients',
+    title: 'Kelola Pasien',
   },
   {
-    route: '/feedback',
+    route: 'article',
+    title: 'Kelola Artikel',
+  },
+  {
+    route: 'feedback',
     title: 'Feedback',
-    content: 'Saran dan Masukan'
   },
   {
-    route: '/settings',
+    route: 'settings',
     title: 'Pengaturan',
-    content: 'Kelola pengaturan'
   },
 ]
 

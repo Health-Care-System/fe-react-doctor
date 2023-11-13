@@ -1,8 +1,15 @@
+.searchIcon {
+  top: 10px;
+  left: 1rem;
+}
+.chat-userlist__wrapper {
+  width: 100%;
+}
+
 .chatWrapper {
   display: flex;
   flex-direction: column;
   position: fixed; 
-  width: 21.8rem;
   height: 100%;
   padding: 2.5rem 1rem 3.125rem 1rem; 
   border-right: 1px solid rgba(0, 0, 0, 0.13);
@@ -11,8 +18,24 @@
 }
 
 .chat-body__wrapper {
-  margin-left: 21.9rem;
   display: flex;
   justify-content: center;
   width: 100%;
+}
+
+
+@media (min-width: 768px) {
+  .chatWrapper{
+    width: 21.8rem;
+  }
+  .chat-userlist__wrapper {
+    max-width: 21.4375rem;
+  }
+}
+
+@media (min-width: 992px) {
+.chat-body__wrapper{
+  margin-left: 21.9rem;
+}
+  
 }

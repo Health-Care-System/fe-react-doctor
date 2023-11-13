@@ -1,50 +1,35 @@
-import searchIcon from '../../assets/icon/search.svg';
+import mailIcon from '../../assets/icon/mail-fill.svg';
 import notifIcon from '../../assets/icon/notif.svg';
-import './Navbar.css'
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { navbarTitle } from '../../utils/dataObject';
+import './Navbar.css'
 
 export const Navbar = () => {
-
-  // Buat dapetin jam saat ini
-  const currentTime = new Date();
-  const hours = currentTime.getHours();
-  const minutes = currentTime.getMinutes();
-
-  // Buat nyari lokasi route active saat ini, kalau routenya di /chat maka return null/kosongan
-  const location = useLocation();
-  if (location.pathname.startsWith('/chat')) return null;
-
+  
   // Buat render title dan content secara dinamis berdasarkan rute
-  const currentRoute = location.pathname;
+  const location = useLocation();
+  const currentRoute = location.pathname.split('/')[1];
   const currentNavItem = navbarTitle.find((item) => item.route === currentRoute);
 
   return (
-    <header className='navbar'>
-      <nav className='d-flex w-100 justify-content-between align-items-center'>
-        <div>
-          <h5 className='fw-bold m-0'>
+  
+    <header className='navbar p-0'>
+      <nav className='navbar-content'>
+        <div >
+          <h5 className='fw-semibold m-0 text-secondary'>
             {
               currentNavItem
                 ? currentNavItem.title
                 : null
             }
           </h5>
-          <p className='fw-medium'>
-            {
-              currentNavItem
-                ? currentNavItem.content
-                : null
-            }
-          </p>
         </div>
 
         <div className='d-flex flex-row-reverse  flex-md-column pe-3 pe-md-0'>
-          <div className='d-flex align-items-center gap-3'>
-            <img src={searchIcon} className='iconSize' alt='Search' />
-            <img src={notifIcon} className='iconSize' alt='Notification' />
+          <div className='d-flex align-items-center gap-4'>
+            <img src={notifIcon} className='icon-size' alt='Notification' />
+            <img src={mailIcon} className='icon-size' alt='Search' />
           </div>
-          <p className='d-none d-md-block fs-2 m-0 fw-semibold text-end'>{`${hours}:${minutes} WIB`}</p>
         </div>
 
       </nav>
@@ -56,6 +41,7 @@ export const Navbar = () => {
 import cameraIcon from '../../assets/icon/camera.svg'
 import searchIconChat from '../../assets/icon/search-chat.svg'
 import arrowDownIcon from '../../assets/icon/arrow-down-2.svg'
+import arrowLeftIcon from '../../assets/icon/arrow-left.svg'
 
 export const NavbarChat = () => {
   const navIconMenu = [
@@ -66,9 +52,12 @@ export const NavbarChat = () => {
 
   return (
     <>
-      <nav className='sticky-top bg-white d-flex flex-row justify-content-between w-100 px-4 pt-3 shadow-sm'>
-        <figure className=' d-inline-flex gap-3 align-items-center'>
-          <img width={'60'} height={'60'} className="rounded-3 object-fit-cover" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Profile Picture" />
+      <nav className='sticky-top z-1 bg-white d-flex flex-row justify-content-between w-100 px-4 pt-3 shadow-sm'>
+        <figure className='d-inline-flex gap-3 align-items-center'>
+          <Link className=' d-lg-none' to={'/chat'}>
+            <img src={arrowLeftIcon} width={24} alt='Back' />
+          </Link>
+          <img width={50} height={50} className="rounded-3 object-fit-cover" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Profile Picture" />
           <div className="w-75 m-0">
             <h6 className=" fw-semibold">{'John Doe'}</h6>
             <p className="line-clamp-1 m-0">{'Online'}</p>
@@ -96,42 +85,42 @@ import { Button } from '../ui/Button'
 import { useState } from 'react';
 import EmojiPicker from 'emoji-picker-react';
 
-export const NavbarBottomChat = () => {
+export const NavbarBottomChat = ({ message, setMessage, onEnter }) => {
   const [showEmoji, setShowEmoji] = useState(false);
-  const [text, setText] = useState('');
 
-  const handleInput = (e) => {
-    setText(e.target.value);
-  }
-  
   const onEmojiClick = (emojiData) => {
-    setText((prevText) => prevText + emojiData.emoji);
+    setMessage((prevMsg) => prevMsg + emojiData.emoji);
   };
-  
+
   return (
     <>
-      <div className='sticky-bottom'>
+      <div className='sticky-bottom z-1'>
         {showEmoji &&
-          <EmojiPicker
-            onEmojiClick={onEmojiClick}
-          />
+          <div className='emoji-wrapper'>
+            <EmojiPicker onEmojiClick={onEmojiClick} />
+          </div>
+
         }
-        <nav className='sticky-bottom py-2 px-4 navbar__bottom'>
-          <Button
-            onClick={() => setShowEmoji(!showEmoji)}
-          >
+        <nav className='sticky-bottom py-2 px-4 navbar-bottom'>
+          <Button className={'p-0'} onClick={() => setShowEmoji(!showEmoji)} >
             <img height={'24px'} src={emojiIcon} alt='Emoji' />
           </Button>
-          <img height={'24px'} src={plusIcon} alt='Insert' />
+          <Button className={'p-0'}>
+            <img height={'24px'} src={plusIcon} alt='Insert' />
+          </Button>
           <input
             type='text'
-            value={text}
-            onChange={(e) => handleInput(e)}
+            name='message'
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={(e) => onEnter(e)}
             className='form-control border-0 rounded-4'
             placeholder='Say something...'
             style={{ height: '48px' }}
           />
-          <img height={'24px'} src={voiceIcon} alt='Insert' />
+          <Button className={'p-0'}>
+            <img height={'24px'} src={voiceIcon} alt='Insert' />
+          </Button>
         </nav>
       </div>
     </>

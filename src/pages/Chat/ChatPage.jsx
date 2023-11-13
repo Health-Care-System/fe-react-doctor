@@ -1,29 +1,32 @@
 import React, { Suspense } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { Outlet, useLocation, useNavigate } from "react-router-dom"
-import { ChatList } from "../../components/ui/Cards"
-import { UserChatListSkeleton } from "../../components/ui/Skeleton"
-import { chatStatus } from "../../utils/dataObject"
-import { fetchUserChat } from "../../utils/Api"
 import './Chat.css'
+
+import { chatStatus } from "../../utils/dataObject"
+import searchIconGrey from '../../assets/icon/search-grey.svg'
+
+import { UserChatListSkeleton } from "../../components/ui/Skeleton"
+import { ChatList } from "../../components/ui/Cards"
+import { Input } from "../../components/ui/Form"
+import { fetchUserChat } from "../../services/ChatService"
 
 export const ChatPage = () => {
   // Buat nyari query url saat ini
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-
   // set queary search params di url browser misal: https://chat?status=all
   const handleStatus = (value) => {
     searchParams.set("status", value);
-    navigate(`/chat/user?${searchParams.toString()}`);
+    navigate(`${location.pathname}?${searchParams.toString()}`);
   };
   
+
   const handleCurrentUserChat = (id) => {
     searchParams.set("userId", id);
     navigate(`/chat/user?${searchParams.toString()}`);
   };
-  
 
   // Tanstack query untuk fetching semua data chat user
   const usersQuery = useQuery({
@@ -31,13 +34,29 @@ export const ChatPage = () => {
     queryFn: () => fetchUserChat(),
   })
   
+  const chatListStyle = location.pathname === '/chat/user' 
+    ? 'd-none d-lg-flex' 
+    : 'chat-userlist__wrapper';
+  
+  
 
   return (
     <>
-      <div className="d-flex flex-row h-100 w-100 -mt-5">
-        <section className="chatWrapper mt-0 px-0">
+      <div className="d-flex flex-row h-100 w-100">
+        <section className={`chatWrapper mt-0 px-0 ${chatListStyle}`}>
           <div className="sticky-top bg-white d-flex flex-column gap-3 px-3">
-            <input type="text" className="form-control rounded-5" placeholder="Search or start a new chat" />
+            <div className="position-relative">
+              <Input
+                name={'searchUserInput'}
+                placeHolder={'Search or start a new chart'}
+                className={'rounded-5 ps-5'}
+              />
+              <img
+                src={searchIconGrey}
+                className="position-absolute searchIcon"
+                alt="Search"
+              />
+            </div>
             <div
               className="btn-group w-100"
               role="group"

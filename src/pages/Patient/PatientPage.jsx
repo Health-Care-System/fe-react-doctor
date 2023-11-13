@@ -4,7 +4,6 @@ import {
   ChatDashboardCard,
   ConsultationChatCard,
 } from "../../components/ui/Cards";
-import "./Patient.module.css";
 import avatarIcon from "../../assets/icon/avatar.svg";
 import searchIcon from "../../assets/icon/search.svg";
 import { Input } from "../../components/ui/Form";

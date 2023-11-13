@@ -1,29 +1,39 @@
 .navbar {
-    width: 100%;
+  width: 100%;
+}
+.navbar-content{
+  padding: 1.5rem;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.emoji-wrapper {
+  position: absolute;
+  left: 1rem;
+  bottom: 5rem;
 }
 
-.iconSize {
+.icon-size {
   width: 30px;
   margin:0;
 }
 
-.navbar__bottom {
+.navbar-bottom {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  gap: 1.5rem;
+  gap: 0.5rem;
   background: #F6F6F6; 
 } 
   
 @media (min-width: 768px) {
   .navbar{
-    padding: 1.5rem 2.25rem;
     border-bottom: 1px solid rgba(0, 0, 0, 0.16);
   }
-  .iconSize {
-    width: 36px;
+  .navbar-bottom{
+    gap: 1.5rem;
   }
     
 }
