@@ -44,8 +44,8 @@ export const ChatPage = () => {
   return (
     <>
       <div className="d-flex flex-row w-100">
-        <section className={`chatWrapper mt-0 px-0 ${chatListStyle}`}>
-          <div className="sticky-top d-flex flex-column gap-3 px-3">
+        <section className={`chatWrapper mt-0 px-0 gap-4 ${chatListStyle}`}>
+          <section className="sticky-top d-flex flex-column gap-4 px-3">
             <div className="position-relative">
               <Input
                 name={'searchUserInput'}
@@ -59,7 +59,7 @@ export const ChatPage = () => {
               />
             </div>
             <div
-              className="btn-group w-100 bg-white text-"
+              className="btn-group w-100 bg-white"
               role="group"
               aria-label="Basic radio toggle button group">
               {chatStatus?.map(status => (
@@ -75,14 +75,17 @@ export const ChatPage = () => {
                     id={`btnradio${status.id}`}
                     autoComplete="off"
                   />
-                  <label className="btn border-0 btn-outline-primary w-25 fs-4 btn-status" style={{padding: '0.75rem 1rem'}} htmlFor={`btnradio${status.id}`}>
+                  <label 
+                    className="btn border-0 btn-outline-primary w-25 fs-4" 
+                    style={{padding: '0.75rem 1rem'}} 
+                    htmlFor={`btnradio${status.id}`}>
                     {status.label}
                   </label>
                 </React.Fragment>
               ))
               }
             </div>
-          </div>
+          </section>
 
           <section className="chat-userlist-wrapper px-3">
             {
