@@ -3,6 +3,8 @@ import doctor from '../../assets/image/doctor.png';
 import { menus } from '../../utils/dataObject';
 import './Sidebar.css'
 import logoutIcon from '../../assets/icon/logout.svg';
+import brandLogo from '../../assets/icon/brandLogo.png'
+
 export const Sidebar = () => {
   const location = useLocation();
 
@@ -10,20 +12,21 @@ export const Sidebar = () => {
     <>
       <aside className='sidebar'>
 
+        <img src={brandLogo} width={'161'} alt="Healthify" />
         {/* Container porfile doctor */}
         <figure className='figure d-flex'>
           <img src={doctor} width={'100'} alt="Profile Picture" />
           <div className='text-center'>
-            <h5 className='mt-2 fw-bold'>Dr. Djaja Surya</h5>
-            <p className="fs-2">Dokter Umum</p>
+            <h5 className='mt-2 fs-2 fw-semibold'>Dr. Djaja Surya</h5>
+            <p>Dokter Umum</p>
           </div>
         </figure>
+        <div className='d-inline-flex gap-2'>
+          <p className='border-end border-secondary border-1 pe-2'>Jam Operasional</p>
+          <p>09:00 - 17:00</p>
+        </div>
 
         {/* Container Working Hours */}
-        <div className='figure d-flex gap-0'>
-          <p>Working Hours</p>
-          <p>9pm - 5am</p>
-        </div>
 
         {/* Container list navigasi */}
         <ul className='list-group gap-2 mt-4'>
