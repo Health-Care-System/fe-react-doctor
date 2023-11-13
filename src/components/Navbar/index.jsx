@@ -111,10 +111,10 @@ export const NavbarBottomChat = ({ message, setMessage, onEnter }) => {
     <>
       <div className='sticky-bottom z-1'>
         {showEmoji &&
-        <div className='emoji-wrapper'>
-          <EmojiPicker onEmojiClick={onEmojiClick} />
-        </div>
-        
+          <div className='emoji-wrapper'>
+            <EmojiPicker onEmojiClick={onEmojiClick} />
+          </div>
+
         }
         <nav className='sticky-bottom py-2 px-4 navbar-bottom'>
           <Button className={'p-0'} onClick={() => setShowEmoji(!showEmoji)} >
