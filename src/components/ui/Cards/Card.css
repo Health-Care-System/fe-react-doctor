@@ -7,3 +7,51 @@
   background: #F0F0F0;
   cursor: pointer;
 }
+
+.chart_gender {
+  display: flex;
+  height: 214px;
+  padding: 8.551px 13.681px;
+  align-items: flex-start;
+  gap: 8.551px;
+}
+
+.chart_gender_img {
+	width: 100%;
+	min-width: auto;
+	max-width: 100px;
+}
+
+.chart_gender_circle {
+	width: 20.522px;
+	height: 20.522px;
+}
+
+.chart_pasien {
+	display: flex;
+	width: 109px;
+	height: 91px;
+	padding: 8.551px;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	flex-shrink: 0;
+}
+
+.chat_dashboard {
+  display: flex;
+  width: auto;
+  min-width: 276px;
+  height: auto;
+  max-width: 214px;
+  padding: 15px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.avatar_icon {
+  width: 40px;
+  height: 40px;
+}
