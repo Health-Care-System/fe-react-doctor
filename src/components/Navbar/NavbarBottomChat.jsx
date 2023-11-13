@@ -1,6 +1,7 @@
 import emojiIcon from '../../assets/icon/emoji.png'
 import plusIcon from '../../assets/icon/plus-icon.svg'
 import voiceIcon from '../../assets/icon/voice.svg'
+import sendIcon from '../../assets/icon/send.svg'
 import { Button } from '../ui/Button'
 import { useState } from 'react';
 import EmojiPicker from 'emoji-picker-react';
@@ -45,7 +46,12 @@ export const NavbarBottomChat = ({ message, setMessage, onEnter }) => {
             style={{ height: '48px' }}
           />
           <Button className={'p-0'}>
-            <img height={'24px'} src={voiceIcon} alt='Insert' />
+            {message !== ''
+              ? <img height={'24px'} src={sendIcon} alt='Send' />
+              : <img height={'24px'} src={voiceIcon} alt='Insert' />
+            }
+            
+            
           </Button>
         </nav>
       </div>
