@@ -1,5 +1,6 @@
 .navbar {
   width: 100%;
+  background-color: #F8F8F8;
 }
 .navbar-content{
   padding: 1.5rem;
@@ -30,7 +31,7 @@
   
 @media (min-width: 768px) {
   .navbar{
-    border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+    border-bottom: 1px solid #ECECEC; 
   }
   .navbar-bottom{
     gap: 1.5rem;
