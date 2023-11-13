@@ -30,13 +30,13 @@ export const menus = [
   {
     icon: patientIcon,
     icon2: patientIconWhite,
-    label: 'Pasien',
+    label: 'Kelola Pasien',
     link: '/patients'
   },
   {
     icon: articleIcon,
     icon2: articleIconWhite,
-    label: 'Artikel',
+    label: 'Kelola Artikel',
     link: '/article'
   },
   {
