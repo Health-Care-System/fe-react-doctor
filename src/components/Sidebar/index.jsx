@@ -25,10 +25,7 @@ export const Sidebar = () => {
           <p className='border-end border-secondary border-1 pe-2'>Jam Operasional</p>
           <p>09:00 - 17:00</p>
         </div>
-
-        {/* Container Working Hours */}
-
-        {/* Container list navigasi */}
+        
         <ul className='list-group gap-2 mt-4'>
           {menus?.map((item, index) => {
             const currentRoute = location.pathname.split('/')[1];
