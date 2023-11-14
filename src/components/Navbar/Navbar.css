@@ -1,5 +1,12 @@
 .navbar {
-    width: 100%;
+  width: 100%;
+  background-color: #F8F8F8;
+}
+.navbar-content{
+  padding: 1.5rem;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 }
 .emoji-wrapper {
   position: absolute;
@@ -24,14 +31,10 @@
   
 @media (min-width: 768px) {
   .navbar{
-    padding: 1.5rem 2.25rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+    border-bottom: 1px solid #ECECEC; 
   }
   .navbar-bottom{
     gap: 1.5rem;
-  }
-  .icon-size {
-    width: 36px;
   }
     
 }

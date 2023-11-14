@@ -17,6 +17,7 @@ export const ChatPage = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   // set queary search params di url browser misal: https://chat?status=all
+  const statusQuery = searchParams.get('status');
   const handleStatus = (value) => {
     searchParams.set("status", value);
     navigate(`${location.pathname}?${searchParams.toString()}`);
@@ -27,12 +28,12 @@ export const ChatPage = () => {
     navigate(`/chat/user?${searchParams.toString()}`);
   };
   
+
   // Tanstack query untuk fetching semua data chat user
   const usersQuery = useQuery({
     queryKey: ['users'],
     queryFn: () => fetchUserChat(),
   })
-  
   
   const chatListStyle = location.pathname === '/chat/user' 
     ? 'd-none d-lg-flex' 
@@ -42,14 +43,14 @@ export const ChatPage = () => {
 
   return (
     <>
-      <div className="d-flex flex-row h-100 w-100">
-        <section className={`chatWrapper mt-0 px-0 ${chatListStyle}`}>
-          <div className="sticky-top bg-white d-flex flex-column gap-3 px-3">
+      <div className="d-flex flex-row w-100">
+        <section className={`chatWrapper mt-0 px-0 gap-4 ${chatListStyle}`}>
+          <section className="sticky-top d-flex flex-column gap-4 px-3">
             <div className="position-relative">
               <Input
                 name={'searchUserInput'}
-                placeHolder={'Search or start a new chart'}
-                className={'rounded-5 ps-5'}
+                placeHolder={'cari...'}
+                className={'rounded-5 ps-5 border-0 bg-white py-2'}
               />
               <img
                 src={searchIconGrey}
@@ -58,7 +59,7 @@ export const ChatPage = () => {
               />
             </div>
             <div
-              className="btn-group w-100"
+              className="btn-group w-100 bg-white"
               role="group"
               aria-label="Basic radio toggle button group">
               {chatStatus?.map(status => (
@@ -67,21 +68,27 @@ export const ChatPage = () => {
                     onClick={() => handleStatus(status.value)}
                     key={status.id}
                     type="radio"
+                    value={statusQuery}
+                    readOnly
+                    checked={status.value === statusQuery}
                     className="btn-check"
                     name="btnradio"
                     id={`btnradio${status.id}`}
                     autoComplete="off"
                   />
-                  <label className="btn btn-outline-primary w-25" htmlFor={`btnradio${status.id}`}>
+                  <label 
+                    className="btn border-0 btn-outline-primary text-nowrap w-25 fs-4" 
+                    style={{padding: '0.75rem 1rem'}} 
+                    htmlFor={`btnradio${status.id}`}>
                     {status.label}
                   </label>
                 </React.Fragment>
               ))
               }
             </div>
-          </div>
+          </section>
 
-          <section className="overflow-y-scroll h-100 d-flex flex-column gap-3 px-3">
+          <section className="chat-userlist-wrapper px-3">
             {
               usersQuery.isLoading
                 ? <UserChatListSkeleton />

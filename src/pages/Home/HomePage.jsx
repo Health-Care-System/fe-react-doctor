@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { Button } from "../../components/ui/Button";
 import { PopupEditPasien } from "../../components/ui/Modal/PopupEditPasien";
+import { PieChart } from "../../components/Chart/Piechart";
+import { dataChart } from "../../utils/dataObject";
+import { CircleProgressBar } from "../../components/Chart/CircleProgressBar";
 
 const HomePage = () => {
   const [openModal, setOpenModal] = useState(false)
@@ -17,6 +20,12 @@ const HomePage = () => {
       {/* <h1>Home</h1> */}
       <Button onClick={() => setOpenModal(true)}>Open Modal</Button>
       {openModal && <PopupEditPasien closeModal={setOpenModal} patientData={patientData}/>}
+      <div className="w-25">
+        <PieChart dataChart={dataChart} />
+      </div>
+      <div style={{ width: '6.3rem'}}>
+        <CircleProgressBar total={784} percentage={40} />
+      </div>
     </>
   );
 };

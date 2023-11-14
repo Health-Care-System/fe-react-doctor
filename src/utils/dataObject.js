@@ -25,18 +25,18 @@ export const menus = [
     icon: chatIcon,
     icon2: chatIconWhite,
     label: 'Chat Pasien',
-    link: '/chat'
+    link: '/chat?status=all'
   },
   {
     icon: patientIcon,
     icon2: patientIconWhite,
-    label: 'Pasien',
+    label: 'Kelola Pasien',
     link: '/patients'
   },
   {
     icon: articleIcon,
     icon2: articleIconWhite,
-    label: 'Artikel',
+    label: 'Kelola Artikel',
     link: '/article'
   },
   {
@@ -55,36 +55,35 @@ export const menus = [
 
 export const navbarTitle = [
   {
-    route: '/',
+    route: '',
     title: 'Dashboard',
-    content: 'You Have Following appointments today'
   },
   {
-    route: '/patients',
-    title: 'Manage Pasien',
-    content: 'Simpan perubahan pasien'
+    route: 'chat',
+    title: 'Chat Pasien',
   },
   {
-    route: '/article',
-    title: 'Manage Artikel',
-    content: 'Kelola informasi kesehatan'
+    route: 'patients',
+    title: 'Kelola Pasien',
   },
   {
-    route: '/feedback',
+    route: 'article',
+    title: 'Kelola Artikel',
+  },
+  {
+    route: 'feedback',
     title: 'Feedback',
-    content: 'Saran dan Masukan'
   },
   {
-    route: '/settings',
+    route: 'settings',
     title: 'Pengaturan',
-    content: 'Kelola pengaturan'
   },
 ]
 
 export const chatStatus = [
-  { id: 1, value: 'all', label: 'All' },
-  { id: 2, value: 'unread', label: 'Unread' },
-  { id: 3, value: 'recent', label: 'Recent' },
+  { id: 1, value: 'all', label: 'Semua' },
+  { id: 2, value: 'unread', label: 'Belum dibaca' },
+  { id: 3, value: 'recent', label: 'Terkini' },
 ]
 
 export const messages = [
@@ -166,5 +165,21 @@ export const messages = [
     status: 'unread',
   },
 ];
+
+export const dataChart = [
+  {
+    disease: 'Demam',
+    patient: 35
+  },
+  {
+    disease: 'Tipes',
+    patient: 20
+  },
+  {
+    disease: 'Asam Lambung',
+    patient: 65
+  },
+]
+
 
 export default messages;

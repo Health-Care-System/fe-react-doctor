@@ -8,7 +8,6 @@ import { Outlet } from "react-router-dom";
 
 // Sidebar di memo agar tidak melakukan rerender saat pindah route
 const MemoizedSidebar = React.memo(Sidebar);
-const MemoizedNavbar = React.memo(Navbar);
 
 export const Layout = () => {
   const [menu, setMenu] = useState(false);
@@ -21,11 +20,8 @@ export const Layout = () => {
       </div>
 
       <div className="drawer-content">
-        {location.pathname.startsWith('/chat')
-          ? null
-          :
-          <div className="d-flex justify-content-between m-2">
-            <MemoizedNavbar />
+          <div className="d-flex justify-content-between">
+            <Navbar />
             <Button
               className={'p-0 d-flex d-md-none'}
               onClick={() => setMenu(!menu)}
@@ -33,7 +29,6 @@ export const Layout = () => {
               <img src={menuIcon} alt="Menu" />
             </Button>
           </div>
-        }
 
         {menu &&
           <div className="position-fixed d-flex d-md-none z-3 w-full h-100">
