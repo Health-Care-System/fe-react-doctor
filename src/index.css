@@ -57,6 +57,9 @@ p {
 .bg-green-300 {
   background-color: #003240;
 }
+.bg-success-100 { 
+  background-color: #6FE188;
+}
 .text-royal-blue{
   color: #0B3048;
 }
