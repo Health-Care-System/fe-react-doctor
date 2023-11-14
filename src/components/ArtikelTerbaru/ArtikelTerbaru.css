@@ -1,0 +1,11 @@
+
+.kotak-chat{
+    margin-top: 20px;
+}
+
+@media(min-width: 1440px){
+    .kotak-chat{
+        width: auto;
+        margin-top: 0px;
+    }
+}

@@ -1,0 +1,130 @@
+.body-chat{
+    display: flex;
+    min-width: 305px;
+    padding: 15px;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.chat-1{
+    display: flex;
+    min-width: 246px;
+    align-items: baseline;
+    gap: var(--Space---24, 24px);
+}
+
+.title-chat{
+    color: var(--neutrals-darker, #000);
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 28px;
+}
+
+.text-chat{
+    color: #2362FF;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+}
+
+.chat-dashboard{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.chat-dash{
+    display: flex;
+    align-items: center;
+    gap: var(--Space---24, 10px);
+    /* min-width: 246px; */
+    /* min-height: 50px; */
+}
+
+.chat{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    /* align-items: flex-start; */
+    gap: 6px;
+}
+
+.chatt{
+    display: flex;
+    min-width: auto;
+    min-height: 24px;
+    justify-content: space-between;
+    /* align-items: center;    */
+}
+
+.text-text{
+    max-width: 200px;
+    /* min-width: auto; */
+}
+
+@media(min-width: 768px){
+
+    .body-chat{
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .chat-1{
+        justify-content: space-between;
+    }
+
+    .text-text{
+        max-width: max-content;
+    }
+
+}
+
+@media(min-width: 1024px){
+
+    .body-chat{
+        min-width: 260px;
+    }
+    
+    .chat-1{
+        justify-content: space-between;
+    }
+
+    .text-text{
+        max-width: max-content;
+    }
+
+}
+
+
+@media(min-width: 1440px){
+    .body-chat{
+        max-width: 305px;
+        padding: 15px;
+        flex-direction: column;
+    }
+    
+    .chat-dashoard{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .chat-1{
+        justify-content: flex-start;
+    }
+
+    .chat-dash{
+        display: flex;
+        align-items: center;
+    }
+
+    .chat{
+        max-width: 200px;
+    }
+}
