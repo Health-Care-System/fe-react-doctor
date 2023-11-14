@@ -4,6 +4,7 @@ import { menus } from '../../utils/dataObject';
 import './Sidebar.css'
 import logoutIcon from '../../assets/icon/logout.svg';
 import brandLogo from '../../assets/icon/brandLogo.png'
+import { Button } from '../ui/Button';
 
 export const Sidebar = () => {
 
@@ -51,12 +52,12 @@ export const Sidebar = () => {
         </ul>
 
         {/* Button Logout  */}
-        <btn className='btnWrapper'>
+        <Button className='btnWrapper'>
           <div className='logoutBtn d-flex btn'>
             <p>Logout</p>
             <img src={logoutIcon} alt='Logout' />
           </div>
-        </btn>
+        </Button>
 
       </aside>
     </>

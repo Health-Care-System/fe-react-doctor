@@ -1,22 +1,34 @@
 import emojiIcon from '../../assets/icon/emoji.png'
 import plusIcon from '../../assets/icon/plus-icon.svg'
 import voiceIcon from '../../assets/icon/voice.svg'
+import voiceFillIcon from '../../assets/icon/voice-fill.svg'
 import sendIcon from '../../assets/icon/send.svg'
 import { Button } from '../ui/Button'
 import { useState } from 'react';
 import EmojiPicker from 'emoji-picker-react';
 import useShortCutKeyboard from '../../hooks/useShortcutKeyboard';
 import './Navbar.css'
+import AudioReactRecorder, { RecordState } from 'audio-react-recorder'
 
 
-export const NavbarBottomChat = ({ message, setMessage, onEnter }) => {
+export const NavbarBottomChat = ({ message, setMessage, onEnter, handleVoiceRecorder }) => {
   const [showEmoji, setShowEmoji] = useState(false);
+  const [recordState, setRecordState] = useState(null);
+  const [onRecord, setOnRecord] = useState(false);
 
   const { shortcutDiv } = useShortCutKeyboard('k');
   const onEmojiClick = (emojiData) => {
     setMessage((prevMsg) => prevMsg + emojiData.emoji);
   };
 
+  const startRecord = () => {
+    setRecordState(RecordState.START)
+    setOnRecord(true);
+  }
+  const stopRecord = () => {
+    setRecordState(RecordState.STOP)
+    setOnRecord(false)
+  }
 
   return (
     <>
@@ -45,14 +57,30 @@ export const NavbarBottomChat = ({ message, setMessage, onEnter }) => {
             placeholder='Tulis pesan...'
             style={{ height: '48px' }}
           />
-          <Button className={'p-0'}>
-            {message !== ''
-              ? <img height={'24px'} src={sendIcon} alt='Send' />
-              : <img height={'24px'} src={voiceIcon} alt='Insert' />
-            }
-            
-            
-          </Button>
+          {message !== ''
+            ?
+            <Button
+              className={'p-0'}>
+              <img height={'24px'} src={sendIcon} alt='Send' />
+            </Button>
+            :
+            <button
+              onMouseDown={startRecord}
+              onMouseUp={stopRecord}
+              onMouseLeave={stopRecord}
+              className={`p-0 btn border-0`}>
+              {
+                onRecord
+                  ? <img height={'24px'} src={voiceFillIcon} alt='Insert' />
+
+                  : <img height={'24px'} src={voiceIcon} alt='Insert' />
+
+              }
+            </button>
+          }
+          <div className=' d-none'>
+            <AudioReactRecorder state={recordState} onStop={handleVoiceRecorder} />
+          </div>
         </nav>
       </div>
     </>

@@ -69,6 +69,7 @@ export const ChatPage = () => {
                     key={status.id}
                     type="radio"
                     value={statusQuery}
+                    readOnly
                     checked={status.value === statusQuery}
                     className="btn-check"
                     name="btnradio"
@@ -76,7 +77,7 @@ export const ChatPage = () => {
                     autoComplete="off"
                   />
                   <label 
-                    className="btn border-0 btn-outline-primary w-25 fs-4" 
+                    className="btn border-0 btn-outline-primary text-nowrap w-25 fs-4" 
                     style={{padding: '0.75rem 1rem'}} 
                     htmlFor={`btnradio${status.id}`}>
                     {status.label}

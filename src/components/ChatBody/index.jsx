@@ -42,7 +42,10 @@ export const Chatbody = () => {
       setMessage('')
     }
   }
-
+  
+  const handleVoiceRecorder = (recorder) => {
+      newMsgMutation.mutate(new Message('doctor', recorder, 'audio'))
+  }
 
   return (
     <>
@@ -66,9 +69,10 @@ export const Chatbody = () => {
               </React.Fragment>
             )})
           }
-          <div ref={bottomRef} />
+          <div className="pb-5" ref={bottomRef} />
         </div>
         <NavbarBottomChat
+          handleVoiceRecorder={handleVoiceRecorder}
           message={message}
           setMessage={setMessage}
           onEnter={onEnter}

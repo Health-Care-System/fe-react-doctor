@@ -81,9 +81,9 @@ export const navbarTitle = [
 ]
 
 export const chatStatus = [
-  { id: 1, value: 'all', label: 'All' },
-  { id: 2, value: 'unread', label: 'Unread' },
-  { id: 3, value: 'recent', label: 'Recent' },
+  { id: 1, value: 'all', label: 'Semua' },
+  { id: 2, value: 'unread', label: 'Belum dibaca' },
+  { id: 3, value: 'recent', label: 'Terkini' },
 ]
 
 export const messages = [
