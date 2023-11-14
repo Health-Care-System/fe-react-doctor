@@ -65,9 +65,9 @@ const PatientPage = () => {
           </div>
         </div>
         {/* Table Daftar Pasien */}
-        <div className="d-grid  align-items-center gap-2">
+        <div className="d-grid align-items-center gap-2 shadow-sm rounded-4">
           <div className="d-flex justify-content-between align-items-center">
-            <h1 className="fw-bold fs-1">Daftar Pasien</h1>
+            <h1 className="fw-bold fs-1 ps-3">Daftar Pasien</h1>
             <div className="position-relative ">
               <Input
                 placeHolder="Nama, Gejala, Status "

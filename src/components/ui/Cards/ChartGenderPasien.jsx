@@ -1,13 +1,17 @@
 
 import circleWoman from "../../../assets/icon/circle-women.svg";
 import circleMan from "../../../assets/icon/circle-man.svg";
-import chartjs from "../../../assets/icon/chartjs.svg";
+import { CircleProgressBar } from "../../Chart/CircleProgressBar";
+// import chartjs from "../../../assets/icon/chartjs.svg";
 
 export const ChartGenderPasien = ({ data }) => {
   return (
     <div className="chart_gender shadow rounded-4 d-grid align-content-center  ">
       <div className="d-grid gap-4">
-        <img src={chartjs} alt="chatjs" className="chart_gender_img mx-auto " />
+        <div style={{ width: '6.3rem'}}>
+          <CircleProgressBar total={784} percentage={40} />
+        </div>
+        {/* <img src={chartjs} alt="chatjs" className="chart_gender_img mx-auto " /> */}
         <div className="d-grid gap-1">
           <div className="d-flex gap-1 align-items-center justify-content-start ">
             <img
