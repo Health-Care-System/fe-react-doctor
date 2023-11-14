@@ -81,9 +81,9 @@ export const navbarTitle = [
 ]
 
 export const chatStatus = [
-  { id: 1, value: 'all', label: 'All' },
-  { id: 2, value: 'unread', label: 'Unread' },
-  { id: 3, value: 'recent', label: 'Recent' },
+  { id: 1, value: 'all', label: 'Semua' },
+  { id: 2, value: 'unread', label: 'Belum dibaca' },
+  { id: 3, value: 'recent', label: 'Terkini' },
 ]
 
 export const messages = [
@@ -165,5 +165,21 @@ export const messages = [
     status: 'unread',
   },
 ];
+
+export const dataChart = [
+  {
+    disease: 'Demam',
+    patient: 35
+  },
+  {
+    disease: 'Tipes',
+    patient: 20
+  },
+  {
+    disease: 'Asam Lambung',
+    patient: 65
+  },
+]
+
 
 export default messages;
