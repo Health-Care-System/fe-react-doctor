@@ -28,6 +28,11 @@
   gap: 0.5rem;
   background: #F6F6F6; 
 } 
+.bullet{
+  width: 8px;
+  height: 8px;
+  border-radius: 20px;
+}
   
 @media (min-width: 768px) {
   .navbar{
