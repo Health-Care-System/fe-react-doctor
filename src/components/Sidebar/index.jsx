@@ -1,12 +1,12 @@
-import { Link, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import doctor from '../../assets/image/doctor.png';
 import { menus } from '../../utils/dataObject';
 import './Sidebar.css'
 import logoutIcon from '../../assets/icon/logout.svg';
 import brandLogo from '../../assets/icon/brandLogo.png'
+import { Button } from '../ui/Button';
 
 export const Sidebar = () => {
-  const location = useLocation();
 
   return (
     <>
@@ -25,19 +25,17 @@ export const Sidebar = () => {
           <p className='border-end border-secondary border-1 pe-2'>Jam Operasional</p>
           <p>09:00 - 17:00</p>
         </div>
-        
+
         <ul className='list-group gap-2 mt-4'>
           {menus?.map((item, index) => {
-            const currentRoute = location.pathname.split('/')[1];
-            const active = currentRoute === item.link.split('/')[1] && 'btn-primary text-white';
-
             return (
               <li key={index} className={`list-unstyled`}>
-                <Link to={item.link} className='text-decoration-none'>
-                  <div className={`${active} d-flex navBtn btn`}>
+                <NavLink to={item.link} className='text-decoration-none'>
+                  {({ isActive }) => (
+                  <div className={`${isActive && 'btn-primary text-white'} d-flex navBtn btn`}>
                     <img
                       src={
-                        currentRoute === item.link.split('/')[1]
+                        isActive
                           ? item.icon2
                           : item.icon
                       }
@@ -46,19 +44,20 @@ export const Sidebar = () => {
                     />
                     {item.label}
                   </div>
-                </Link>
+                  )}
+                </NavLink>
               </li>
             )
           })}
         </ul>
 
         {/* Button Logout  */}
-        <btn className='btnWrapper'>
+        <Button className='btnWrapper'>
           <div className='logoutBtn d-flex btn'>
             <p>Logout</p>
             <img src={logoutIcon} alt='Logout' />
           </div>
-        </btn>
+        </Button>
 
       </aside>
     </>

@@ -42,7 +42,10 @@ export const Chatbody = () => {
       setMessage('')
     }
   }
-
+  
+  const handleVoiceRecorder = (recorder) => {
+      newMsgMutation.mutate(new Message('doctor', recorder, 'audio'))
+  }
 
   return (
     <>
@@ -50,7 +53,10 @@ export const Chatbody = () => {
         <NavbarChat />
         <div className="chat-body">
           {
-            chatsQuery.data?.map((message, index) => (
+            chatsQuery.data?.map((message, index) =>{
+            const hours = message.date.getHours();
+            const minutes = message.date.getMinutes();
+            return(
               <React.Fragment key={index}>
                 <Bubble
                   author={message.author}
@@ -58,13 +64,15 @@ export const Chatbody = () => {
                   date={message.date}
                   type={message.type}
                   status={message.status}
+                  time={`${hours}:${minutes}`}
                 />
               </React.Fragment>
-            ))
+            )})
           }
-          <div ref={bottomRef} />
+          <div className="pb-5" ref={bottomRef} />
         </div>
         <NavbarBottomChat
+          handleVoiceRecorder={handleVoiceRecorder}
           message={message}
           setMessage={setMessage}
           onEnter={onEnter}

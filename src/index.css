@@ -8,20 +8,29 @@ p {
   margin: 0;
 }
 
+/* Styling scroll bar for Chrome */
+::-webkit-scrollbar {
+  width: 2px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F2F2F2;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #BDBDBD;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6E6E6E;
+}
+
+
 /* Utiliy class */
 .-mt-5{
   margin-top: -1.25rem;
-}
-.btn-outline-primary {
-	--bs-btn-active-color: #fff;
-}
-
-.drawer-content {
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	height: 100%;
-	box-sizing: border-box;
 }
 
 .line-clamp-1 {
@@ -36,10 +45,77 @@ p {
   -webkit-box-orient: vertical;  
   overflow: hidden;
 }
+.bg-neutral-300 {
+  background-color: #ECECEC;
+}
+.bg-grey-300 {
+  background-color: #ccc;
+}
+.bg-green-100 {
+  background-color: #2db794;
+}
+.bg-green-300 {
+  background-color: #003240;
+}
+.text-royal-blue{
+  color: #0B3048;
+}
+
+/* Styling bootstrap class */
+.btn-outline-primary {
+	--bs-btn-active-color: #fff;
+}
+.btn-outline-primary{
+  color: #5A6A9D;
+  border-radius: 0.75rem;
+}
+.btn-group{
+  border-radius: 0.75rem;
+}
+
+.drawer-content {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+}
+
+
 
 /* Component Bubble CSS */
 .bubble {
 	max-width: 16.5rem;
+}
+
+wave-audio-path-player {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#demo1::part(player) {
+  background:rgb(0, 0, 0);
+  padding: 15px 0px;
+  border-radius: 20px;
+  border:1px solid black;
+}
+
+#demo1::part(button) {
+  stroke: white;
+  fill:white;
+}
+
+#demo1::part(currenttime), #demo1::part(duration) {
+  color:white;
+  font-weight: bold;
+}
+
+#demo1::part(path1) {
+  stroke: white;
+}
+
+#demo1::part(path2) {
+  stroke:fuchsia;
 }
 
 /* Small devices (landscape phones, 576px and up) */

@@ -22,7 +22,6 @@ export const Select = ({
       onChange={handleChange}
       value={value}
       className="form-select"
-      aria-label="Default select example"
     >
       <option selected="">Choose</option>
       {options?.map((item, index) => (
