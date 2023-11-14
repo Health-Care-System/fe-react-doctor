@@ -166,4 +166,20 @@ export const messages = [
   },
 ];
 
+export const dataChart = [
+  {
+    disease: 'Demam',
+    patient: 35
+  },
+  {
+    disease: 'Tipes',
+    patient: 20
+  },
+  {
+    disease: 'Asam Lambung',
+    patient: 65
+  },
+]
+
+
 export default messages;
