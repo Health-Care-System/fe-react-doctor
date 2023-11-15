@@ -1,8 +1,8 @@
-// import {PatientTableRow} from "../ui/Cards"
-import bulletIcon from '../../assets/icon/bullet.svg'
+import bulletIcon from '../../assets/icon/patient.svg'
+import "./RecentPatients.css"
 
 
-import { Button } from "../ui/Button";
+// import { Button } from "../ui/Button";
 
 export const RecentPatient = () => {
     const patientData = [
@@ -29,7 +29,7 @@ export const RecentPatient = () => {
     return (
       <>
         <div className="table-responsive">
-            <table className="table">
+            <table className="table table-borderless">
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -55,9 +55,9 @@ export const RecentPatient = () => {
                       <td>{patient.date}</td>
                       <td>{patient.status}</td>
                       <td>
-                        <Button className="btn-dark rounded-pill px-5" onClick={() => { }}>
+                        <button className="button" onClick={() => { }}>
                           Edit
-                        </Button>  
+                        </button>  
                       </td>
                     </tr>
                   ))}
