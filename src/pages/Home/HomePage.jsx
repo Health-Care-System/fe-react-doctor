@@ -1,35 +1,49 @@
 import { Link } from "react-router-dom"
-import { Chat } from "../../components/Chat";
-import { RiwayatPasien } from "../../components/RiwayatPasien";
-import { Pasien } from "../../components/Pasien";
-import { ArtikelTerbaru } from "../../components/ArtikelTerbaru";
-import { RecentPatient } from "../../components/RecentPatients";
+import { RecentPatient } from "./components/RecentPatients";
+import { ArticleCard, UserChat } from "../../components/ui/Cards";
+import { CardContainer } from "../../components/ui/Container/CardContainer";
+import { RiwayatPasien } from "./components/RiwayatPasien";
+import doctor from '../../assets/image/doctor.png'
+import { Pasien } from "./components/Pasien";
+import './Home.css'
+
 
 const HomePage = () => {
 
   return (
-    <div className="p-2" style={{ maxWidth: 'calc(100vw - 17rem)', backgroundColor:"var(--neutrals-100, #F8F8F8)"}}>
-      <div className="d-flex justify-content-between align-items-center p-1">
-        <h5 className="fw-bold mb-2 mt-3">Recent Patients</h5>
-        <Link className="fw-bold" style={{color:"#1766D6", fontSize:"16px"}}>View All</Link>
+    <div className="p-2 w-100 home-container bg-transparent">
+      <div className="d-flex w-100 justify-content-between align-items-center p-1">
+        <h5 className="fw-semibold mb-2 mt-3">Recent Patients</h5>
+        <Link className="fw-semibold" style={{ color: "#1766D6", fontSize: "16px" }}>View All</Link>
       </div>
+      <RecentPatient />
 
-      <div>
-        <RecentPatient />
-      </div>
-
-      <div className="d-lg-flex justify-content-between align-items-start rounded-0 p-0">
-        <div className="d-flex flex-column rounded-3 mt-3 p-0">
-          <Chat />
+      <div className="d-flex flex-column flex-xl-row gap-3 mt-5 home-container">
+        <div className=" d-flex flex-column gap-3">
+          <CardContainer
+            title={'Pesan'}
+            detail={'3 belum dibaca'}>
+            <div className="d-flex flex-column gap-1">
+              <UserChat
+                name={'Sanjana'}
+                date={'15 Nov'}
+                message={'Bagaimana cara keren untuk meminum obat'}
+                image={doctor} />
+              <UserChat
+                name={'Sanjana'}
+                date={'15 Nov'}
+                message={'Bagaimana cara keren untuk meminum obat'}
+                image={doctor} />
+            </div>
+          </CardContainer>
           <RiwayatPasien />
         </div>
-
-        <div className="card shadow border-0 flex-column gap-1 flex-lg-shrink-0 mt-3 p-lg-3 p-md-3 p-3 mx-lg-3 rounded-3">
-          <div className="d-flex gap-4 justify-content-md-between justify-content-lg-start mx-lg-3 mt-lg-1 align-items-center">
-            <p className="fw-bold" style={{ fontSize: "20px" }}>Pasien</p>
-            <Link className="fw-bold  text-decoration-none" style={{color:"#1766D6", fontSize:"12px"}}>2 menunggu</Link>
-          </div>
-          <div className="d-flex flex-column mt-lg-0">
+        <CardContainer
+          title={'Pesan'}
+          detail={'2 menunggu'}
+          className={'chat-container'}
+        >
+          <div className="d-flex flex-column gap-3">
             <Pasien
               name="Katherina Lubis"
               gender="Laki-Laki"
@@ -45,26 +59,22 @@ const HomePage = () => {
               tombol="Mulai Konsultasi"
             />
           </div>
-        </div>
-
-        <div className="card shadow border-0 p-3 mt-3 gap-2 d-flex flex-column rounded-3">
-          <div className="d-flex justify-content-between align-items-center mb-2">
-            <p className="fw-bold" style={{ fontSize: "20px" }}>Artikel Terbaru</p>
-            <Link className="fw-bold" style={{color:"#1766D6", fontSize:"16px"}}>View All</Link>
+        </CardContainer>
+        <CardContainer className='w-auto' title={'Artikel Terbaru'} detail={'View all'}>
+          <div className=" d-flex flex-column gap-4 w-100">
+            <ArticleCard
+              title="COVID-19: Sebuah Pandemi yang Menantang"
+              content="COVID-19, atau dikenal juga sebagai coronavirus disease 2019, adalah pandemi global yang telah memengaruhi hampir setiap aspek kehidupan kita."
+              date="Okt, 2023"
+            />
+            <ArticleCard
+              title="COVID-19: Sebuah Pandemi yang Menantang"
+              content="COVID-19, atau dikenal juga sebagai coronavirus disease 2019, adalah pandemi global yang telah memengaruhi hampir setiap aspek kehidupan kita."
+              date="Okt, 2023"
+            />
           </div>
-          <ArtikelTerbaru
-            title="COVID-19: Sebuah Pandemi yang Menantang"
-            text="COVID-19, atau dikenal juga sebagai coronavirus disease 2019, adalah pandemi global yang telah memengaruhi hampir setiap aspek kehidupan kita."
-            date="Okt, 2023"
-          />
-          <ArtikelTerbaru
-            title="COVID-19: Sebuah Pandemi yang Menantang"
-            text="COVID-19, atau dikenal juga sebagai coronavirus disease 2019, adalah pandemi global yang telah memengaruhi hampir setiap aspek kehidupan kita."
-            date="Okt, 2023"
-          />
-        </div>
+        </CardContainer>
       </div>
-
     </div>
   )
 }
