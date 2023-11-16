@@ -1,3 +1,7 @@
+.card-wrapper {
+    width: fit-content;
+}
+
 .icon{
     display: flex;
     padding: 7.727px;
@@ -7,8 +11,4 @@
     border-radius: 26.273px;
     border: 0.5px solid var(--neutrals-darker, #000);
     background: #FFF;
-}
-
-.tombol{
-    min-width: 17rem;
 }

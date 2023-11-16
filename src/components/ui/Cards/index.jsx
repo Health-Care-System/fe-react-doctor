@@ -6,6 +6,8 @@ import { ChartGenderPasien } from './ChartGenderPasien'
 import { CardTotalPasien } from './CardTotalPasien'
 import { ChatDashboardCard } from './ChatDashboardCard' 
 import { ConsultationChatCard } from './ConsultationChatCard'
+import { UserChat } from "./UserChat";
+
 
 export {
   ArticleCard,
@@ -15,5 +17,6 @@ export {
   ChartGenderPasien,
   CardTotalPasien,
   ChatDashboardCard,
-  ConsultationChatCard
+  ConsultationChatCard,
+  UserChat
 }

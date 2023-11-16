@@ -13,6 +13,13 @@
   background: #F0F0F0;
   cursor: pointer;
 }
+.article-wrapper {
+  
+}
+.article-wrapper:hover {
+  background: #F0F0F0;
+  cursor: pointer;
+}
 
 .chart_gender {
   display: flex;

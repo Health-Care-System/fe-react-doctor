@@ -107,3 +107,11 @@ body{
 		margin-left: 17rem;
 	}
  }
+
+@media (min-width: 992) {
+  .flex-xl-row {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
