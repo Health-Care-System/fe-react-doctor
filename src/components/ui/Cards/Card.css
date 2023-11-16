@@ -78,3 +78,27 @@
   flex-shrink: 0;
   border-radius: 20px;
 }
+
+@media (min-width: 767.98px) and (max-width: 1023.98px) { 
+  .chat_dashboard {
+    min-width: 379px;
+  }
+
+  .consultation__chat {
+    max-width: 379px;
+  }
+
+  .table_pasien_content {
+    display: flex;
+    height: fit-content;
+    max-width: 379px;
+    margin: auto;
+  }
+ }
+
+ @media (min-width: 1024px)  { 
+
+  .consultation__chat {
+    max-width: 579px;
+  }
+ }

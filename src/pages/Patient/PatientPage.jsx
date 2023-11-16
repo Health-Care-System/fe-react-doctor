@@ -198,7 +198,7 @@ const PatientPage = () => {
 
   return (
     <section className="container-fluid ">
-      <div className="d-grid mx-lg-3 my-3 gap-3 ">
+      <div className="d-grid mx-lg-3 mt-3 gap-3 ">
         <div className="d-grid d-lg-flex align-items-start gap-3">
           <div className="d-flex justify-content-center align-items-center gap-2">
             <ChartGenderPasien
@@ -225,21 +225,21 @@ const PatientPage = () => {
           </div>
         </div>
         {/* Table Daftar Pasien */}
-        <div className="d-grid align-items-center gap-2 shadow-sm rounded-4">
+        <div className="d-grid align-items-center gap-2 p-2 shadow rounded-top-4 table_pasien_content">
           <div className="d-flex justify-content-between align-items-center">
             <h1 className="fw-bold fs-1 ps-3">Daftar Pasien</h1>
-            <div className="position-relative ">
+            <div className="position-relative pe-4 ">
               <Input
                 placeHolder="Nama, Gejala, Status "
-                className="border-0 ps-5  "
+                className="rounded-5 ps-5 "
               />
-              <button className="border-0 bg-transparent position-absolute start-0 ps-2 top-0 mt-1">
+              <button className="border-0 bg-transparent rounded-5 position-absolute start-0 ps-2 top-0 mt-1">
                 <img src={searchIcon} alt="searchIcon" className="w-75" />
               </button>
             </div>
           </div>
-          <div className="table-responsive p-2 text-nowrap ">
-            <table className="table table-borderless ">
+          <div className="table-responsive p-2 text-nowrap table_scoll" style={{ maxHeight: '367px', overflowY: 'scroll' }}>
+            <table className="table table-borderless table-light  ">
               <thead>
                 <tr>
                   <th scope="col">Nama</th>

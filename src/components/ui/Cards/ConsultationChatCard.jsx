@@ -4,10 +4,10 @@ import { Button } from "../Button";
 export const ConsultationChatCard = ({ name, gender }) => {
   return (
     <div className="rounded-4 table-responsive shadow consultation__chat">
-      <div className="p-0 ">
+      <div className="p-2">
         <h3 className="fw-semibold m-0 fs-2 ps-2 ">Pasien Baru</h3>
         <div className="text-nowrap ">
-          <table className="table table-borderless">
+          <table className="table table-borderless table-light ">
             <thead>
               <tr>
                 <th scope="col">Nama</th>
