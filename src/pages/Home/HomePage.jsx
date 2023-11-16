@@ -1,33 +1,72 @@
-import { useState } from "react";
-import { Button } from "../../components/ui/Button";
-import { PopupEditPasien } from "../../components/ui/Modal/PopupEditPasien";
-import { PieChart } from "../../components/Chart/Piechart";
-import { dataChart } from "../../utils/dataObject";
-import { CircleProgressBar } from "../../components/Chart/CircleProgressBar";
+import { Link } from "react-router-dom"
+import { Chat } from "../../components/Chat";
+import { RiwayatPasien } from "../../components/RiwayatPasien";
+import { Pasien } from "../../components/Pasien";
+import { ArtikelTerbaru } from "../../components/ArtikelTerbaru";
+import { RecentPatient } from "../../components/RecentPatients";
 
 const HomePage = () => {
-  const [openModal, setOpenModal] = useState(false)
-
-  const patientData = {
-    name: 'Joshua Kristin',
-    weight: '58 Kg',
-    gender: 'Laki-laki',
-    consultationDate: '17 Oktober 2023',
-  };
 
   return (
-    <>
-      {/* <h1>Home</h1> */}
-      <Button onClick={() => setOpenModal(true)}>Open Modal</Button>
-      {openModal && <PopupEditPasien closeModal={setOpenModal} patientData={patientData}/>}
-      <div className="w-25">
-        <PieChart dataChart={dataChart} />
+    <div className="p-2" style={{ maxWidth: 'calc(100vw - 17rem)', backgroundColor:"var(--neutrals-100, #F8F8F8)"}}>
+      <div className="d-flex justify-content-between align-items-center p-1">
+        <h5 className="fw-bold mb-2 mt-3">Recent Patients</h5>
+        <Link className="fw-bold" style={{color:"#1766D6", fontSize:"16px"}}>View All</Link>
       </div>
-      <div style={{ width: '6.3rem'}}>
-        <CircleProgressBar total={784} percentage={40} />
+
+      <div>
+        <RecentPatient />
       </div>
-    </>
-  );
-};
+
+      <div className="d-lg-flex justify-content-between align-items-start rounded-0 p-0">
+        <div className="d-flex flex-column rounded-3 mt-3 p-0">
+          <Chat />
+          <RiwayatPasien />
+        </div>
+
+        <div className="card shadow border-0 flex-column gap-1 flex-lg-shrink-0 mt-3 p-lg-3 p-md-3 p-3 mx-lg-3 rounded-3">
+          <div className="d-flex gap-4 justify-content-md-between justify-content-lg-start mx-lg-3 mt-lg-1 align-items-center">
+            <p className="fw-bold" style={{ fontSize: "20px" }}>Pasien</p>
+            <Link className="fw-bold  text-decoration-none" style={{color:"#1766D6", fontSize:"12px"}}>2 menunggu</Link>
+          </div>
+          <div className="d-flex flex-column mt-lg-0">
+            <Pasien
+              name="Katherina Lubis"
+              gender="Laki-Laki"
+              tanggal="13 Okt 2023"
+              waktu="12.00 AM"
+              tombol="Mulai Konsultasi"
+            />
+            <Pasien
+              name="Katherina Lubis"
+              gender="Laki-Laki"
+              tanggal="13 Okt 2023"
+              waktu="12.00 AM"
+              tombol="Mulai Konsultasi"
+            />
+          </div>
+        </div>
+
+        <div className="card shadow border-0 p-3 mt-3 gap-2 d-flex flex-column rounded-3">
+          <div className="d-flex justify-content-between align-items-center mb-2">
+            <p className="fw-bold" style={{ fontSize: "20px" }}>Artikel Terbaru</p>
+            <Link className="fw-bold" style={{color:"#1766D6", fontSize:"16px"}}>View All</Link>
+          </div>
+          <ArtikelTerbaru
+            title="COVID-19: Sebuah Pandemi yang Menantang"
+            text="COVID-19, atau dikenal juga sebagai coronavirus disease 2019, adalah pandemi global yang telah memengaruhi hampir setiap aspek kehidupan kita."
+            date="Okt, 2023"
+          />
+          <ArtikelTerbaru
+            title="COVID-19: Sebuah Pandemi yang Menantang"
+            text="COVID-19, atau dikenal juga sebagai coronavirus disease 2019, adalah pandemi global yang telah memengaruhi hampir setiap aspek kehidupan kita."
+            date="Okt, 2023"
+          />
+        </div>
+      </div>
+
+    </div>
+  )
+}
 
 export default HomePage;
