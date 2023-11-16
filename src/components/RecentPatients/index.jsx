@@ -1,8 +1,6 @@
-import bulletIcon from '../../assets/icon/patient.svg'
+import personIcon from '../../assets/icon/person.svg'
+import { Button } from "../ui/Button";
 import "./RecentPatients.css"
-
-
-// import { Button } from "../ui/Button";
 
 export const RecentPatient = () => {
     const patientData = [
@@ -44,8 +42,8 @@ export const RecentPatient = () => {
                   {patientData.map((patient, index) => (
                     <tr key={index}>
                       <td className="d-flex flex-row align-items-center gap-2 text-nowrap">
-                        <div className="rounded-circle border border-2 border-dark">
-                          <img src={bulletIcon} alt={patient.name} width={34} height={34} className="rounded-circle object-fit-cover" />
+                        <div className="rounded-circle border border-1 border-dark">
+                          <img src={personIcon} alt={patient.name} style={{padding:"0.5rem", width:"2rem"}}/>
                         </div>
                         <p className="m-0">{patient.name}</p>
                       </td>
@@ -55,9 +53,9 @@ export const RecentPatient = () => {
                       <td>{patient.date}</td>
                       <td>{patient.status}</td>
                       <td>
-                        <button className="button" onClick={() => { }}>
+                        <Button className="btn-primary text-white button" onClick={() => { }}>
                           Edit
-                        </button>  
+                        </Button>  
                       </td>
                     </tr>
                   ))}

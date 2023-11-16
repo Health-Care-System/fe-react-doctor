@@ -1,14 +1,18 @@
-export const RiwayatPasien = () => {
+import { PieChart } from "../Chart/Piechart";
+import { dataChart} from "../../utils/dataObject"
 
+import "./RiwayatPasien.module.css"
+
+export const RiwayatPasien = () => {
   return (
-    <div className="card shadow border-0 mt-3">
-      <div className="card-body">
+    <div className="card shadow border-0 mt-3 rounded-3">
+      <div className="card-body rounded-3">
         <div className="d-flex justify-content-between align-items-center align-self-stretch">
             <p className="fw-bold" style={{fontSize:"20px", fontWeight:"600"}}>Riwayat Pasien</p>
             <div className="dropdown">
                 <button
                     className="btn dropdown-toggle"
-                    style={{backgroundColor:'#CBE4DE73'}}
+                    style={{backgroundColor:'#C7F9DE'}}
                     type="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
@@ -34,32 +38,27 @@ export const RiwayatPasien = () => {
                 </ul>
             </div>
         </div>
-        <div className="d-flex justify-content-center align-items-center mt-3 gap-5 justify-content-md-between justify-content-lg-center"> 
-            <div className="d-flex">       
-                <svg xmlns="http://www.w3.org/2000/svg" width="105" height="129" viewBox="0 0 105 129" fill="none">
-                    <mask id="path-1-inside-1_848_11946" fill="white">
-                        <path d="M21.967 0.466995C9.65139 12.7826 2.006 29.0005 0.342763 46.3378C-1.32048 63.6751 3.10213 81.0508 12.8517 95.4832C22.6012 109.916 37.0698 120.505 53.7747 125.434C70.4795 130.363 88.3791 129.324 104.402 122.497L75 53.5L21.967 0.466995Z"/>
-                    </mask>
-                    <path d="M21.967 0.466995C9.65139 12.7826 2.006 29.0005 0.342763 46.3378C-1.32048 63.6751 3.10213 81.0508 12.8517 95.4832C22.6012 109.916 37.0698 120.505 53.7747 125.434C70.4795 130.363 88.3791 129.324 104.402 122.497L75 53.5L21.967 0.466995Z" fill="#A7ACE5" stroke="#E3E3E3" mask="url(#path-1-inside-1_848_11946)"/>
-                </svg>
+        <div className="d-flex justify-content-center align-items-center mt-2 gap-5 justify-content-md-between justify-content-lg-center"> 
+            <div className="d-flex" style={{maxWidth:"9.6rem"}}>       
+                <PieChart dataChart={dataChart}/>
             </div>
 
-            <div className="d-flex flex-column align-items-start">
-                <div className="d-flex flex-column align-items-start">
-                    <p className="nilai-riwayat">120</p>
-                    <p className="text-pasien">Pasien</p>
+            <div className="d-flex flex-column align-items-start gap-2">
+                <div className="d-flex flex-column align-items-start p-0 gap-0">
+                    <p style={{fontSize:"2rem", color:"rgba(0, 0, 0, 0.60)"}}>120</p>
+                    <p style={{fontSize:"1rem", color:"rgba(0, 0, 0, 0.60);"}}>Pasien</p>
                 </div>
                 <div className="gap-3">
                     <div className="d-flex align-items-center gap-2">
-                        <div style={{width:"14px", height:"14px", backgroundColor:"#EDC6B1"}}></div>
+                        <div style={{width:"14px", height:"14px", backgroundColor:"#FBB3A7"}}></div>
                         <p>Demam</p>
                     </div>
                     <div className="d-flex align-items-center gap-2">
-                        <div style={{width:"14px", height:"14px", backgroundColor:"#7C96AB"}}></div>
+                        <div style={{width:"14px", height:"14px", backgroundColor:"#8A91DC"}}></div>
                         <p>Gerd</p>
                     </div>
                     <div className="d-flex align-items-center gap-2">
-                        <div style={{width:"14px", height:"14px", backgroundColor:"#B7B7B7"}}></div>
+                        <div style={{width:"14px", height:"14px", backgroundColor:"#A1D1FA"}}></div>
                         <p>Tipes</p>
                     </div>
                 </div>

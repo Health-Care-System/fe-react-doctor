@@ -3,7 +3,6 @@ import { Chat } from "../../components/Chat";
 import { RiwayatPasien } from "../../components/RiwayatPasien";
 import { Pasien } from "../../components/Pasien";
 import { ArtikelTerbaru } from "../../components/ArtikelTerbaru";
-// import "./HomePage.css"
 import { RecentPatient } from "../../components/RecentPatients";
 
 const HomePage = () => {
@@ -12,21 +11,21 @@ const HomePage = () => {
     <div className="p-2" style={{ maxWidth: 'calc(100vw - 17rem)'}}>
       <div className="d-flex justify-content-between align-items-center p-2">
         <h5 className="fw-bold mb-2 mt-3 mx-1">Recent Patients</h5>
-        <Link className="me-1">View All</Link>
+        <Link className="fw-bold" style={{color:"#1766D6", fontSize:"16px"}}>View All</Link>
       </div>
 
       <RecentPatient />
 
-      <div className="d-lg-flex justify-content-between align-items-start">
-        <div className="d-flex flex-column">
+      <div className="d-lg-flex justify-content-between align-items-start rounded-0">
+        <div className="d-flex flex-column rounded-3 mt-3">
           <Chat />
           <RiwayatPasien />
         </div>
 
-        <div className="card shadow border-0 flex-column gap-1 flex-lg-shrink-0 mt-3 p-lg-3 p-md-3 p-3 mx-lg-3">
+        <div className="card shadow border-0 flex-column gap-1 flex-lg-shrink-0 mt-3 p-lg-3 p-md-3 p-3 mx-lg-3 rounded-3">
           <div className="d-flex gap-4 justify-content-md-between justify-content-lg-start align-items-center">
             <p className="fw-bold" style={{ fontSize: "20px" }}>Pasien</p>
-            <Link className="fw-bold">2 menunggu</Link>
+            <Link className="fw-bold  text-decoration-none" style={{color:"#1766D6", fontSize:"12px"}}>2 menunggu</Link>
           </div>
           <div className="d-flex flex-column">
             <Pasien
@@ -46,10 +45,10 @@ const HomePage = () => {
           </div>
         </div>
 
-        <div className="card shadow border-0 p-3 mt-3 gap-2 d-flex flex-column">
+        <div className="card shadow border-0 p-3 mt-3 gap-2 d-flex flex-column rounded-3">
           <div className="d-flex justify-content-between align-items-center mb-2">
             <p className="fw-bold" style={{ fontSize: "20px" }}>Artikel Terbaru</p>
-            <Link className="fw-bold">View All</Link>
+            <Link className="fw-bold" style={{color:"#1766D6", fontSize:"16px"}}>View All</Link>
           </div>
           <ArtikelTerbaru
             title="COVID-19: Sebuah Pandemi yang Menantang"
