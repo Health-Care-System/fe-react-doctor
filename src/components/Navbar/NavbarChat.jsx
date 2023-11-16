@@ -24,10 +24,10 @@ export const NavbarChat = ({ data }) => {
           </Link>
           <img width={50} height={50} className="rounded-3 object-fit-cover" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Profile Picture" />
           <div className="w-75 m-0">
-            <h6 className=" fw-semibold">{data.name}</h6>
+            <h6 className=" fw-semibold">{data?.name}</h6>
             <div className='d-flex align-items-center gap-1'>
-              <div className={`bullet ${data.isOnline ? 'bg-success-100' : 'bg-secondary-subtle'}`}></div>
-              <p className="line-clamp-1 fs-4 fw-medium m-0">{data.isOnline ? 'Online' : 'Offline'}</p>
+              <div className={`bullet ${data?.isOnline ? 'bg-success-100' : 'bg-secondary-subtle'}`}></div>
+              <p className="line-clamp-1 fs-4 fw-medium m-0">{data?.isOnline ? 'Online' : 'Offline'}</p>
             </div>
           </div>
         </figure>
