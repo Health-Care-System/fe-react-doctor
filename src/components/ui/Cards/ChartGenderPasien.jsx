@@ -6,7 +6,7 @@ import { CircleProgressBar } from "../../Chart/CircleProgressBar";
 
 export const ChartGenderPasien = ({ data }) => {
   return (
-    <div className="chart_gender shadow rounded-4 d-grid align-content-center  ">
+    <div className="chart_gender rounded-4 d-grid align-content-center ">
       <div className="d-grid gap-4">
         <div style={{ width: '6.3rem'}}>
           <CircleProgressBar total={784} percentage={40} />
