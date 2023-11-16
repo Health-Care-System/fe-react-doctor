@@ -6,8 +6,8 @@ export const Pasien = ({name, gender, tanggal, waktu, tombol}) => {
 
   return (
     <div>
-      <div className="card border-0 shadow-sm d-flex flex-lg-column flex-md-row align-items-lg-start align-items-md-start p-2 p-lg-2 p-xxl-3 p-md-3 mb-2 rounded-3">
-          <div className="d-flex p-0 flex-lg-column flex-column align-items-center">
+      <div className="card border-0 shadow-sm d-flex flex-lg-column flex-md-row align-items-lg-start align-items-md-start m-lg-3 p-lg-2 rounded-3">
+          <div className="d-flex p-1 flex-lg-column flex-column align-items-center">
             <div className="d-flex align-items-center gap-4 gap-lg-4 gap-md-2 flex-lg-row flex-md-column">
               <div className="rounded-circle border border-1 border-dark mt-md-1 mt-lg-2">
                 <img src={personIcon} style={{padding:"0.5rem", width:"2.3rem"}} alt="person"/>

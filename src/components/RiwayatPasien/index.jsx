@@ -5,7 +5,7 @@ import "./RiwayatPasien.module.css"
 
 export const RiwayatPasien = () => {
   return (
-    <div className="card shadow border-0 mt-3 rounded-3">
+    <div className="card border-0 mt-3 rounded-3" style={{boxShadow:"0px 0px 24px 0px rgba(0, 0, 0, 0.10)"}}>
       <div className="card-body rounded-3">
         <div className="d-flex justify-content-between align-items-center align-self-stretch">
             <p className="fw-bold" style={{fontSize:"20px", fontWeight:"600"}}>Riwayat Pasien</p>
@@ -38,7 +38,7 @@ export const RiwayatPasien = () => {
                 </ul>
             </div>
         </div>
-        <div className="d-flex justify-content-center align-items-center mt-2 gap-5 justify-content-md-between justify-content-lg-center"> 
+        <div className="d-flex justify-content-center align-items-center mt-2 gap-5 justify-content-md-between justify-content-lg-center p-lg-3"> 
             <div className="d-flex" style={{maxWidth:"9.6rem"}}>       
                 <PieChart dataChart={dataChart}/>
             </div>

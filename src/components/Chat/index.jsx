@@ -4,7 +4,7 @@ import doctor from '../../assets/image/doctor.png'
 export const Chat = () => {
 
   return (
-    <div className="card shadow border-0 rounded-3">
+    <div className="card border-0 rounded-3" style={{boxShadow:"0px 0px 24px 0px rgba(0, 0, 0, 0.10)"}}>
       <div className="card-body rounded-3">
         <div className="d-flex flex-column">
           <div className="d-flex align-items-center gap-4">

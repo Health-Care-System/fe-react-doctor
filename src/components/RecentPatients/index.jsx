@@ -26,32 +26,32 @@ export const RecentPatient = () => {
 
     return (
       <>
-        <div className="table-responsive">
-            <table className="table table-borderless">
+        <div className="table-responsive" style={{borderRadius:"var(--Space---8, 0.5rem)", borderBottom:"1px solid var(--neutrals-300, #ECECEC)", background:"var(--neutrals-100, #F8F8F8)"}}>
+            <table className="table table-borderless" style={{backgroundColor:"var(--neutrals-100, #F8F8F8)"}}>
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Jenis Kelamin</th>
-                        <th>Berat Badan</th>
-                        <th>Discase</th>
-                        <th>Date</th>
-                        <th>Status</th>
+                        <th style={{backgroundColor:"var(--neutrals-100, #F8F8F8)"}}>Name</th>
+                        <th style={{backgroundColor:"var(--neutrals-100, #F8F8F8)"}}>Jenis Kelamin</th>
+                        <th style={{backgroundColor:"var(--neutrals-100, #F8F8F8)"}}>Berat Badan</th>
+                        <th style={{backgroundColor:"var(--neutrals-100, #F8F8F8)"}}>Discase</th>
+                        <th style={{backgroundColor:"var(--neutrals-100, #F8F8F8)"}}>Date</th>
+                        <th style={{backgroundColor:"var(--neutrals-100, #F8F8F8)"}}>Status</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody style={{backgroundColor:"var(--neutrals-100, #F8F8F8)"}}>
                   {patientData.map((patient, index) => (
                     <tr key={index}>
-                      <td className="d-flex flex-row align-items-center gap-2 text-nowrap">
+                      <td className="d-flex flex-row align-items-center gap-2 text-nowrap" style={{backgroundColor:"var(--neutrals-100, #F8F8F8)"}}>
                         <div className="rounded-circle border border-1 border-dark">
                           <img src={personIcon} alt={patient.name} style={{padding:"0.5rem", width:"2rem"}}/>
                         </div>
                         <p className="m-0">{patient.name}</p>
                       </td>
-                      <td>{patient.gender}</td>
-                      <td>{patient.weight}</td>
-                      <td>{patient.discase}</td>
-                      <td>{patient.date}</td>
-                      <td>{patient.status}</td>
+                      <td style={{backgroundColor:"var(--neutrals-100, #F8F8F8)"}}>{patient.gender}</td>
+                      <td style={{backgroundColor:"var(--neutrals-100, #F8F8F8)"}}>{patient.weight}</td>
+                      <td style={{backgroundColor:"var(--neutrals-100, #F8F8F8)"}}>{patient.discase}</td>
+                      <td style={{backgroundColor:"var(--neutrals-100, #F8F8F8)"}}>{patient.date}</td>
+                      <td style={{backgroundColor:"var(--neutrals-100, #F8F8F8)"}}>{patient.status}</td>
                       <td>
                         <Button className="btn-primary text-white button" onClick={() => { }}>
                           Edit

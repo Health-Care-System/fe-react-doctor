@@ -6,7 +6,7 @@ export const ArtikelTerbaru = ({title, text, date}) => {
 
   return (
 
-      <div className="card border-0 ">
+      <div className="card border-0">
         <div className="card-body d-flex flex-column lign-items-start">
           <div className="">
               <h6 className="fw-bold small">{title}</h6>

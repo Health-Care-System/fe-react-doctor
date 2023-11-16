@@ -8,26 +8,28 @@ import { RecentPatient } from "../../components/RecentPatients";
 const HomePage = () => {
 
   return (
-    <div className="p-2" style={{ maxWidth: 'calc(100vw - 17rem)'}}>
+    <div className="p-2" style={{ maxWidth: 'calc(100vw - 17rem)', backgroundColor:"var(--neutrals-100, #F8F8F8)"}}>
       <div className="d-flex justify-content-between align-items-center p-1">
         <h5 className="fw-bold mb-2 mt-3">Recent Patients</h5>
         <Link className="fw-bold" style={{color:"#1766D6", fontSize:"16px"}}>View All</Link>
       </div>
 
-      <RecentPatient />
+      <div>
+        <RecentPatient />
+      </div>
 
-      <div className="d-lg-flex justify-content-between align-items-start rounded-0">
-        <div className="d-flex flex-column rounded-3 mt-3">
+      <div className="d-lg-flex justify-content-between align-items-start rounded-0 p-0">
+        <div className="d-flex flex-column rounded-3 mt-3 p-0">
           <Chat />
           <RiwayatPasien />
         </div>
 
         <div className="card shadow border-0 flex-column gap-1 flex-lg-shrink-0 mt-3 p-lg-3 p-md-3 p-3 mx-lg-3 rounded-3">
-          <div className="d-flex gap-4 justify-content-md-between justify-content-lg-start align-items-center">
+          <div className="d-flex gap-4 justify-content-md-between justify-content-lg-start mx-lg-3 mt-lg-1 align-items-center">
             <p className="fw-bold" style={{ fontSize: "20px" }}>Pasien</p>
             <Link className="fw-bold  text-decoration-none" style={{color:"#1766D6", fontSize:"12px"}}>2 menunggu</Link>
           </div>
-          <div className="d-flex flex-column">
+          <div className="d-flex flex-column mt-lg-0">
             <Pasien
               name="Katherina Lubis"
               gender="Laki-Laki"
