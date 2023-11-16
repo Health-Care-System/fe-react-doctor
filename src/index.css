@@ -7,6 +7,9 @@
 p {
   margin: 0;
 }
+body{
+  background-color: #F8F8F8;
+}
 
 /* Styling scroll bar for Chrome */
 ::-webkit-scrollbar {
@@ -56,6 +59,9 @@ p {
 }
 .bg-green-300 {
   background-color: #003240;
+}
+.bg-success-100 { 
+  background-color: #6FE188;
 }
 .text-royal-blue{
   color: #0B3048;
