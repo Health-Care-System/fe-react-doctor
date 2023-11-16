@@ -9,7 +9,7 @@
   padding: 0.75rem;
 }
 .chat-list:hover {
-  border-radius: 8px; 
+  border-radius: 0.5rem; 
   background: #F0F0F0;
   cursor: pointer;
 }
@@ -17,30 +17,30 @@
 .chart_gender {
   display: flex;
   width: auto;
-  max-width: 130px;
-  height: 214px;
-  padding: 8.551px 13.681px;
+  max-width: 8.125rem;
+  height: 13.375rem;
+  padding: 0.534rem 0.855rem;
   align-items: flex-start;
-  gap: 8.551px;
-}
+  gap: 0.534rem;
+} 
 
 .chart_gender_img {
 	width: auto;
-	min-width: 90px;
-  height: 90px;
+	min-width: 5.625rem;
+  height: 5.625rem;
 }
 
 .chart_gender_circle {
-	width: 20.522px;
-	height: 20.522px;
+	width: 1.283rem;
+	height: 1.283rem;
 }
 
 .chart_pasien {
 	display: flex;
   width: auto;
-	max-width: 109px;
-	height: 91px;
-	padding: 0 8.551px;
+	max-width: 6.813rem;
+	height: 5.688rem;
+	padding: 0 0.534rem;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
@@ -50,10 +50,10 @@
 .chat_dashboard {
   display: flex;
   width: fit-content;
-  min-width: 276px;
+  min-width: 17.25rem;
   height: fit-content;
-  max-width: 214px;
-  padding: 15px;
+  max-width: 13.375rem;
+  padding: 0.938rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -61,37 +61,37 @@
 }
 
 .avatar_icon {
-  width: 40px;
-  height: 40px;
+  width: 2.5rem;
+  height: 2.5rem;
 }
 
 .consultation__chat {
   display: flex;
   height: fit-content;
   width: auto;
-  max-width: 479px;
-  max-height: 214px;
-  padding: 10px;
+  max-width: 29.938rem;
+  max-height: 13.375rem;
+  padding: 0.625rem;
   flex-direction: column;
   align-items: flex-start;
-  gap: 18px;
+  gap: 1.125rem;
   flex-shrink: 0;
-  border-radius: 20px;
+  border-radius: 1.25rem;
 }
 
 @media (min-width: 767.98px) and (max-width: 1023.98px) { 
   .chat_dashboard {
-    min-width: 379px;
+    min-width: 23.688rem;
   }
 
   .consultation__chat {
-    max-width: 379px;
+    max-width: 23.688rem;
   }
 
   .table_pasien_content {
     display: flex;
     height: fit-content;
-    max-width: 379px;
+    max-width: 23.688rem;
     margin: auto;
   }
  }
@@ -99,6 +99,6 @@
  @media (min-width: 1024px)  { 
 
   .consultation__chat {
-    max-width: 579px;
+    max-width: 36.188rem;
   }
  }
