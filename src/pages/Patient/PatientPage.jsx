@@ -198,7 +198,7 @@ const PatientPage = () => {
 
   return (
     <section className="container-fluid ">
-      <div className="d-grid mx-lg-3 mt-3 gap-3 ">
+      <div className="d-grid mx-lg-3 mt-3 gap-4 ">
         <div className="d-grid d-lg-flex align-items-start gap-3">
           <div className="d-flex justify-content-center align-items-center gap-2">
             <ChartGenderPasien
@@ -225,22 +225,22 @@ const PatientPage = () => {
           </div>
         </div>
         {/* Table Daftar Pasien */}
-        <div className="d-grid align-items-center gap-2 p-2 shadow rounded-top-4 table_pasien_content">
-          <div className="d-flex justify-content-between align-items-center">
+        <div className="d-grid align-items-center gap-2 p-2 border-top rounded-4 table_pasien_content">
+          <div className="d-flex justify-content-between align-items-center py-4">
             <h1 className="fw-bold fs-1 ps-3">Daftar Pasien</h1>
             <div className="position-relative pe-4 ">
               <Input
                 placeHolder="Nama, Gejala, Status "
-                className="rounded-5 ps-5 "
+                className="rounded-5 ps-5 border-0"
               />
               <button className="border-0 bg-transparent rounded-5 position-absolute start-0 ps-2 top-0 mt-1">
                 <img src={searchIcon} alt="searchIcon" className="w-75" />
               </button>
             </div>
           </div>
-          <div className="table-responsive p-2 text-nowrap table_scoll" style={{ maxHeight: '367px', overflowY: 'scroll' }}>
-            <table className="table table-borderless table-light  ">
-              <thead>
+          <div className="table-responsive p-2 pt-0 text-nowrap" style={{ maxHeight: 'calc(100vh - 28rem)'}} >
+            <table className="table table-borderless table-light">
+              <thead className=" sticky-top">
                 <tr>
                   <th scope="col">Nama</th>
                   <th scope="col">Jenis Kelamin</th>
@@ -250,7 +250,7 @@ const PatientPage = () => {
                   <th scope="col">Status</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody  className=" overflow-y-scroll">
                 {data.map((entry, index) => (
                   <tr key={index} className="align-middle">
                     <td className="d-flex align-items-center gap-2">
