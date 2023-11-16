@@ -9,8 +9,8 @@ const HomePage = () => {
 
   return (
     <div className="p-2" style={{ maxWidth: 'calc(100vw - 17rem)'}}>
-      <div className="d-flex justify-content-between align-items-center p-2">
-        <h5 className="fw-bold mb-2 mt-3 mx-1">Recent Patients</h5>
+      <div className="d-flex justify-content-between align-items-center p-1">
+        <h5 className="fw-bold mb-2 mt-3">Recent Patients</h5>
         <Link className="fw-bold" style={{color:"#1766D6", fontSize:"16px"}}>View All</Link>
       </div>
 

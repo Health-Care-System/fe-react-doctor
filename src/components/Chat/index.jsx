@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import doctor from '../../assets/image/doctor.png'
-import "./Chat.module.css"
 
 export const Chat = () => {
 
@@ -10,7 +9,7 @@ export const Chat = () => {
         <div className="d-flex flex-column">
           <div className="d-flex align-items-center gap-4">
             <h5 className="fw-bold text-truncate">Pesan</h5>
-            <Link className="fw-bold text-truncate text-decoration-none mb-2" style={{color:"#1766D6", fontSize:"12px"}}>3 belum dibaca</Link>
+            <Link className="fw-bold text-truncate text-decoration-none mb-1" style={{color:"#1766D6", fontSize:"12px"}}>3 belum dibaca</Link>
           </div>
           <div className="d-lg-flex flex-column flex-lg-row mx-1 mb-4 mt-2 mt-xxl-4">
             <div  className="text-center mb-md-2 mt-md-2">
