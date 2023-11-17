@@ -3,8 +3,8 @@ import { Button } from "../Button";
 
 export const ConsultationChatCard = ({ data }) => {
   return (
-    <div className="rounded-4 consultation__chat" style={{ overflowY: 'auto'}}>
-      <h3 className="fw-semibold m-0 fs-2 ps-2 ">Pasien Baru</h3>
+    <div className="rounded-4 p-3 shadow chat-dashboard" style={{ overflowY: 'auto'}}>
+      <h3 className="fw-semibold m-0 fs-2">Pasien Baru</h3>
       <div className="text-nowrap ">
         <table className="table table-borderless table-light ">
           <thead className="sticky-top">
@@ -26,8 +26,8 @@ export const ConsultationChatCard = ({ data }) => {
                 </td>
                 <td className="">{patient.gender}</td>
                 <td className="p-0">
-                  <Button className="btn-primary text-nowrap text-white rounded-pill">
-                    Mulai Percakapan
+                  <Button className="btn-primary text-nowrap text-white rounded-5">
+                    Mulai Konsultasi
                   </Button>
                 </td>
               </tr>

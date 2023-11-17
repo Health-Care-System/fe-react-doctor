@@ -10,6 +10,7 @@ import { Input } from "../../components/ui/Form";
 import { Button } from "../../components/ui/Button";
 import { useState } from "react";
 import { PopupEditPasien } from "../../components/ui/Modal/PopupEditPasien";
+import './Patient.css'
 
 const PatientPage = () => {
   const [openModal, setOpenModal] = useState(false)
@@ -220,13 +221,12 @@ const PatientPage = () => {
 
   return (
     <section className="mx-3">
-      <div className="d-flex flex-row flex-wrap gap-3">
-        <div className="">
-          <div className="d-flex justify-content-center justify-content-xl-end  align-items-center gap-3">
+      <div className="d-flex flex-row justify-content-center justify-content-md-start flex-wrap gap-3">
+          <div className="card-stats">
             <ChartGenderPasien
               data={{ womanPercentage: "49%", manPercentage: "51%" }}
             />
-            <div className="d-grid align-items-center gap-3 ">
+            <div className="d-flex flex-column gap-3">
               <CardTotalPasien
                 percentage="51%"
                 title="Pasien Baru"
@@ -239,69 +239,65 @@ const PatientPage = () => {
               />
             </div>
           </div>
-        </div>
-        <div className="">
-          <ChatDashboardCard chatMessages={chatMessages} />
-        </div>
-        <div className="">
-          <ConsultationChatCard data={dataConsultation} />
-        </div>
+
+        <ChatDashboardCard chatMessages={chatMessages} />
+        <ConsultationChatCard data={dataConsultation} />
       </div>
       {/* Table Daftar Pasien */}
       <div className="p-3 border-top rounded-top-4 mt-3">
-          <div className="d-grid d-md-flex justify-content-between align-items-center">
-            <h1 className="fw-bold fs-1 mt-2">Daftar Pasien</h1>
-            <div className="position-relative pe-0 ">
-              <Input
-                placeHolder="Nama, Gejala, Status "
-                className="rounded-5 ps-5 "
-              />
-              <button className="border-0 bg-transparent rounded-5 position-absolute start-0 ps-2 top-0 mt-1">
-                <img src={searchIcon} alt="searchIcon" className="w-75" />
-              </button>
-            </div>
-          </div>
-          <div className=" table-responsive" style={{ maxHeight: 'calc(100vh - 26rem)'}}>
-            <table className="table table-borderless table-light  ">
-              <thead className=" sticky-top">
-                <tr>
-                  <th scope="col">Nama</th>
-                  <th scope="col">Jenis Kelamin</th>
-                  <th scope="col">Berat Badan</th>
-                  <th scope="col">Diagnosa</th>
-                  <th scope="col">Tgl Konsultasi</th>
-                  <th scope="col">Status</th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.map((entry, index) => (
-                  <tr key={index} className="align-middle">
-                    <td className="d-flex align-items-center gap-2">
-                      <img
-                        src={avatarIcon}
-                        alt="avatarIcon"
-                        className="rounded-circle avatar_icon"
-                      />
-                      <p>{entry.nama}</p>
-                    </td>
-                    <td>{entry.jenisKelamin}</td>
-                    <td>{entry.beratBadan}</td>
-                    <td>{entry.diagnosa}</td>
-                    <td>{entry.tglKonsultasi}</td>
-                    <td>{entry.status}</td>
-                    <td>
-                      <Button className="btn-primary text-white px-4" onClick={() => setOpenModal(true)}>
-                        Edit
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            {openModal && <PopupEditPasien closeModal={setOpenModal} patientData={patientData}/>}
+        <div className="d-grid d-md-flex justify-content-between align-items-center">
+          <h1 className="fw-bold fs-1 mt-2">Daftar Pasien</h1>
+          <div className="position-relative pe-0 ">
+            <Input
+              placeHolder="Nama, Gejala, Status "
+              className="rounded-5 ps-5 "
+            />
+            <button className="border-0 bg-transparent rounded-5 position-absolute start-0 ps-2 top-0 mt-1">
+              <img src={searchIcon} alt="searchIcon" className="w-75" />
+            </button>
           </div>
         </div>
+        <div className=" table-responsive mt-3 table-wrapper" style={{ maxHeight: 'calc(100vh - 26rem)' }}>
+          <table className="table table-borderless table-light">
+            <thead className=" sticky-top">
+              <tr>
+                <th className=" text-nowrap">Nama</th>
+                <th className=" text-nowrap">Jenis Kelamin</th>
+                <th className=" text-nowrap">Berat Badan</th>
+                <th className=" text-nowrap">Diagnosa</th>
+                <th className=" text-nowrap">Tgl Konsultasi</th>
+                <th className=" text-nowrap">Status</th>
+                <th className=" text-nowrap"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((entry, index) => (
+                <tr key={index} className="align-middle">
+                  <td className="d-flex align-items-center gap-2">
+                    <img
+                      src={avatarIcon}
+                      alt="avatarIcon"
+                      className="rounded-circle avatar_icon"
+                    />
+                    <p>{entry.nama}</p>
+                  </td>
+                  <td>{entry.jenisKelamin}</td>
+                  <td>{entry.beratBadan}</td>
+                  <td>{entry.diagnosa}</td>
+                  <td>{entry.tglKonsultasi}</td>
+                  <td>{entry.status}</td>
+                  <td>
+                    <Button className="btn-primary text-white px-4" onClick={() => setOpenModal(true)}>
+                      Edit
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {openModal && <PopupEditPasien closeModal={setOpenModal} patientData={patientData} />}
+        </div>
+      </div>
     </section>
   );
 };

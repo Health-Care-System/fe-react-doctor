@@ -8,24 +8,20 @@
   gap: 0.75rem;
   padding: 0.75rem;
 }
-
 .chat-list:hover {
   border-radius: 0.5rem;
   background: #f0f0f0;
   cursor: pointer;
 }
-.article-wrapper {
-  
-}
-.article-wrapper:hover {
-  background: #F0F0F0;
-  cursor: pointer;
-}
 
 .chart_gender {
+  display: flex;
+  flex-direction: row;
   width: 100%;
+  max-width: 8.125rem;
   height: 13.375rem;
   padding: 0.53444rem 0.85506rem;
+  align-items: flex-start;
   gap: 0.534rem;
   box-shadow: 0px 1.71014px 3.42px 0px rgba(0, 0, 0, 0.25);
 }
@@ -38,30 +34,11 @@
 /* Chart Data Pasien  */
 .chart_pasien {
   display: flex;
-  width: 6.8125rem;
   height: 5.6875rem;
-  padding: 0.53444rem;
+  padding: 0.53444rem; 
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-shrink: 0;
-  border-radius: 1.06881rem;
-  box-shadow: 0px 1.71014px 3.42029px 0px rgba(0, 0, 0, 0.25);
-}
-
-/* Chat Dashboard  */
-.chat_dashboard {
-  display: flex;
-  width: 100%;
-  height: auto;
-  max-height: 13.375rem;
-  padding: 0.9375rem;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 0.625rem;
-  flex-shrink: 0;
-  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.07);
 }
 
 .avatar_icon {
@@ -69,70 +46,34 @@
   height: 2.5rem;
 }
 
-/* Consultation Chat */
-.consultation__chat {
+.card-stats {
   display: flex;
-  height: auto;
-  max-width: 29.9375rem;
-  max-height: 13.375rem;
-  padding: 0.625rem;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.125rem;
-  flex-shrink: 0;
-  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.07);
+  flex-direction: row;
+  gap: 1rem;
+}
+.chat-dashboard {
+  padding: 0.9375rem; 
+  width: 100%;
 }
 
+
 @media (min-width: 768px) {
-  /* Chat Dashboard  */
-  .chat_dashboard {
-    width: 44.5rem;
-  }
-
-  .consultation__chat {
-    width: 44.5rem;
-    max-width: 44.5rem;
-  }
-
   .table_pasien_content {
     display: flex;
     height: fit-content;
     max-width: 23.688rem;
     margin: auto;
   }
-  .chart_gender {
-    max-width: 8.125rem;
+  .card-stats {
+    width: fit-content;
+  }
+  .chat-dashboard {
+    max-width: 90%;
   }
 }
 
-@media (min-width: 1024px) and (max-width: 1399.98px) {
-  /* Chat Dashboard  */
-  .chat_dashboard {
-    width: 33.125rem;
-  }
-
-  .consultation__chat {
-    width: 56.25rem;
-    max-width: 56.25rem;
-  }
-}
-
-@media (min-width: 1440px) {
-  /* Chat Dashboard  */
-  .chat_dashboard {
-    width: 17.25rem;
-    height: auto;
-  }
-
-  .consultation__chat {
-    width: 100%;
-  }
-}
-
-@media (min-width: 1440px) {
-  
-  /* Chat Dashboard  */
-  .chat_dashboard {
-    width: 18.25rem;
+@media (min-width: 992px) {
+  .chat-dashboard {
+    max-width: 30rem;
   }
 }

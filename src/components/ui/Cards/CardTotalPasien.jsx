@@ -11,7 +11,7 @@ export const CardTotalPasien = ({ title, total, percentage }) => {
   }
 
   return (
-    <div className="chart_pasien rounded-4">
+    <div className="chart_pasien shadow rounded-4">
       <h4 className="fs-3 fw-semibold text-center text-nowrap lh-lg mb-0 ">{title}</h4>
       <div className="d-flex justify-content-between align-items-center w-100 ">
         <h3 className="fs-1 fw-bold m-0 ">{total}</h3>
