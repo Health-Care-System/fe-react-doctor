@@ -8,14 +8,18 @@ import avatarIcon from "../../assets/icon/avatar.svg";
 import searchIcon from "../../assets/icon/search.svg";
 import { Input } from "../../components/ui/Form";
 import { Button } from "../../components/ui/Button";
+import { useState } from "react";
+import { PopupEditPasien } from "../../components/ui/Modal/PopupEditPasien";
 
 const PatientPage = () => {
+  const [openModal, setOpenModal] = useState(false)
+
   const chatMessages = [
     {
       avatar: avatarIcon,
-      name: "John",
+      name: "Alice",
       date: "15 Sep",
-      chat: "Halo, bagaimana kabarmu?",
+      chat: "Hai, aku baik. Terima kasih!",
     },
     {
       avatar: avatarIcon,
@@ -23,6 +27,17 @@ const PatientPage = () => {
       date: "15 Sep",
       chat: "Hai, aku baik. Terima kasih!",
     },
+    {
+      avatar: avatarIcon,
+      name: "Alice",
+      date: "15 Sep",
+      chat: "Hai, aku baik. Terima kasih!",
+    },
+  ];
+
+  const dataConsultation = [
+    { name: "John Doe", gender: "Male" },
+    { name: "Jane Doe", gender: "Female" },
   ];
 
   const data = [
@@ -196,15 +211,22 @@ const PatientPage = () => {
     },
   ];
 
+  const patientData = {
+    name: 'Joshua Kristin',
+    weight: '58 Kg',
+    gender: 'Laki-laki',
+    consultationDate: '17 Oktober 2023',
+  };
+
   return (
     <section className="container-fluid ">
-      <div className="d-grid mx-lg-3 mt-3 gap-4 ">
-        <div className="d-grid d-lg-flex align-items-start gap-3">
-          <div className="d-flex justify-content-center align-items-center gap-2">
+      <div className="row my-3 gap-3 content_patient justify-content-lg-center justify-content-xl-start ">
+        <div className="col-12 col-lg-4 col-xl-3 px-xl-0 ">
+          <div className="d-flex justify-content-center justify-content-xl-end  align-items-center gap-3">
             <ChartGenderPasien
               data={{ womanPercentage: "49%", manPercentage: "51%" }}
             />
-            <div className="d-grid gap-2 align-items-center  ">
+            <div className="d-grid align-items-center gap-3 ">
               <CardTotalPasien
                 percentage="51%"
                 title="Pasien Baru"
@@ -217,30 +239,31 @@ const PatientPage = () => {
               />
             </div>
           </div>
-          <div className="d-grid justify-content-center align-items-center ">
-            <ChatDashboardCard chatMessages={chatMessages} />
-          </div>
-          <div className="d-grid justify-content-center align-items-center">
-            <ConsultationChatCard gender="Wanita" name="Joshua Kristin" />
-          </div>
         </div>
-        {/* Table Daftar Pasien */}
-        <div className="d-grid align-items-center gap-2 p-2 border-top rounded-4 table_pasien_content">
-          <div className="d-flex justify-content-between align-items-center py-4">
-            <h1 className="fw-bold fs-1 ps-3">Daftar Pasien</h1>
-            <div className="position-relative pe-4 ">
+        <div className="col-12 justify-content-center d-flex col-lg-7 col-xl-3 px-xl-0">
+          <ChatDashboardCard chatMessages={chatMessages} />
+        </div>
+        <div className="col-12 justify-content-center justify-content-lg-center justify-content-xl-start d-flex col-lg-12 col-xl px-xl-0 ">
+          <ConsultationChatCard data={dataConsultation} />
+        </div>
+      </div>
+      {/* Table Daftar Pasien */}
+      <div className="row mx-3 rounded-top-4 shadow-sm content_table">
+          <div className="d-grid d-md-flex justify-content-between align-items-center">
+            <h1 className="fw-bold fs-1 mt-2">Daftar Pasien</h1>
+            <div className="position-relative pe-0 ">
               <Input
                 placeHolder="Nama, Gejala, Status "
-                className="rounded-5 ps-5 border-0"
+                className="rounded-5 ps-5 "
               />
               <button className="border-0 bg-transparent rounded-5 position-absolute start-0 ps-2 top-0 mt-1">
                 <img src={searchIcon} alt="searchIcon" className="w-75" />
               </button>
             </div>
           </div>
-          <div className="table-responsive p-2 pt-0 text-nowrap" style={{ maxHeight: 'calc(100vh - 28rem)'}} >
-            <table className="table table-borderless table-light">
-              <thead className=" sticky-top">
+          <div className="table-responsive p-2 text-nowrap table_scoll" style={{ maxHeight: '28rem', overflowY: 'scroll' }}>
+            <table className="table table-borderless table-light  ">
+              <thead>
                 <tr>
                   <th scope="col">Nama</th>
                   <th scope="col">Jenis Kelamin</th>
@@ -250,7 +273,7 @@ const PatientPage = () => {
                   <th scope="col">Status</th>
                 </tr>
               </thead>
-              <tbody  className=" overflow-y-scroll">
+              <tbody>
                 {data.map((entry, index) => (
                   <tr key={index} className="align-middle">
                     <td className="d-flex align-items-center gap-2">
@@ -267,7 +290,7 @@ const PatientPage = () => {
                     <td>{entry.tglKonsultasi}</td>
                     <td>{entry.status}</td>
                     <td>
-                      <Button className="btn-primary text-white px-4">
+                      <Button className="btn-primary text-white px-4" onClick={() => setOpenModal(true)}>
                         Edit
                       </Button>
                     </td>
@@ -275,9 +298,9 @@ const PatientPage = () => {
                 ))}
               </tbody>
             </table>
+            {openModal && <PopupEditPasien closeModal={setOpenModal} patientData={patientData}/>}
           </div>
         </div>
-      </div>
     </section>
   );
 };

@@ -1,7 +1,7 @@
-.medical-card{
+.medical-card {
   width: 20rem;
 }
-.chat-list{
+.chat-list {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -9,96 +9,123 @@
   padding: 0.75rem;
 }
 .chat-list:hover {
-  border-radius: 8px; 
-  background: #F0F0F0;
+  border-radius: 0.5rem;
+  background: #f0f0f0;
   cursor: pointer;
 }
 
 .chart_gender {
   display: flex;
   width: auto;
-  max-width: 130px;
-  height: 214px;
-  padding: 8.551px 13.681px;
+  max-width: 8.125rem;
+  height: 13.375rem;
+  padding: 0.53444rem 0.85506rem;
   align-items: flex-start;
-  gap: 8.551px;
-}
-
-.chart_gender_img {
-	width: auto;
-	min-width: 90px;
-  height: 90px;
+  gap: 0.534rem;
+  box-shadow: 0px 1.71014px 3.42px 0px rgba(0, 0, 0, 0.25);
 }
 
 .chart_gender_circle {
-	width: 20.522px;
-	height: 20.522px;
+  width: 1.28263rem;
+  height: 1.28263rem;
 }
 
+/* Chart Data Pasien  */
 .chart_pasien {
-	display: flex;
-  width: auto;
-	max-width: 109px;
-	height: 91px;
-	padding: 0 8.551px;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	flex-shrink: 0;
-}
-
-.chat_dashboard {
   display: flex;
-  width: fit-content;
-  min-width: 276px;
-  height: fit-content;
-  max-width: 214px;
-  padding: 15px;
+  width: 6.8125rem;
+  height: 5.6875rem;
+  padding: 0.53444rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
+  border-radius: 1.06881rem;
+  box-shadow: 0px 1.71014px 3.42029px 0px rgba(0, 0, 0, 0.25);
+}
+
+/* Chat Dashboard  */
+.chat_dashboard {
+  display: flex;
+  width: 17.25rem;
+  height: auto;
+  max-height: 13.375rem;
+  padding: 0.9375rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  flex-shrink: 0;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.07);
 }
 
 .avatar_icon {
-  width: 40px;
-  height: 40px;
+  width: 2.5rem;
+  height: 2.5rem;
 }
 
+/* Consultation Chat */
 .consultation__chat {
   display: flex;
-  height: fit-content;
-  width: auto;
-  max-width: 479px;
-  max-height: 214px;
-  padding: 10px;
+  width: 17.25rem;
+  height: auto;
+  max-width: 29.9375rem;
+  max-height: 13.375rem;
+  padding: 0.625rem;
   flex-direction: column;
   align-items: flex-start;
-  gap: 18px;
+  gap: 0.125rem;
   flex-shrink: 0;
-  border-radius: 20px;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.07);
 }
 
-@media (min-width: 767.98px) and (max-width: 1023.98px) { 
+@media (min-width: 767.98px) and (max-width: 1023.98px) {
+  /* Chat Dashboard  */
   .chat_dashboard {
-    min-width: 379px;
+    width: 44.5rem;
   }
 
   .consultation__chat {
-    max-width: 379px;
+    width: 44.5rem;
+    max-width: 44.5rem;
   }
 
   .table_pasien_content {
     display: flex;
     height: fit-content;
-    max-width: 379px;
+    max-width: 23.688rem;
     margin: auto;
   }
- }
+}
 
- @media (min-width: 1024px)  { 
+@media (min-width: 1024px) and (max-width: 1399.98px) {
+  /* Chat Dashboard  */
+  .chat_dashboard {
+    width: 33.125rem;
+  }
 
   .consultation__chat {
-    max-width: 579px;
+    width: 56.25rem;
+    max-width: 56.25rem;
   }
- }
+}
+
+@media (min-width: 1440px) {
+  /* Chat Dashboard  */
+  .chat_dashboard {
+    width: 17.25rem;
+    height: auto;
+  }
+
+  .consultation__chat {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1440px) {
+  
+  /* Chat Dashboard  */
+  .chat_dashboard {
+    width: 18.25rem;
+  }
+}
