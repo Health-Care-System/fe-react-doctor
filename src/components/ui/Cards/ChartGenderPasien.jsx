@@ -2,34 +2,23 @@
 import circleWoman from "../../../assets/icon/circle-women.svg";
 import circleMan from "../../../assets/icon/circle-man.svg";
 import { CircleProgressBar } from "../../Chart/CircleProgressBar";
-// import chartjs from "../../../assets/icon/chartjs.svg";
 
 export const ChartGenderPasien = ({ data }) => {
   return (
-    <div className="chart_gender shadow rounded-4 d-grid align-content-center  ">
-      <div className="d-grid gap-4">
-        <div style={{ width: '6.3rem'}}>
+    <div className=" d-flex flex-row flex-md-column align-items-center shadow rounded-4 p-3 gap-3">
+        <div style={{ maxWidth: '6.3rem'}}>
           <CircleProgressBar total={784} percentage={40} />
         </div>
-        {/* <img src={chartjs} alt="chatjs" className="chart_gender_img mx-auto " /> */}
-        <div className="d-grid gap-1">
-          <div className="d-flex gap-1 align-items-center justify-content-start ">
-            <img
-              src={circleWoman}
-              alt="circle"
-              className="chart_gender_circle"
-            />
-            <p className="fs-4 ">Wanita</p>
-            <span className="fs-4 ">{data.womanPercentage}</span>
+        <div className="d-flex flex-column justify-content-center gap-2">
+          <div className=" d-inline-flex w-100">
+            <img src={circleWoman} alt="circle" />
+            <p className="fs-4 w-100 text-nowrap">{`Wanita ${data.womanPercentage}`}</p>
           </div>
-
-          <div className="d-flex gap-1 align-items-center justify-content-start ">
-            <img src={circleMan} alt="circle" className="chart_gender_circle" />
-            <p className="fs-4">Pria</p>
-            <span className="fs-4 ">{data.manPercentage}</span>
+          <div className=" d-inline-flex">
+            <img src={circleMan} alt="circle" />
+            <p className="fs-4 w-100 text-nowrap">{`Pria ${data.manPercentage}`}</p>
           </div>
         </div>
-      </div>
     </div>
   );
 };
