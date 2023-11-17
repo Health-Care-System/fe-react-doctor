@@ -8,8 +8,12 @@ import avatarIcon from "../../assets/icon/avatar.svg";
 import searchIcon from "../../assets/icon/search.svg";
 import { Input } from "../../components/ui/Form";
 import { Button } from "../../components/ui/Button";
+import { useState } from "react";
+import { PopupEditPasien } from "../../components/ui/Modal/PopupEditPasien";
 
 const PatientPage = () => {
+  const [openModal, setOpenModal] = useState(false)
+
   const chatMessages = [
     {
       avatar: avatarIcon,
@@ -207,11 +211,18 @@ const PatientPage = () => {
     },
   ];
 
+  const patientData = {
+    name: 'Joshua Kristin',
+    weight: '58 Kg',
+    gender: 'Laki-laki',
+    consultationDate: '17 Oktober 2023',
+  };
+
   return (
     <section className="container-fluid ">
       <div className="row my-3 gap-3 content_patient justify-content-lg-center justify-content-xl-start ">
-        <div className="col-12 col-lg-4 col-xl-3">
-          <div className="d-flex justify-content-center align-items-center gap-3 ">
+        <div className="col-12 col-lg-4 col-xl-3 px-xl-0 ">
+          <div className="d-flex justify-content-center justify-content-xl-end  align-items-center gap-3">
             <ChartGenderPasien
               data={{ womanPercentage: "49%", manPercentage: "51%" }}
             />
@@ -229,7 +240,7 @@ const PatientPage = () => {
             </div>
           </div>
         </div>
-        <div className="col-12 justify-content-center d-flex col-lg-7 justify-content-lg-start col-xl-3 px-xl-0">
+        <div className="col-12 justify-content-center d-flex col-lg-7 col-xl-3 px-xl-0">
           <ChatDashboardCard chatMessages={chatMessages} />
         </div>
         <div className="col-12 justify-content-center justify-content-lg-center justify-content-xl-start d-flex col-lg-12 col-xl px-xl-0 ">
@@ -279,7 +290,7 @@ const PatientPage = () => {
                     <td>{entry.tglKonsultasi}</td>
                     <td>{entry.status}</td>
                     <td>
-                      <Button className="btn-primary text-white px-4">
+                      <Button className="btn-primary text-white px-4" onClick={() => setOpenModal(true)}>
                         Edit
                       </Button>
                     </td>
@@ -287,6 +298,7 @@ const PatientPage = () => {
                 ))}
               </tbody>
             </table>
+            {openModal && <PopupEditPasien closeModal={setOpenModal} patientData={patientData}/>}
           </div>
         </div>
     </section>

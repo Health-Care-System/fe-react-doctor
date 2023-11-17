@@ -123,8 +123,9 @@
 }
 
 @media (min-width: 1440px) {
+  
   /* Chat Dashboard  */
   .chat_dashboard {
-    justify-content: start;
+    width: 18.25rem;
   }
 }
