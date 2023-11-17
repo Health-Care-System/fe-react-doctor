@@ -219,9 +219,9 @@ const PatientPage = () => {
   };
 
   return (
-    <section className="container-fluid ">
-      <div className="row my-3 gap-3 content_patient justify-content-lg-center justify-content-xl-start ">
-        <div className="col-12 col-lg-4 col-xl-3 px-xl-0 ">
+    <section className="mx-3">
+      <div className="d-flex flex-row flex-wrap gap-3">
+        <div className="">
           <div className="d-flex justify-content-center justify-content-xl-end  align-items-center gap-3">
             <ChartGenderPasien
               data={{ womanPercentage: "49%", manPercentage: "51%" }}
@@ -240,15 +240,15 @@ const PatientPage = () => {
             </div>
           </div>
         </div>
-        <div className="col-12 justify-content-center d-flex col-lg-7 col-xl-3 px-xl-0">
+        <div className="">
           <ChatDashboardCard chatMessages={chatMessages} />
         </div>
-        <div className="col-12 justify-content-center justify-content-lg-center justify-content-xl-start d-flex col-lg-12 col-xl px-xl-0 ">
+        <div className="">
           <ConsultationChatCard data={dataConsultation} />
         </div>
       </div>
       {/* Table Daftar Pasien */}
-      <div className="row mx-3 rounded-top-4 shadow-sm content_table">
+      <div className="p-3 border-top rounded-top-4 mt-3">
           <div className="d-grid d-md-flex justify-content-between align-items-center">
             <h1 className="fw-bold fs-1 mt-2">Daftar Pasien</h1>
             <div className="position-relative pe-0 ">
@@ -261,9 +261,9 @@ const PatientPage = () => {
               </button>
             </div>
           </div>
-          <div className="table-responsive p-2 text-nowrap table_scoll" style={{ maxHeight: '28rem', overflowY: 'scroll' }}>
+          <div className=" table-responsive" style={{ maxHeight: 'calc(100vh - 26rem)'}}>
             <table className="table table-borderless table-light  ">
-              <thead>
+              <thead className=" sticky-top">
                 <tr>
                   <th scope="col">Nama</th>
                   <th scope="col">Jenis Kelamin</th>
@@ -271,6 +271,7 @@ const PatientPage = () => {
                   <th scope="col">Diagnosa</th>
                   <th scope="col">Tgl Konsultasi</th>
                   <th scope="col">Status</th>
+                  <th scope="col"></th>
                 </tr>
               </thead>
               <tbody>
