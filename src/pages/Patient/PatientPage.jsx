@@ -221,7 +221,7 @@ const PatientPage = () => {
 
   return (
     <section className="mx-3">
-      <div className="d-flex flex-row justify-content-center justify-content-md-start flex-wrap gap-3">
+      <div className="d-flex flex-row justify-content-center justify-content-md-start flex-wrap gap-3 my-4">
           <div className="card-stats">
             <ChartGenderPasien
               data={{ womanPercentage: "49%", manPercentage: "51%" }}
@@ -250,14 +250,14 @@ const PatientPage = () => {
           <div className="position-relative pe-0 ">
             <Input
               placeHolder="Nama, Gejala, Status "
-              className="rounded-5 ps-5 "
+              className="rounded-5 ps-5 border-0"
             />
             <button className="border-0 bg-transparent rounded-5 position-absolute start-0 ps-2 top-0 mt-1">
               <img src={searchIcon} alt="searchIcon" className="w-75" />
             </button>
           </div>
         </div>
-        <div className=" table-responsive mt-3 table-wrapper" style={{ maxHeight: 'calc(100vh - 26rem)' }}>
+        <div className="table-responsive mt-3 table-wrapper" style={{ maxHeight: 'calc(100vh - 29rem)' }}>
           <table className="table table-borderless table-light">
             <thead className=" sticky-top">
               <tr>

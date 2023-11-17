@@ -67,9 +67,7 @@
   .card-stats {
     width: fit-content;
   }
-  .chat-dashboard {
-    max-width: 90%;
-  }
+
 }
 
 @media (min-width: 992px) {
