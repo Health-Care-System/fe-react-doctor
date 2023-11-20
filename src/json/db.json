@@ -13,225 +13,223 @@
       "RegistrationLetter": "http://example.com/registration.pdf"
     }
   },
-  
   "roomchat": {
     "userId": "192819281ajsajs",
     "name": "Firnando",
     "isOnline": true,
     "hasPermitted": true,
     "messages": [
-        {
-          "author": "user",
-          "content": "Halo dokter!",
-          "date": "2023-11-09T12:50:26.000Z",
-          "type": "text",
-          "status": "read"
+      {
+        "author": "user",
+        "content": "Halo dokter!",
+        "date": "2023-11-09T12:50:26.000Z",
+        "type": "text",
+        "status": "read"
+      },
+      {
+        "author": "doctor",
+        "content": "Halo ada yang bisa saya bantu?",
+        "date": "2023-11-09T12:51:26.000Z",
+        "type": "text",
+        "status": "read"
+      },
+      {
+        "author": "user",
+        "content": "Iya dokter, saya ingin periksa",
+        "date": "2023-11-09T12:52:26.000Z",
+        "type": "text",
+        "status": "unread"
+      },
+      {
+        "author": "user",
+        "content": "https://images.unsplash.com/photo-1606618742139-a5f068a9f16a?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "date": "2023-11-09T12:53:26.000Z",
+        "type": "image",
+        "status": "unread"
+      },
+      {
+        "author": "doctor",
+        "content": "Tentu, saya siap membantu. Silakan jelaskan gejala yang Anda rasakan.",
+        "date": "2023-11-09T12:54:26.000Z",
+        "type": "text",
+        "status": "unread"
+      },
+      {
+        "author": "user",
+        "content": "Saya merasa pusing dan sakit tenggorokan.",
+        "date": "2023-11-09T12:55:26.000Z",
+        "type": "text",
+        "status": "unread"
+      },
+      {
+        "author": "user",
+        "content": "Apakah ini gejala flu?",
+        "date": "2023-11-09T12:56:26.000Z",
+        "type": "text",
+        "status": "unread"
+      },
+      {
+        "author": "doctor",
+        "content": "Gejala yang Anda sebutkan dapat mengindikasikan flu, tetapi saya perlu beberapa informasi lebih lanjut. Apakah Anda juga mengalami demam atau batuk?",
+        "date": "2023-11-09T12:57:26.000Z",
+        "type": "text",
+        "status": "unread"
+      },
+      {
+        "author": "user",
+        "content": "Iya, saya juga mengalami demam.",
+        "date": "2023-11-09T12:58:26.000Z",
+        "type": "text",
+        "status": "unread"
+      },
+      {
+        "author": "user",
+        "content": "Bagaimana saya bisa meredakan gejala flu ini?",
+        "date": "2023-11-09T12:59:26.000Z",
+        "type": "text",
+        "status": "unread"
+      },
+      {
+        "author": "doctor",
+        "content": "Anda bisa mencoba minum banyak air, beristirahat, dan mengonsumsi obat pereda gejala flu seperti parasetamol. Jika gejalanya memburuk, segera berkonsultasi dengan dokter.",
+        "date": "2023-11-09T13:00:26.000Z",
+        "type": "text",
+        "status": "unread"
+      },
+      {
+        "author": "doctor",
+        "content": "asasas",
+        "type": "text",
+        "date": "2023-11-14T13:24:12.315Z",
+        "status": "unread"
+      },
+      {
+        "author": "doctor",
+        "content": "asasas",
+        "type": "text",
+        "date": "2023-11-14T13:24:13.492Z",
+        "status": "unread"
+      },
+      {
+        "author": "doctor",
+        "content": "sasas",
+        "type": "text",
+        "date": "2023-11-14T13:24:14.610Z",
+        "status": "unread"
+      },
+      {
+        "author": "doctor",
+        "content": "😂🥺🥹😅",
+        "type": "text",
+        "date": "2023-11-14T13:24:22.706Z",
+        "status": "unread"
+      },
+      {
+        "author": "doctor",
+        "content": {
+          "blob": {},
+          "url": "blob:http://localhost:5173/bf6f7ba9-369e-4911-9f46-a19605eb6090",
+          "type": "audio/wav"
         },
-        {
-          "author": "doctor",
-          "content": "Halo ada yang bisa saya bantu?",
-          "date": "2023-11-09T12:51:26.000Z",
-          "type": "text",
-          "status": "read"
+        "type": "audio",
+        "date": "2023-11-14T13:24:29.191Z",
+        "status": "unread"
+      },
+      {
+        "author": "doctor",
+        "content": "ksasas",
+        "type": "text",
+        "date": "2023-11-14T13:26:19.901Z",
+        "status": "unread"
+      },
+      {
+        "author": "doctor",
+        "content": "asasa",
+        "type": "text",
+        "date": "2023-11-14T13:26:21.060Z",
+        "status": "unread"
+      },
+      {
+        "author": "doctor",
+        "content": {
+          "blob": {},
+          "url": "blob:http://localhost:5173/6bb59fbe-0ed9-47fa-b519-73ab9c3960ae",
+          "type": "audio/wav"
         },
-        {
-          "author": "user",
-          "content": "Iya dokter, saya ingin periksa",
-          "date": "2023-11-09T12:52:26.000Z",
-          "type": "text",
-          "status": "unread"
+        "type": "audio",
+        "date": "2023-11-15T12:01:53.154Z",
+        "status": "unread"
+      },
+      {
+        "author": "doctor",
+        "content": "klklklkl",
+        "type": "text",
+        "date": "2023-11-15T12:02:12.600Z",
+        "status": "unread"
+      },
+      {
+        "author": "doctor",
+        "content": "llllll",
+        "type": "text",
+        "date": "2023-11-15T12:02:14.520Z",
+        "status": "unread"
+      },
+      {
+        "author": "doctor",
+        "content": {
+          "blob": {},
+          "url": "blob:http://localhost:5173/d8b3b485-282c-4b86-92c9-9b71d7ae48ca",
+          "type": "audio/wav"
         },
-        {
-          "author": "user",
-          "content": "https://images.unsplash.com/photo-1606618742139-a5f068a9f16a?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-          "date": "2023-11-09T12:53:26.000Z",
-          "type": "image",
-          "status": "unread"
+        "type": "audio",
+        "date": "2023-11-15T13:04:41.282Z",
+        "status": "unread"
+      },
+      {
+        "author": "doctor",
+        "content": {
+          "blob": {},
+          "url": "blob:http://localhost:5173/3853d053-0198-456e-a831-64da207e8f02",
+          "type": "audio/wav"
         },
-        {
-          "author": "doctor",
-          "content": "Tentu, saya siap membantu. Silakan jelaskan gejala yang Anda rasakan.",
-          "date": "2023-11-09T12:54:26.000Z",
-          "type": "text",
-          "status": "unread"
+        "type": "audio",
+        "date": "2023-11-15T13:04:43.488Z",
+        "status": "unread"
+      },
+      {
+        "author": "doctor",
+        "content": {
+          "blob": {},
+          "url": "blob:http://localhost:5173/922ae6ab-ae4e-48ac-a1b6-1757a6da2a69",
+          "type": "audio/wav"
         },
-        {
-          "author": "user",
-          "content": "Saya merasa pusing dan sakit tenggorokan.",
-          "date": "2023-11-09T12:55:26.000Z",
-          "type": "text",
-          "status": "unread"
-        },
-        {
-          "author": "user",
-          "content": "Apakah ini gejala flu?",
-          "date": "2023-11-09T12:56:26.000Z",
-          "type": "text",
-          "status": "unread"
-        },
-        {
-          "author": "doctor",
-          "content": "Gejala yang Anda sebutkan dapat mengindikasikan flu, tetapi saya perlu beberapa informasi lebih lanjut. Apakah Anda juga mengalami demam atau batuk?",
-          "date": "2023-11-09T12:57:26.000Z",
-          "type": "text",
-          "status": "unread"
-        },
-        {
-          "author": "user",
-          "content": "Iya, saya juga mengalami demam.",
-          "date": "2023-11-09T12:58:26.000Z",
-          "type": "text",
-          "status": "unread"
-        },
-        {
-          "author": "user",
-          "content": "Bagaimana saya bisa meredakan gejala flu ini?",
-          "date": "2023-11-09T12:59:26.000Z",
-          "type": "text",
-          "status": "unread"
-        },
-        {
-          "author": "doctor",
-          "content": "Anda bisa mencoba minum banyak air, beristirahat, dan mengonsumsi obat pereda gejala flu seperti parasetamol. Jika gejalanya memburuk, segera berkonsultasi dengan dokter.",
-          "date": "2023-11-09T13:00:26.000Z",
-          "type": "text",
-          "status": "unread"
-        },
-        {
-          "author": "doctor",
-          "content": "asasas",
-          "type": "text",
-          "date": "2023-11-14T13:24:12.315Z",
-          "status": "unread"
-        },
-        {
-          "author": "doctor",
-          "content": "asasas",
-          "type": "text",
-          "date": "2023-11-14T13:24:13.492Z",
-          "status": "unread"
-        },
-        {
-          "author": "doctor",
-          "content": "sasas",
-          "type": "text",
-          "date": "2023-11-14T13:24:14.610Z",
-          "status": "unread"
-        },
-        {
-          "author": "doctor",
-          "content": "😂🥺🥹😅",
-          "type": "text",
-          "date": "2023-11-14T13:24:22.706Z",
-          "status": "unread"
-        },
-        {
-          "author": "doctor",
-          "content": {
-            "blob": {},
-            "url": "blob:http://localhost:5173/bf6f7ba9-369e-4911-9f46-a19605eb6090",
-            "type": "audio/wav"
-          },
-          "type": "audio",
-          "date": "2023-11-14T13:24:29.191Z",
-          "status": "unread"
-        },
-        {
-          "author": "doctor",
-          "content": "ksasas",
-          "type": "text",
-          "date": "2023-11-14T13:26:19.901Z",
-          "status": "unread"
-        },
-        {
-          "author": "doctor",
-          "content": "asasa",
-          "type": "text",
-          "date": "2023-11-14T13:26:21.060Z",
-          "status": "unread"
-        },
-        {
-          "author": "doctor",
-          "content": {
-            "blob": {},
-            "url": "blob:http://localhost:5173/6bb59fbe-0ed9-47fa-b519-73ab9c3960ae",
-            "type": "audio/wav"
-          },
-          "type": "audio",
-          "date": "2023-11-15T12:01:53.154Z",
-          "status": "unread"
-        },
-        {
-          "author": "doctor",
-          "content": "klklklkl",
-          "type": "text",
-          "date": "2023-11-15T12:02:12.600Z",
-          "status": "unread"
-        },
-        {
-          "author": "doctor",
-          "content": "llllll",
-          "type": "text",
-          "date": "2023-11-15T12:02:14.520Z",
-          "status": "unread"
-        },
-        {
-          "author": "doctor",
-          "content": {
-            "blob": {},
-            "url": "blob:http://localhost:5173/d8b3b485-282c-4b86-92c9-9b71d7ae48ca",
-            "type": "audio/wav"
-          },
-          "type": "audio",
-          "date": "2023-11-15T13:04:41.282Z",
-          "status": "unread"
-        },
-        {
-          "author": "doctor",
-          "content": {
-            "blob": {},
-            "url": "blob:http://localhost:5173/3853d053-0198-456e-a831-64da207e8f02",
-            "type": "audio/wav"
-          },
-          "type": "audio",
-          "date": "2023-11-15T13:04:43.488Z",
-          "status": "unread"
-        },
-        {
-          "author": "doctor",
-          "content": {
-            "blob": {},
-            "url": "blob:http://localhost:5173/922ae6ab-ae4e-48ac-a1b6-1757a6da2a69",
-            "type": "audio/wav"
-          },
-          "type": "audio",
-          "date": "2023-11-15T13:04:45.715Z",
-          "status": "unread"
-        },
-        {
-          "author": "doctor",
-          "content": "😅🤣😂😂",
-          "type": "text",
-          "date": "2023-11-15T13:04:59.556Z",
-          "status": "unread"
-        },
-        {
-          "author": "doctor",
-          "content": "🫥🥺🤘",
-          "type": "text",
-          "date": "2023-11-15T13:08:26.293Z",
-          "status": "unread"
-        },
-        {
-          "author": "doctor",
-          "content": "asasasa",
-          "type": "text",
-          "date": "2023-11-15T13:08:33.740Z",
-          "status": "unread"
-        }
+        "type": "audio",
+        "date": "2023-11-15T13:04:45.715Z",
+        "status": "unread"
+      },
+      {
+        "author": "doctor",
+        "content": "😅🤣😂😂",
+        "type": "text",
+        "date": "2023-11-15T13:04:59.556Z",
+        "status": "unread"
+      },
+      {
+        "author": "doctor",
+        "content": "🫥🥺🤘",
+        "type": "text",
+        "date": "2023-11-15T13:08:26.293Z",
+        "status": "unread"
+      },
+      {
+        "author": "doctor",
+        "content": "asasasa",
+        "type": "text",
+        "date": "2023-11-15T13:08:33.740Z",
+        "status": "unread"
+      }
     ]
   },
-  
   "doctors": {
     "meta": {
       "success": true,
@@ -256,66 +254,86 @@
       }
     ]
   },
-  
-  "articles": [
-    {
-      "title": "Robotika: Robotika Masa Depan",
-      "content": "Robotika telah menjadi tulang punggung dalam inovasi teknologi. Dari otomatisasi industri hingga asisten rumah pintar, perkembangan robotika terus membuka jalan bagi solusi canggih yang mempengaruhi kehidupan sehari-hari.",
-      "date": "Okt, 2023"
+  "articles": {
+    "meta": {
+      "success": true,
+      "message": "Profil Dokter berhasil diambil"
     },
-    {
-      "title": "Perkembangan AI: Masa Depan Teknologi",
-      "content": "Keberhasilan Artificial Intelligence (AI) dalam mengubah cara kita berinteraksi dengan teknologi membuka peluang luas untuk pengembangan lebih lanjut. Dari kecerdasan buatan hingga pemrosesan bahasa alami, AI menjadi tulang punggung transformasi digital di berbagai sektor.",
-      "date": "Nov, 2023"
-    }
-  ],
-  
-  "consultations": [
-    {
-      "name": "John Doe",
-      "gender": "Male",
-      "date": "18 Sep 2023",
-      "time": "10.00 AM"
+    "results": [
+      {
+        "title": "Robotika: Robotika Masa Depan",
+        "content": "Robotika telah menjadi tulang punggung dalam inovasi teknologi. Dari otomatisasi industri hingga asisten rumah pintar, perkembangan robotika terus membuka jalan bagi solusi canggih yang mempengaruhi kehidupan sehari-hari.",
+        "date": "Okt, 2023"
+      },
+      {
+        "title": "Perkembangan AI: Masa Depan Teknologi",
+        "content": "Keberhasilan Artificial Intelligence (AI) dalam mengubah cara kita berinteraksi dengan teknologi membuka peluang luas untuk pengembangan lebih lanjut. Dari kecerdasan buatan hingga pemrosesan bahasa alami, AI menjadi tulang punggung transformasi digital di berbagai sektor.",
+        "date": "Nov, 2023"
+      }
+    ]
+  },
+  "consultations": {
+    "meta": {
+      "success": true,
+      "message": "Profil Dokter berhasil diambil"
     },
-    {
-      "name": "Jane Smith",
-      "gender": "Female",
-      "date": "19 Sep 2023",
-      "time": "11.30 AM"
-    }
-  ],
-  
-  "recent-patient": [
-    {
-      "name": "John Doe",
-      "gender": "Male",
-      "weight": 70,
-      "discase": "Fever",
-      "date": "2020-10-15",
-      "status": "Active"
+    "results": [
+      {
+        "name": "John Doe",
+        "gender": "Male",
+        "date": "18 Sep 2023",
+        "time": "10.00 AM"
+      },
+      {
+        "name": "Jane Smith",
+        "gender": "Female",
+        "date": "19 Sep 2023",
+        "time": "11.30 AM"
+      }
+    ]
+  },
+  "recent-patient": {
+    "meta": {
+      "success": true,
+      "message": "Profil Dokter berhasil diambil"
     },
-    {
-      "name": "Jane Smith",
-      "gender": "Female",
-      "weight": 65,
-      "discase": "Cough",
-      "date": "2020-10-16",
-      "status": "Inactive"
-    }
-  ],
-  
-  "user-chat": [
-    {
-      "name": "John Doe",
-      "date": "15 Sep",
-      "message": "Hello, doctor.",
-      "image": "https://i.pinimg.com/originals/6e/9f/de/6e9fde5bb22b69e94212220cfa6d9c4d.jpg"
+    "results": [
+      {
+        "name": "John Doe",
+        "gender": "Male",
+        "weight": 70,
+        "discase": "Fever",
+        "date": "2020-10-15",
+        "status": "Active"
+      },
+      {
+        "name": "Jane Smith",
+        "gender": "Female",
+        "weight": 65,
+        "discase": "Cough",
+        "date": "2020-10-16",
+        "status": "Inactive"
+      }
+    ]
+  },
+  "user-chat": {
+    "meta": {
+      "success": true,
+      "message": "Profil Dokter berhasil diambil"
     },
-    {
-      "name": "Jane Smith",
-      "date": "16 Sep",
-      "message": "I have been experiencing some chest pain.",
-      "image": "https://i.pinimg.com/originals/1a/46/45/1a464556551f12730be1887a95e4f2a9.jpg"
-    }
-  ]
+    "results": [
+      {
+        "name": "John Doe",
+        "date": "15 Sep",
+        "message": "Hello, doctor.",
+        "image": "https://i.pinimg.com/originals/6e/9f/de/6e9fde5bb22b69e94212220cfa6d9c4d.jpg"
+      },
+      {
+        "name": "Jane Smith",
+        "date": "16 Sep",
+        "message": "I have been experiencing some chest pain.",
+        "image": "https://i.pinimg.com/originals/1a/46/45/1a464556551f12730be1887a95e4f2a9.jpg"
+      }
+    ]
+  }
 }
