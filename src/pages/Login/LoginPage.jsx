@@ -4,12 +4,12 @@ import styles from './LoginPage.module.css'
 const LoginPage = () => {
 
     return (
-        <div className="p-5 w-full" style={styles.LoginPage}>
-            <div className="row">
-                <div className="col-md-5 col-lg-6 col-sm-6">
+        <div className="container" style={styles.LoginPage}>
+            <div className="row h-100 align-items-center">
+                <div className="col-lg-7">
                     <img width={550} height={400} src='../../../public/loginimg.png'/>
                 </div>
-                <div className="col-md-5 col-lg-6 col-sm-6" >
+                <div className="col-lg-5" >
                     <LoginForm />
                 </div>
             </div>
