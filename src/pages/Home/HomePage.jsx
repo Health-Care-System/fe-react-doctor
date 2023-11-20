@@ -21,14 +21,14 @@ const HomePage = () => {
   const fetchData = async () => {
     try {
       const [userChatResponse, konsultasiResponse, artikelResponse] = await Promise.all([
-        axios.get('/src/json/userChat-patients.json'),
-        axios.get('/src/json/konsultasi-patients.json'),
-        axios.get('/src/json/article-patients.json')
+        axios.get('http://localhost:3000/user-chat'),
+        axios.get('http://localhost:3000/recent-patient'),
+        axios.get('http://localhost:3000/articles')
       ]);
-
-      setUserChatData(userChatResponse.data);
-      setKonsultasiData(konsultasiResponse.data);
-      setArtikelData(artikelResponse.data);
+      
+      setUserChatData(userChatResponse.data.results);
+      setKonsultasiData(konsultasiResponse.data.results);
+      setArtikelData(artikelResponse.data.results);
     } catch (error) {
       setError('Terjadi kesalahan saat mengambil data: ' + error.message);
     }

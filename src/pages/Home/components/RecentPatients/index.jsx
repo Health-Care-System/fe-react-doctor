@@ -13,8 +13,8 @@ export const RecentPatient = () => {
 
     async function getpatientsData() {
       try {
-        const response = await axios.get('/src/json/table-recent-patients.json');
-        setPatientsData(response.data);
+        const response = await axios.get('http://localhost:3000/recent-patient');
+        setPatientsData(response.data.results);
       } catch (error) {
         setError('Terjadi kesalahan saat mengambil data: ' + error.message);
       }
