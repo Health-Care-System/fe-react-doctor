@@ -7,28 +7,96 @@
 p {
   margin: 0;
 }
-
-.drawer-content {
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	height: 100%;
+body{
+  background-color: #F8F8F8;
 }
 
+/* Styling scroll bar for Chrome */
+::-webkit-scrollbar {
+  width: 2px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F2F2F2;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #BDBDBD;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6E6E6E;
+}
+
+
+/* Utiliy class */
+.-mt-5{
+  margin-top: -1.25rem;
+}
+
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+}
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;  
   overflow: hidden;
 }
+.bg-neutral-300 {
+  background-color: #ECECEC;
+}
+.bg-grey-300 {
+  background-color: #ccc;
+}
+.bg-green-100 {
+  background-color: #2db794;
+}
+.bg-green-300 {
+  background-color: #003240;
+}
+.bg-success-100 { 
+  background-color: #6FE188;
+}
+.text-royal-blue{
+  color: #0B3048;
+}
+.avatar {
+  vertical-align: middle;
+  border-radius: 50%;
+}
+
+/* Styling bootstrap class */
+.btn-outline-primary {
+	--bs-btn-active-color: #fff;
+}
+.btn-outline-primary{
+  color: #5A6A9D;
+  border-radius: 0.75rem;
+}
+.btn-group{
+  border-radius: 0.75rem;
+}
+
+.drawer-content {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+}
+
+
 
 /* Component Bubble CSS */
 .bubble {
-	height: auto;
-	width: auto;
 	max-width: 16.5rem;
 }
-
 
 
 /* Small devices (landscape phones, 576px and up) */
@@ -43,3 +111,11 @@ p {
 		margin-left: 17rem;
 	}
  }
+
+@media (min-width: 992) {
+  .flex-xl-row {
+    display: flex;
+    flex-direction: column;
+  }
+}
+

@@ -1,0 +1,14 @@
+.card-wrapper {
+    width: fit-content;
+}
+
+.icon{
+    display: flex;
+    padding: 7.727px;
+    justify-content: center;
+    align-items: center;
+    gap: 7.727px;
+    border-radius: 26.273px;
+    border: 0.5px solid var(--neutrals-darker, #000);
+    background: #FFF;
+}

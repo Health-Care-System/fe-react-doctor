@@ -1,19 +1,20 @@
 // Color
 $primary: #008772;
 $success: #199E50;
+$secondary: #4E4E4E;
 $info: #1766D7;
 $warning: #FCD200;
 $danger: #D8243C;
+$color-text: #ffffff;
+$light-subtle: #ECECEC;
+
+// Button
 
 // Typography
 $font-family-base: 'Inter', sans-serif;
 
 h1 {
   font-size: 6rem !important;
-}
-
-h2 {
-  font-size: 4rem !important;
 }
 
 h3 {
@@ -31,6 +32,9 @@ h5 {
 h6 {
   font-size: 1rem !important;
 }
+th {
+  font-weight: 600;
+}
 
 $font-weight-bold: 800;
 
@@ -39,7 +43,7 @@ $font-sizes: (
   2: 1.25rem,
   3: 1rem,
   4: 0.75rem,
-  5: 0.5rem,
+  5: 0.625rem,
   6: 0.25rem
 );
 
