@@ -1,6 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import { getDoctorProfile } from '../../services/DoctorService';
+import { useProfile } from '../../services/DoctorService';
 
 import { Button } from '../ui/Button';
 import { ProfileSkeleton } from '../ui/Skeleton/ProfileSkeleton';
@@ -11,14 +10,14 @@ import { menus } from '../../utils/dataObject';
 import './Sidebar.css'
 
 const ProfileDoctor = () => {
-  const { isError, data, isFetching, refetch } = useQuery({
-    queryKey: ['profile'],
-    queryFn: async () => {
-      return await getDoctorProfile();
-    }
-  });
-    
-  if (isError || (!data?.meta.success)) {
+  const {
+    data,
+    refetch,
+    isError,
+    isFetching,
+  } = useProfile();
+
+  if (isError) {
     return (
       <div className='d-flex flex-column gap-2 my-5 justify-content-center'>
         <p>Gagal memuat data</p>
@@ -30,7 +29,7 @@ const ProfileDoctor = () => {
       </div>
     );
   }
-  
+
 
   if (isFetching) {
     return <ProfileSkeleton />;
