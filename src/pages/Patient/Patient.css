@@ -3,6 +3,6 @@
 }
 @media (min-width: 768px) {
   .table-wrapper {
-    max-width: calc(100vw - 21rem);
+    max-width: calc(100vw - 11rem);
   }
 }
