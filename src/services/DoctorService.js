@@ -1,9 +1,9 @@
 /* eslint-disable no-useless-catch */
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import client from "../utils/auth";
 
 export const getDoctorProfile = async () => {
-  const res = await axios.get('http://localhost:3000/profile');
+  const res = await client.get('http://localhost:3000/profile');
       
   return res.data;
 };

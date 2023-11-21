@@ -1,5 +1,4 @@
-import axios from "axios";
-// Class baru untuk membuat sebuah object chat
+import client from "../utils/auth";
 export const createMessage = (author, content, type) => {
   return {
     author,
@@ -12,14 +11,14 @@ export const createMessage = (author, content, type) => {
 
 export const fetchUserChat = async () => {
   const query = import.meta.env.VITE_MOCK_USER_API;
-  return await axios.get(`${query}/users`);
+  return await client.get(`${query}/users`);
 }
 
 export const getRoomChat = async () => {
-  const res = await axios.get('http://localhost:3000/roomchat');
+  const res = await client.get('http://localhost:3000/roomchat');
   return res.data;
 }
 
 export const postMessage = async (newData) => {
-  return await axios.post('http://localhost:3000/roomchat', newData)
+  return await client.post('http://localhost:3000/roomchat', newData)
 }

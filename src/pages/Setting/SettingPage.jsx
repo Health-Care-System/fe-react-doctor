@@ -1,10 +1,10 @@
 const SettingPage = () => {
 
-    return (
-        <>
-            <h2>Pengaturan</h2>
-        </>
-    )
+  return (
+    <>
+      <h2>Pengaturan</h2>
+    </>
+  )
 }
 
 
