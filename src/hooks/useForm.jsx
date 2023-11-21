@@ -1,3 +1,3 @@
-export const useForm = () => {
+export const useForm = ({error, fields}) => {
     
 }
