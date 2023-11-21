@@ -11,7 +11,6 @@ export const Chatbody = () => {
   const { bottomRef, scrollToBottom } = useAutoScroll()
 
   // Setup query client buat fetching data messages ke BE nantinya, 
-  // sementara masih nge-spread/cloning data array [messages]
   const queryClient = useQueryClient();
   const chatsQuery = useQuery({
     queryKey: ['chats'],
@@ -19,7 +18,6 @@ export const Chatbody = () => {
       return await getRoomChat()
     }
   })
-
 
   // Buat mutasi/edit data chat misal kirim pesan
   const newMsgMutation = useMutation({
@@ -46,7 +44,7 @@ export const Chatbody = () => {
   const onEnter = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      // Kode berikut akan mengirim atau push data object baru yang dibuat dari sebuah Class, 
+      // Kode berikut akan mengirim atau push data object baru, 
       // nantinya data baru ini akan dipush ke dalam array chats
       newMsgMutation.mutate(createMessage('doctor', message, 'text'))
       setMessage('')
@@ -56,9 +54,6 @@ export const Chatbody = () => {
   const handleVoiceRecorder = (recorder) => {
     newMsgMutation.mutate(createMessage('doctor', recorder, 'audio'))
   }
-  
-  console.log(chatsQuery)
-
 
   return (
     <>

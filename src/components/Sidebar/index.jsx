@@ -83,7 +83,7 @@ export const Sidebar = () => {
                         alt={item.label}
                       />
                       {item.label}
-                    </div>
+                    </div>  
                   )}
                 </NavLink>
               </li>
