@@ -1,4 +1,18 @@
 {
+  "profile": {
+    "meta": {
+      "success": true,
+      "message": "Profil Dokter berhasil diambil"
+    },
+    "results": {
+      "Fullname": "Dr. Dewi Ayu",
+      "Email": "dewiayu@gmail.com",
+      "Price": 12000000,
+      "Tag": "Spesialis Umum",
+      "ProfilePicture": "https://ucarecdn.com/4401df17-4b9d-4f67-bf2d-3b6e2b0f611f/fbf2b34b5a54126a279c87acd816f623.png",
+      "RegistrationLetter": "http://example.com/registration.pdf"
+    }
+  },
   "roomchat": {
     "userId": "192819281ajsajs",
     "name": "Firnando",
@@ -213,6 +227,126 @@
         "type": "text",
         "date": "2023-11-15T13:08:33.740Z",
         "status": "unread"
+      },
+      {
+        "author": "doctor",
+        "content": "kuw",
+        "type": "text",
+        "date": "2023-11-20T05:33:35.800Z",
+        "status": "unread"
+      },
+      {
+        "author": "doctor",
+        "content": "asas",
+        "type": "text",
+        "date": "2023-11-20T05:33:41.079Z",
+        "status": "unread"
+      }
+    ]
+  },
+  "doctors": {
+    "meta": {
+      "success": true,
+      "message": "Data Pengguna Berhasil Diambil"
+    },
+    "results": [
+      {
+        "Fullname": "mutia khoirunniza",
+        "Email": "doctor1's email",
+        "Price": 120000,
+        "Tag": "doctor1's tag",
+        "ProfilePicture": "doctor1's profile picture",
+        "RegistrationLetter": "doctor1's registration letter"
+      },
+      {
+        "Fullname": "doctor2's fullname",
+        "Email": "doctor2's email",
+        "Price": 140000,
+        "Tag": "doctor2's tag",
+        "ProfilePicture": "doctor2's profile picture",
+        "RegistrationLetter": "doctor2's registration letter"
+      }
+    ]
+  },
+  "articles": {
+    "meta": {
+      "success": true,
+      "message": "Profil Dokter berhasil diambil"
+    },
+    "results": [
+      {
+        "title": "Robotika: Robotika Masa Depan",
+        "content": "Robotika telah menjadi tulang punggung dalam inovasi teknologi. Dari otomatisasi industri hingga asisten rumah pintar, perkembangan robotika terus membuka jalan bagi solusi canggih yang mempengaruhi kehidupan sehari-hari.",
+        "date": "Okt, 2023"
+      },
+      {
+        "title": "Perkembangan AI: Masa Depan Teknologi",
+        "content": "Keberhasilan Artificial Intelligence (AI) dalam mengubah cara kita berinteraksi dengan teknologi membuka peluang luas untuk pengembangan lebih lanjut. Dari kecerdasan buatan hingga pemrosesan bahasa alami, AI menjadi tulang punggung transformasi digital di berbagai sektor.",
+        "date": "Nov, 2023"
+      }
+    ]
+  },
+  "consultations": {
+    "meta": {
+      "success": true,
+      "message": "Profil Dokter berhasil diambil"
+    },
+    "results": [
+      {
+        "name": "John Doe",
+        "gender": "Male",
+        "date": "18 Sep 2023",
+        "time": "10.00 AM"
+      },
+      {
+        "name": "Jane Smith",
+        "gender": "Female",
+        "date": "19 Sep 2023",
+        "time": "11.30 AM"
+      }
+    ]
+  },
+  "recent-patient": {
+    "meta": {
+      "success": true,
+      "message": "Profil Dokter berhasil diambil"
+    },
+    "results": [
+      {
+        "name": "John Doe",
+        "gender": "Male",
+        "weight": 70,
+        "discase": "Fever",
+        "date": "2020-10-15",
+        "status": "Active"
+      },
+      {
+        "name": "Jane Smith",
+        "gender": "Female",
+        "weight": 65,
+        "discase": "Cough",
+        "date": "2020-10-16",
+        "status": "Inactive"
+      }
+    ]
+  },
+  "user-chat": {
+    "meta": {
+      "success": true,
+      "message": "Profil Dokter berhasil diambil"
+    },
+    "results": [
+      {
+        "name": "John Doe",
+        "date": "15 Sep",
+        "message": "Hello, doctor.",
+        "image": "https://i.pinimg.com/originals/6e/9f/de/6e9fde5bb22b69e94212220cfa6d9c4d.jpg"
+      },
+      {
+        "name": "Jane Smith",
+        "date": "16 Sep",
+        "message": "I have been experiencing some chest pain.",
+        "image": "https://i.pinimg.com/originals/1a/46/45/1a464556551f12730be1887a95e4f2a9.jpg"
       }
     ]
   }

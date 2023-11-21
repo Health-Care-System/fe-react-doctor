@@ -4,7 +4,7 @@ export const UserChat = ({ name, image, message, date }) => {
     <>
       <div className="d-inline-flex align-items-center gap-3">
         <div className="text-center mb-md-2 mt-md-2">
-          <img src={image} width={50} alt="" />
+          <img src={image} width={35} height={35} className="rounded-circle"  alt="" />
         </div>
         <div className="d-flex flex-column w-100">
           <div className="d-flex justify-content-between">

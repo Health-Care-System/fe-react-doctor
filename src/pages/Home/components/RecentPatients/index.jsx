@@ -1,27 +1,28 @@
+import { useEffect, useState } from 'react';
 import personIcon from '../../../../assets/icon/person.svg'
 import { Button } from "../../../../components/ui/Button";
+import axios from 'axios';
 
 export const RecentPatient = () => {
-    const patientData = [
-        {
-          name: 'Jane Smith',
-          gender: 'Female',
-          weight: '65 kg',
-          discase: 'Another Disease',
-          date: '2023-11-10',
-          status: 'Inactive',
-          image: 'path/to/image2.jpg',
-        },
-        {
-          name: 'Jane Smith',
-          gender: 'Female',
-          weight: '65 kg',
-          discase: 'Another Disease',
-          date: '2023-11-10',
-          status: 'Inactive',
-          image: 'path/to/image2.jpg',
-        },
-      ];
+    const [patientsData, setPatientsData] = useState([]);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+      getpatientsData();
+    }, []);
+
+    async function getpatientsData() {
+      try {
+        const response = await axios.get('http://localhost:3000/recent-patient');
+        setPatientsData(response.data.results);
+      } catch (error) {
+        setError('Terjadi kesalahan saat mengambil data: ' + error.message);
+      }
+    }
+
+    if (error) {
+      return <div>Error: {error}</div>;
+    }
 
     return (
       <>
@@ -38,7 +39,7 @@ export const RecentPatient = () => {
                     </tr>
                 </thead>
                 <tbody>
-                  {patientData.map((patient, index) => (
+                  {patientsData.map((patient, index) => (
                     <tr key={index}>
                       <td className="d-flex flex-row align-items-center gap-2 text-nowrap">
                         <div className="rounded-circle border border-1 border-dark">

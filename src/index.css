@@ -66,6 +66,10 @@ body{
 .text-royal-blue{
   color: #0B3048;
 }
+.avatar {
+  vertical-align: middle;
+  border-radius: 50%;
+}
 
 /* Styling bootstrap class */
 .btn-outline-primary {
