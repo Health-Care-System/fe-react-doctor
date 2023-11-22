@@ -57,6 +57,11 @@
   height: 13.375rem;
 }
 
+.list-chat-content:hover {
+  background: #ededed;
+  border-radius: .25rem;
+}
+
 @media (min-width: 768px) {
   .table_pasien_content {
     display: flex;

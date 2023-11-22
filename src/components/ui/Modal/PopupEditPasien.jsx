@@ -24,12 +24,18 @@ import avatarIcon from "../../../assets/icon/avatar.svg";
 import { Input, Select } from "../Form";
 
 export const PopupEditPasien = ({ closeModal, patientData }) => {
-  const { name, weight, gender, consultationDate } = patientData;
+  const { name, weight, gender, date, avatar } = patientData;
   const options = [
     { label: "Pilihan 1", value: "option1" },
     { label: "Pilihan 2", value: "option2" },
   ];
 
+  const formatTimestamp = (timestamp) => {
+    const dateObj = timestamp instanceof Date ? timestamp : new Date(timestamp);
+  
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return dateObj.toLocaleDateString("id-ID", options);
+  };
   return (
     <section className={styles.modalBackground}>
       <div className={`mx-2 ${styles.modalContainer}`}>
@@ -47,7 +53,7 @@ export const PopupEditPasien = ({ closeModal, patientData }) => {
         <div className={`container ${styles.modalBody}`}>
           <div className={`justify-content-between align-items-start py-3 py-lg-4 d-lg-flex ${styles.modalContent}`}>
             <img
-              src={avatarIcon}
+              src={avatar || avatarIcon }
               alt="avatarIcon"
               className={styles.avatarIcon}
             />
@@ -56,7 +62,7 @@ export const PopupEditPasien = ({ closeModal, patientData }) => {
                 { label: "Nama Pasien", value: name },
                 { label: "Berat Badan", value: weight },
                 { label: "Jenis Kelamin", value: gender },
-                { label: "Tanggal Konsultasi", value: consultationDate },
+                { label: "Tanggal Konsultasi", value: formatTimestamp(date) },
               ].map((item, index) => (
                 <div key={index} className={styles.font__size}>
                   <p className="fw-semibold ">{item.label}</p>

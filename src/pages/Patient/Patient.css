@@ -6,3 +6,15 @@
     max-width: calc(100vw - 11rem);
   }
 }
+
+.chat_dashboard {
+  padding: 0.9375rem; 
+  width: 100%;
+  height: 13.375rem;
+}
+
+@media (min-width: 1023.98px) {
+  .chat_dashboard {
+    max-width: 17.25rem;
+  }
+}
