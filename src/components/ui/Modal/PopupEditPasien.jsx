@@ -31,11 +31,10 @@ export const PopupEditPasien = ({ closeModal, patientData }) => {
   ];
 
   const formatTimestamp = (timestamp) => {
-    const dateObj = timestamp instanceof Date ? timestamp : new Date(timestamp);
-  
     const options = { year: "numeric", month: "long", day: "numeric" };
-    return dateObj.toLocaleDateString("id-ID", options);
+    return new Date(timestamp).toLocaleDateString("id-ID", options);
   };
+  
   return (
     <section className={styles.modalBackground}>
       <div className={`mx-2 ${styles.modalContainer}`}>

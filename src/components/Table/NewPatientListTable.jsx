@@ -8,13 +8,10 @@ export const NewPatientListTable = ({
   handleUser,
 }) => {
   const formatRupiah = (angka) => {
-    const formatter = new Intl.NumberFormat('id-ID', {
-      style: 'currency',
-      currency: 'IDR',
-      minimumFractionDigits: 0,
-    });
-    return formatter.format(angka);
+    const formatted = `Rp ${angka.toLocaleString('id-ID')}`;
+    return formatted;
   };
+  
   return (
     <table className="table table-transparent">
       <thead>

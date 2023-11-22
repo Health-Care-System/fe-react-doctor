@@ -8,10 +8,8 @@ export const PatientListTable = ({
   onClick,
 }) => {
   const formatTimestamp = (timestamp) => {
-    const dateObj = timestamp instanceof Date ? timestamp : new Date(timestamp);
-  
     const options = { year: "numeric", month: "long", day: "numeric" };
-    return dateObj.toLocaleDateString("id-ID", options);
+    return new Date(timestamp).toLocaleDateString("id-ID", options);
   };
   
   return (
