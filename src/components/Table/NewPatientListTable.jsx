@@ -11,7 +11,6 @@ export const NewPatientListTable = ({
     const formatted = `Rp ${angka.toLocaleString('id-ID')}`;
     return formatted;
   };
-  
   return (
     <table className="table table-transparent">
       <thead>
