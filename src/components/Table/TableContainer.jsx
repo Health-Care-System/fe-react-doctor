@@ -35,7 +35,7 @@ export const TableContainer = ({
           </div>
         }
       </div>
-      <div className="table-responsive table-wrapper" style={{ maxHeight: maxHeight }}>
+      <div className="table-responsive table-wrapper" style={{ height:'fit-content', maxHeight: maxHeight }}>
         <table className="table table-borderless table-striped align-middle" >
           <thead className='sticky-top z-0 '>
             <tr>

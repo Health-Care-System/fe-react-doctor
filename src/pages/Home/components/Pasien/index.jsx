@@ -27,7 +27,7 @@ export const NewPatients = () => {
           isPending={isPending}
           refetch={refetch}
           data={data}
-          ifEmpty={'Tidak ada riwayat transaksi konsultasi dokter!'}
+          ifEmpty={'Tidak Ada Pasien'}
           renderItem={(data, index) => {
             return (
               <tr className="text-nowrap" key={index}>
