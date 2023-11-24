@@ -1,4 +1,4 @@
-.modalBackground {
+.modal_background {
   width: 100%;
   height: 100%;
   top: 0;
@@ -8,11 +8,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1060;
+  z-index: 1060 !important;
   transition: all;
 }
 
-.modalContainer {
+.modal_container {
   width: 100%;
   height: auto;
   bottom: 0;
@@ -30,12 +30,18 @@
   height: 64px;
 }
 
-.font__size {
-  font-size: 0.75rem;
+.input-text {
+  transition: background-color 0.3s, border-color 0.3s;
 }
 
+.input-text:hover {
+  background-color: #FFFFFF !important;
+  border-color: blue !important;
+}
+
+
 @media (min-width: 767.98px) {
-  .modalContainer {
+  .modal_container {
     width: 500px;
     border-radius: 30px;
     background-color: white;
@@ -46,14 +52,11 @@
     padding: 25px;
   }
 
-  .font__size {
-    font-size: 1rem;
-  }
 }
 
 @media (min-width: 1023.98px) {
-  .modalContainer {
-    width: 620px;
+  .modal_container {
+    max-width: 51.25rem;
   }
 
   .avatarIcon {
@@ -61,15 +64,12 @@
     height: 98px;
   }
 
-  .modalContent {
+  .modal_content {
     gap: 80px;
   }
 }
 
 @media (min-width: 1439.98px) {
-	.modalContainer {
-		width: 820px;
-	}
 
 	.avatarIcon {
 		width: 128px;
