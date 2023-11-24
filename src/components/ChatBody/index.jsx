@@ -3,7 +3,7 @@ import { Bubble } from "../ui/Bubble"
 import { NavbarBottomChat, NavbarChat } from "../Navbar"
 import './Chatbody.css'
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { createMessage, getRoomChat, postMessage } from "../../services/ChatService"
+import { createMessage, getRoomChat, postMessage } from "../../services/chat-service"
 import useAutoScroll from "../../hooks/useAutoScroll"
 
 export const Chatbody = () => {

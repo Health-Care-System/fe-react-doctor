@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import client from "../utils/auth";
 
 export const getDoctorProfile = async () => {
-  const res = await client.get('http://localhost:3000/profile');
+  const res = await client.get('http://localhost:3001/profile');
       
   return res.data;
 };

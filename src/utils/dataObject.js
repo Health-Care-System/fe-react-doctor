@@ -86,6 +86,8 @@ export const chatStatus = [
   { id: 3, value: 'recent', label: 'Terkini' },
 ]
 
+export const recentPatientsThead = ["Id Pasien", "Nama Lengkap", "Id Transaksi", "Tgl Konsultasi", "Diagnosis", "Status"]
+export const newPatientsThead = ["Id Pasien", "Nama Lengkap", "Id Transaksi", "Harga", ""]
 
 
 export const dataChart = [
