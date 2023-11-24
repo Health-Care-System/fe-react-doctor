@@ -10,7 +10,7 @@ import { ChatDashboardCard } from "../../components/ui/Cards";
 import { PopupEditPasien } from "../../components/ui/Modal/PopupEditPasien";
 import { Input } from "../../components/ui/Form";
 
-import { fetchUserData } from '../../services/PatientService'
+import { fetchUserData } from '../../services/patient-service'
 
 import "./Patient.css";
 

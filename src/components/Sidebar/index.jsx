@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { useProfile } from '../../services/DoctorService';
+import { useProfile } from '../../services/doctor-service';
 
 import { Button } from '../ui/Button';
 import { ProfileSkeleton } from '../ui/Skeleton/ProfileSkeleton';
@@ -83,7 +83,7 @@ export const Sidebar = () => {
                         alt={item.label}
                       />
                       {item.label}
-                    </div>
+                    </div>  
                   )}
                 </NavLink>
               </li>
