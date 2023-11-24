@@ -80,3 +80,23 @@
     max-width: 17.25rem;
   }
 }
+
+.avatar_icon {
+  width: 3.125rem;
+  height: 3.125rem;
+}
+
+.chat {
+  width: 200px; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  flex: 1 0 0;
+}
+
+.message {
+  height: auto;
+  max-height: 12.6875rem;
+}

@@ -13,7 +13,7 @@ export const NewPatientListTable = ({
   };
   
   return (
-    <table className="table table-transparent">
+    <table className="table table-transparent table-hover table-striped table-info table-borderless ">
       <thead>
         <tr>
           <th scope="col">Id Pasien </th>
