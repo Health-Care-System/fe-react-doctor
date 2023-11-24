@@ -1,9 +1,11 @@
+import avatarIcon from '../../../assets/icon/avatar.svg'
+
 export const ChatDashboardCard = ({ avatar, name, date, text }) => {
   return (
     <>
       <div className="d-flex gap-2 align-items-center list-chat-content">
         <img
-          src={avatar}
+          src={avatar || avatarIcon}
           alt="avatarIcon"
           className="rounded-circle avatar_icon"
         />
