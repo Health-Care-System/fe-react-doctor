@@ -2,36 +2,13 @@ import { RecentPatient } from "./components/RecentPatients";
 import { ArticleCard, UserChat } from "../../components/ui/Cards";
 import { CardContainer } from "../../components/ui/Container/CardContainer";
 import { NewPatients } from "./components/Pasien";
-import { useEffect, useState } from "react";
-import axios from "axios";
 import './Home.css'
 import { useGetRecentChat } from "../../services/chat-service";
 import { UserChatListSkeleton } from "../../components/ui/Skeleton";
 import { ErrorStatus } from "../../components/Error/ErrorStatus";
+import { useGetQuery } from "../../hooks/useGetQuery";
 
 const HomePage = () => {
-  const [artikelData, setArtikelData] = useState([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    try {
-      const [artikelResponse] = await Promise.all([
-        axios.get('http://localhost:3001/articles'),
-      ]);
-
-      setArtikelData(artikelResponse.data.results);
-    } catch (error) {
-      setError('Terjadi kesalahan saat mengambil data: ' + error.message);
-    }
-  };
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
 
   return (
     <div className="p-2 w-100 home-container bg-transparent">
@@ -54,14 +31,7 @@ const HomePage = () => {
 
         <CardContainer className='col-12 col-lg-5' title={'Artikel Terbaru'} detail={'View all'}>
           <div className=" d-flex flex-column gap-4 w-100">
-            {artikelData.map((article, index) => (
-              <ArticleCard
-                key={index}
-                title={article.title}
-                content={article.content}
-                date={article.date}
-              />
-            ))}
+            <ArticleWrapper />
           </div>
         </CardContainer>
       </div>
@@ -78,16 +48,16 @@ const ChatListWrapper = () => {
     isPending,
     isError
   } = useGetRecentChat();
-  
-  if(isError) {
+
+  if (isError) {
     return <ErrorStatus title={'Gagal memuat data pesan!'} action={refetch} />
   }
-  
+
   if (isPending) {
-    return(
+    return (
       <>
-        <UserChatListSkeleton/>
-        <UserChatListSkeleton/>
+        <UserChatListSkeleton />
+        <UserChatListSkeleton />
       </>
     )
   }
@@ -105,5 +75,44 @@ const ChatListWrapper = () => {
       ))}
     </>
   )
+}
+
+const ArticleWrapper = () => {
+  const {
+    data,
+    isPending,
+    isError,
+    refetch
+  } = useGetQuery('articleByDoctor', '/doctors/articles')
+
+  if (data === undefined) {
+    return(
+      <div className="d-flex justify-content-center">
+        <p>Tidak ada data artikel!</p>
+      </div>
+    )
+  }
+
+  if (isPending) {
+    return <p>Loading...</p>
+  }
+
+  if (isError) {
+    return <ErrorStatus title={'Gagal memuat data pesan!'} action={refetch} />
+  }
+  
+  return (
+    <>
+      {data?.results?.map((article, index) => (
+        <ArticleCard
+          key={index}
+          title={article.title}
+          content={article.content}
+          date={article.date}
+        />
+      ))}
+    </>
+  )
+
 }
 

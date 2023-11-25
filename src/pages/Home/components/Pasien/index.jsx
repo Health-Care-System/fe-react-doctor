@@ -3,7 +3,7 @@ import { TableContainer } from "../../../../components/Table/TableContainer";
 import { Button } from "../../../../components/ui/Button";
 import { useGetNewPatients } from "../../../../services/patient-service";
 import { newPatientsThead } from "../../../../utils/dataObject";
-import "./Pasien.css"
+import "./Pasien.css";
 
 export const NewPatients = () => {
   const {
@@ -21,6 +21,7 @@ export const NewPatients = () => {
         thead={newPatientsThead}
         bgThead={'bg-white'}
         maxHeight={'8rem'}
+        name={null}
       >
       <RowTable
           isError={isError}
@@ -28,6 +29,7 @@ export const NewPatients = () => {
           refetch={refetch}
           data={data}
           ifEmpty={'Tidak Ada Pasien'}
+          paddingError={'2rem'}
           renderItem={(data, index) => {
             return (
               <tr className="text-nowrap" key={index}>

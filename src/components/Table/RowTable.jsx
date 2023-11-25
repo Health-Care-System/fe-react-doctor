@@ -6,12 +6,13 @@ export const RowTable = ({
   data,
   refetch,
   renderItem,
-  ifEmpty
+  ifEmpty,
+  paddingError,
 }) => {
   if (isError) {
     return (
       <TableRow>
-        <div className="py-5">
+        <div className={paddingError ? paddingError : 'py-5'}>
           <p>Gagal memuat data!</p>
           <Button className={'btn-primary text-white mt-1'} onClick={refetch}>Coba Lagi</Button>
         </div>
@@ -22,7 +23,7 @@ export const RowTable = ({
   if (isPending) {
     return (
       <TableRow>
-        <div className="d-flex justify-content-center py-5">
+        <div className="d-flex justify-content-center py-2">
           <div className="spinner-border" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
