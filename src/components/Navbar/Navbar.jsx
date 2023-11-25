@@ -3,10 +3,14 @@ import notifIcon from '../../assets/icon/notif.svg';
 import { useLocation } from 'react-router-dom';
 import { navbarTitle } from '../../utils/dataObject';
 import './Navbar.css'
-import { useState } from 'react';
+import { useStatus } from '../../store/useStatus';
 
 export const Navbar = () => {
-  const [isActive, setIsActive] = useState(false);
+  // Global State
+  const isActive = useStatus((state) => state.isActive);
+  const handleStatus = useStatus((state) => state.handleStatus);
+  
+  
   // Buat render title dan content secara dinamis berdasarkan rute
   const location = useLocation();
   const currentRoute = location.pathname.split('/')[1];
@@ -31,13 +35,13 @@ export const Navbar = () => {
               <label 
                 className="form-check-label fw-semibold d-none d-md-inline-block" 
                 htmlFor="isActiveSwitchCheck">
-                {isActive ? 'Aktif' : 'Nonaktif'}
+                {isActive ? 'Aktif' : 'Tidak Melayani'}
               </label>
               <input
                 className="form-check-input"
                 value={isActive}
                 checked={isActive}
-                onChange={() => setIsActive(!isActive)}
+                onChange={handleStatus}
                 type="checkbox"
                 role="switch"
                 id="isActiveSwitchCheck"

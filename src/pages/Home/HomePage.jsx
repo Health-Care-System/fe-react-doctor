@@ -7,6 +7,8 @@ import { useGetRecentChat } from "../../services/chat-service";
 import { UserChatListSkeleton } from "../../components/ui/Skeleton";
 import { ErrorStatus } from "../../components/Error/ErrorStatus";
 import { useGetQuery } from "../../hooks/useGetQuery";
+import { useStatus } from "../../store/useStatus";
+import noMessage from '../../assets/icon/noMsg.png'
 
 const HomePage = () => {
 
@@ -20,7 +22,7 @@ const HomePage = () => {
             <NewPatients />
             <CardContainer
               title={'Pesan'}
-              detail={'3 belum dibaca'}>
+            >
               <div className="d-flex flex-column gap-1">
                 <ChatListWrapper />
               </div>
@@ -48,6 +50,15 @@ const ChatListWrapper = () => {
     isPending,
     isError
   } = useGetRecentChat();
+  const isActive = useStatus((state) => state.isActive);
+  if (!isActive) {
+    return (
+      <div className="d-flex justify-content-center flex-column">
+        <img src={noMessage} height={100} width={100} className=" mx-auto" alt="Sedang Tidak Melayani" />
+        <p className="text-center">Sedang Tidak Melayani</p>
+      </div>
+    )
+  }
 
   if (isError) {
     return <ErrorStatus title={'Gagal memuat data pesan!'} action={refetch} />
@@ -86,7 +97,7 @@ const ArticleWrapper = () => {
   } = useGetQuery('articleByDoctor', '/doctors/articles')
 
   if (data === undefined) {
-    return(
+    return (
       <div className="d-flex justify-content-center">
         <p>Tidak ada data artikel!</p>
       </div>
@@ -100,7 +111,7 @@ const ArticleWrapper = () => {
   if (isError) {
     return <ErrorStatus title={'Gagal memuat data pesan!'} action={refetch} />
   }
-  
+
   return (
     <>
       {data?.results?.map((article, index) => (
