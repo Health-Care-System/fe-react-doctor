@@ -83,10 +83,7 @@ body{
 /* Styling bootstrap class */
 .btn-outline-primary {
 	--bs-btn-active-color: #fff;
-}
-.btn-outline-primary{
-  color: #5A6A9D;
-  border-radius: 0.75rem;
+  --bs-btn-hover-color: #fff;
 }
 .btn-group{
   border-radius: 0.75rem;

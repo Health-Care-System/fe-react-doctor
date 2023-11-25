@@ -1,4 +1,5 @@
 import { Button } from "../ui/Button";
+import { ColumnSkeleton } from "../ui/Skeleton/ColumnSkeleton";
 
 export const RowTable = ({
   isError,
@@ -8,6 +9,8 @@ export const RowTable = ({
   renderItem,
   ifEmpty,
   paddingError,
+  totalCol,
+  totalRow
 }) => {
   if (isError) {
     return (
@@ -22,13 +25,7 @@ export const RowTable = ({
 
   if (isPending) {
     return (
-      <TableRow>
-        <div className="d-flex justify-content-center py-2">
-          <div className="spinner-border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-        </div>
-      </TableRow>
+      <ColumnSkeleton totalRow={totalRow} totalCol={totalCol} />
     )
   }
 

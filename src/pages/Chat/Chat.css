@@ -6,6 +6,13 @@
 .chat-userlist__wrapper {
   width: 100%;
 }
+.btn-outline-primary {
+	--bs-btn-active-color: #fff;
+}
+.btn-outline-primary{
+  color: #5A6A9D;
+  border-radius: 0.75rem;
+}
 
 .chatWrapper {
   display: flex;
