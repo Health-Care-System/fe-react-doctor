@@ -30,6 +30,8 @@ export const NewPatients = () => {
           data={data}
           ifEmpty={'Tidak Ada Pasien'}
           paddingError={'2rem'}
+          totalCol={1}
+          totalRow={4}
           renderItem={(data, index) => {
             return (
               <tr className="text-nowrap" key={index}>

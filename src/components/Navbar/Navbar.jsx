@@ -1,6 +1,6 @@
 import mailIcon from '../../assets/icon/mail-fill.svg';
 import notifIcon from '../../assets/icon/notif.svg';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { navbarTitle } from '../../utils/dataObject';
 import './Navbar.css'
 import { useStatus } from '../../store/useStatus';
@@ -48,7 +48,9 @@ export const Navbar = () => {
                 style={{ transform: 'scale(1.8)'}}
               />
             </div>
-            <img src={notifIcon} className='icon-size' alt='Notification' />
+            <Link to={'/feedback'}>
+              <img src={notifIcon} className='icon-size' alt='Notification' />
+            </Link>
             <img src={mailIcon} className='icon-size' alt='Search' />
           </div>
         </div>

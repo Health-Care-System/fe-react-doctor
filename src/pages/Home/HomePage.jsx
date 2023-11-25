@@ -31,7 +31,7 @@ const HomePage = () => {
         </div>
 
 
-        <CardContainer className='col-12 col-lg-5' title={'Artikel Terbaru'} detail={'View all'}>
+        <CardContainer hrefTo={'/article'} className='col-12 col-lg-5' title={'Artikel Terbaru'} detail={'View all'}>
           <div className=" d-flex flex-column gap-4 w-100">
             <ArticleWrapper />
           </div>
@@ -53,7 +53,7 @@ const ChatListWrapper = () => {
   const isActive = useStatus((state) => state.isActive);
   if (!isActive) {
     return (
-      <div className="d-flex justify-content-center flex-column">
+      <div className="d-flex justify-content-center flex-column pb-3">
         <img src={noMessage} height={100} width={100} className=" mx-auto" alt="Sedang Tidak Melayani" />
         <p className="text-center">Sedang Tidak Melayani</p>
       </div>

@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Button } from '../ui/Button';
 import { ProfileSkeleton } from '../ui/Skeleton/ProfileSkeleton';
 import ImageWithFallback from '../Error/ImageWithFallback';
@@ -10,6 +10,10 @@ import doctorMale from '../../assets/icon/9432602.jpg'
 import doctorFemale from '../../assets/icon/maleDoc.jpg'
 import './Sidebar.css'
 import { useGetQuery } from '../../hooks/useGetQuery';
+import Cookies from 'js-cookie';
+import { useState } from 'react';
+import { Transparent } from '../ui/Container';
+import { CustomModal } from '../ui/Modal/Modal';
 
 const ProfileDoctor = () => {
   const {
@@ -18,8 +22,7 @@ const ProfileDoctor = () => {
     isError,
     refetch
   } = useGetQuery('profile', '/doctors/profile');
-
-
+  
   if (isError) {
     return (
       <div className='d-flex flex-column gap-2 my-5 justify-content-center'>
@@ -63,6 +66,13 @@ const ProfileDoctor = () => {
 };
 
 export const Sidebar = () => {
+  const [modal, setModal] = useState(false)
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    Cookies.remove('token');
+    navigate(0)
+  }
+  
   return (
     <>
       <aside className='sidebar'>
@@ -95,10 +105,22 @@ export const Sidebar = () => {
             )
           })}
         </ul>
-
+        {modal &&
+          <Transparent
+            className='min-vw-100 position-fixed end-0'
+          >
+            <CustomModal
+              title={'Ingin Keluar?'}
+              content={'Apabila anda keluar maka anda tidak dapat menerima pasien.'}
+              confirmAction={handleLogout}
+              cancelAction={() => setModal(false)}
+            />
+          </Transparent>
+        }
+        
         {/* Button Logout  */}
-        <Button className='btnWrapper'>
-          <div className='logoutBtn d-flex btn'>
+        <Button onClick={() => setModal(true)} className='btnWrapper'>
+          <div className='logout-btn d-flex'>
             <p>Logout</p>
             <img src={logoutIcon} alt='Logout' />
           </div>
