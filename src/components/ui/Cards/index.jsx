@@ -4,7 +4,7 @@ import { MedicalPrescriptionCard } from "./MedicalPrescriptionCard";
 import { PatientTableRow } from "./PatientTableRow";
 import { ChartGenderPasien } from './ChartGenderPasien'
 import { CardTotalPasien } from './CardTotalPasien'
-import { UnreadMessage } from './UnreadMessage' 
+import { ChatDashboardCard } from './ChatDashboardCard' 
 import { ConsultationChatCard } from './ConsultationChatCard'
 import { UserChat } from "./UserChat";
 
@@ -16,7 +16,7 @@ export {
   PatientTableRow,
   ChartGenderPasien,
   CardTotalPasien,
-  UnreadMessage,
+  ChatDashboardCard,
   ConsultationChatCard,
   UserChat
 }
