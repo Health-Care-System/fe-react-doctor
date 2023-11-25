@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import client from "../utils/auth";
 
-export const useGetQuery = ({ key, endpoint}) => {
+export const useGetQuery = ( key, endpoint) => {
   const { data, isPending, isError,refetch } = useQuery({
 		queryKey: [key],
 		queryFn: async () => {
-			const res = await axios.get(`http://localhost:3001${endpoint}`);
+			const res = await client.get(endpoint);
 			return res.data;
 		}
 	});

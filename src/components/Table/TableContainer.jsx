@@ -17,7 +17,7 @@ export const TableContainer = ({
     <div className={`table-responsive rounded-4 p-4 ${className}`}>
       <div className="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center mb-4">
         <h6 className="fw-semibold fs-2 m-0">{title}</h6>
-        {name === '' &&
+        {name !== null &&
           <div className="position-relative mt-3 mt-md-0">
             <Input
               name={name}

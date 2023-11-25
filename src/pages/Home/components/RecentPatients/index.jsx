@@ -41,6 +41,7 @@ export const RecentPatient = () => {
           data={data}
           search={form?.search}
           ifEmpty={'Tidak ada riwayat transaksi konsultasi dokter!'}
+          paddingError={'py-2'}
           renderItem={(data, index) => {
             return (
               <tr className="text-nowrap" key={index}>
