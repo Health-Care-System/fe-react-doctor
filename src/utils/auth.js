@@ -21,7 +21,6 @@ client.interceptors.response.use(function (response) {
     const { status } = error.response;
     if (status === 401 || status === 400) {
       Cookies.remove('token');
-      window.location.href = '/login';
     }
   }
 
