@@ -1,22 +1,28 @@
-import { NavLink } from 'react-router-dom';
-import { useProfile } from '../../services/DoctorService';
-
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Button } from '../ui/Button';
 import { ProfileSkeleton } from '../ui/Skeleton/ProfileSkeleton';
+import ImageWithFallback from '../Error/ImageWithFallback';
 
 import logoutIcon from '../../assets/icon/logout.svg';
 import brandLogo from '../../assets/icon/brandLogo.png'
 import { menus } from '../../utils/dataObject';
+import doctorMale from '../../assets/icon/9432602.jpg'
+import doctorFemale from '../../assets/icon/maleDoc.jpg'
 import './Sidebar.css'
+import { useGetQuery } from '../../hooks/useGetQuery';
+import Cookies from 'js-cookie';
+import { useState } from 'react';
+import { Transparent } from '../ui/Container';
+import { CustomModal } from '../ui/Modal/Modal';
 
 const ProfileDoctor = () => {
   const {
     data,
-    refetch,
+    isPending,
     isError,
-    isFetching,
-  } = useProfile();
-
+    refetch
+  } = useGetQuery('profile', '/doctors/profile');
+  
   if (isError) {
     return (
       <div className='d-flex flex-column gap-2 my-5 justify-content-center'>
@@ -31,22 +37,24 @@ const ProfileDoctor = () => {
   }
 
 
-  if (isFetching) {
+  if (isPending) {
     return <ProfileSkeleton />;
   }
 
   return (
     <div>
       <figure className='figure d-flex'>
-        <img
-          src={data?.results?.ProfilePicture}
+        <ImageWithFallback
+          src={data?.results?.profile_picture}
+          fallback={data?.results?.gender === 'male' ? doctorMale : doctorFemale}
+          className='avatar object-fit-cover'
+          alt="Profile Picture"
           width={100}
           height={100}
-          className='avatar object-fit-cover'
-          alt="Profile Picture" />
+        />
         <div className='text-center'>
-          <h5 className='mt-2 fs-2 fw-semibold'>{data?.results?.Fullname}</h5>
-          <p>{data?.results?.Tag}</p>
+          <h5 className='mt-2 fs-2 fw-semibold'>{data?.results?.fullname}</h5>
+          <p className='text-capitalize'>{data?.results?.specialist}</p>
         </div>
       </figure>
       <div className='d-inline-flex gap-2'>
@@ -58,6 +66,13 @@ const ProfileDoctor = () => {
 };
 
 export const Sidebar = () => {
+  const [modal, setModal] = useState(false)
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    Cookies.remove('token');
+    navigate(0)
+  }
+  
   return (
     <>
       <aside className='sidebar'>
@@ -90,10 +105,22 @@ export const Sidebar = () => {
             )
           })}
         </ul>
-
+        {modal &&
+          <Transparent
+            className='min-vw-100 position-fixed end-0'
+          >
+            <CustomModal
+              title={'Ingin Keluar?'}
+              content={'Apabila anda keluar maka anda tidak dapat menerima pasien.'}
+              confirmAction={handleLogout}
+              cancelAction={() => setModal(false)}
+            />
+          </Transparent>
+        }
+        
         {/* Button Logout  */}
-        <Button className='btnWrapper'>
-          <div className='logoutBtn d-flex btn'>
+        <Button onClick={() => setModal(true)} className='btnWrapper'>
+          <div className='logout-btn d-flex'>
             <p>Logout</p>
             <img src={logoutIcon} alt='Logout' />
           </div>

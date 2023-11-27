@@ -1,0 +1,11 @@
+.table-transparent {
+	background-color: transparent;
+  }
+  
+  .table-transparent thead th {
+	background-color: transparent;
+  }
+  
+  .table-transparent tbody td {
+	background-color: transparent;
+  }
