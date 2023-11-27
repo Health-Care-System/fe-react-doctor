@@ -9,6 +9,8 @@ import { ArticlePage } from "../pages/Article/ArticlePage";
 import { FeedbackPage } from "../pages/Feedback/FeedbackPage";
 import { Chatbody } from "../components/ChatBody";
 import { PrivateRoute } from "./PrivateRoute";
+import { CreateArticle } from "../pages/Article/CreateArticle";
+import { EditArticle } from "../pages/Article/EditArticle";
 
 export const AppRoutes = () => {
   return (
@@ -21,7 +23,9 @@ export const AppRoutes = () => {
             <Route path="/chat/user" element={<Chatbody />} />
           </Route>
           <Route path="/patients" element={<PatientPage />} />
-          <Route path="/article" element={<ArticlePage />} />
+          <Route path="/articles" element={<ArticlePage />} />
+            <Route path="/articles/create" element={<CreateArticle />} />
+            <Route path="/articles/edit" element={<EditArticle />} />
           <Route path="/feedback" element={<FeedbackPage />} />
           <Route path="/settings" element={<SettingPage />} />
         </Route>

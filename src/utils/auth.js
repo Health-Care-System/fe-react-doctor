@@ -19,7 +19,7 @@ client.interceptors.response.use(function (response) {
 }, function (error) {
   if (error.response) {
     const { status } = error.response;
-    if (status === 401 || status === 400) {
+    if (status === 401) {
       Cookies.remove('token');
     }
   }
