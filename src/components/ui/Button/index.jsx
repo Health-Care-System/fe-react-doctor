@@ -7,11 +7,13 @@ export const Button = ({
   onClick,
   type,
   id,
+  disabled
 }) => {
   return (
     <button
       type={type || "button"}
       className={`btn ${className}`}
+      disabled={disabled}
       id={id}
       onClick={onClick}
     >

@@ -241,6 +241,20 @@
         "type": "text",
         "date": "2023-11-20T05:33:41.079Z",
         "status": "unread"
+      },
+      {
+        "author": "doctor",
+        "content": "kasa",
+        "type": "text",
+        "date": "2023-11-20T11:13:44.328Z",
+        "status": "unread"
+      },
+      {
+        "author": "doctor",
+        "content": "😘😘😘😘",
+        "type": "text",
+        "date": "2023-11-22T13:28:42.311Z",
+        "status": "unread"
       }
     ]
   },
@@ -286,23 +300,35 @@
       }
     ]
   },
-  "consultations": {
+  "new-patients": {
     "meta": {
       "success": true,
       "message": "Profil Dokter berhasil diambil"
     },
     "results": [
       {
-        "name": "John Doe",
-        "gender": "Male",
-        "date": "18 Sep 2023",
-        "time": "10.00 AM"
+        "id_patient": "013",
+        "fullname": "Khaterina Lubis",
+        "id_transaction": "9113",
+        "price": 390000
       },
       {
-        "name": "Jane Smith",
-        "gender": "Female",
-        "date": "19 Sep 2023",
-        "time": "11.30 AM"
+        "id_patient": "015",
+        "fullname": "Emily Davis",
+        "id_transaction": "9115",
+        "price": 250000
+      },
+      {
+        "id_patient": "017",
+        "fullname": "Grace Anderson",
+        "id_transaction": "9117",
+        "price": 120000
+      },
+      {
+        "id_patient": "019",
+        "fullname": "Olivia Johnson",
+        "id_transaction": "9119",
+        "price": 180000
       }
     ]
   },
@@ -347,6 +373,94 @@
         "date": "16 Sep",
         "message": "I have been experiencing some chest pain.",
         "image": "https://i.pinimg.com/originals/1a/46/45/1a464556551f12730be1887a95e4f2a9.jpg"
+      }
+    ]
+  },
+  "active-patients": {
+    "meta": {
+      "success": true,
+      "message": "Profil Dokter berhasil diambil"
+    },
+    "results": [
+      {
+        "id_patient": "001",
+        "fullname": "Alice Smith",
+        "id_transaction": "9001",
+        "date": "18 Sep 2023",
+        "diagnosis": "Flu",
+        "status": "Diberi Resep"
+      },
+      {
+        "id_patient": "002",
+        "fullname": "Bob Johnson",
+        "id_transaction": "9002",
+        "date": "18 Sep 2023",
+        "diagnosis": "Pusing",
+        "status": "Menunggu Hasil Tes"
+      },
+      {
+        "id_patient": "003",
+        "fullname": "Charlie Brown",
+        "id_transaction": "9003",
+        "date": "18 Sep 2023",
+        "diagnosis": "Demam",
+        "status": "Proses Pemeriksaan"
+      },
+      {
+        "id_patient": "004",
+        "fullname": "David Miller",
+        "id_transaction": "9004",
+        "date": "18 Sep 2023",
+        "diagnosis": "Batuk",
+        "status": "Selesai"
+      },
+      {
+        "id_patient": "005",
+        "fullname": "Eva Davis",
+        "id_transaction": "9005",
+        "date": "18 Sep 2023",
+        "diagnosis": "Sakit Gigi",
+        "status": "Diberi Obat"
+      },
+      {
+        "id_patient": "006",
+        "fullname": "Frank Wilson",
+        "id_transaction": "9006",
+        "date": "18 Sep 2023",
+        "diagnosis": "Luka Ringan",
+        "status": "Dalam Perawatan"
+      },
+      {
+        "id_patient": "007",
+        "fullname": "Grace Anderson",
+        "id_transaction": "9007",
+        "date": "18 Sep 2023",
+        "diagnosis": "Sakit Kepala",
+        "status": "Dalam Antrian"
+      },
+      {
+        "id_patient": "008",
+        "fullname": "Henry Brown",
+        "id_transaction": "9008",
+        "date": "18 Sep 2023",
+        "diagnosis": "Nyeri Sendi",
+        "status": "Diberi Resep"
+      },
+      {
+        "id_patient": "009",
+        "fullname": "Ivy Johnson",
+        "id_transaction": "9009",
+        "date": "18 Sep 2023",
+        "diagnosis": "Sesak Napas",
+        "status": "Proses Diagnosa"
+      },
+      {
+        "id_patient": "010",
+        "fullname": "Jack Davis",
+        "id_transaction": "9010",
+        "date": "18 Sep 2023",
+        "diagnosis": "Mual",
+        "status": "Dalam Perawatan"
       }
     ]
   }

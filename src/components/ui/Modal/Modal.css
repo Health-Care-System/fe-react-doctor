@@ -1,0 +1,64 @@
+.custom-modal {
+  border-radius: 1.8rem;
+  padding: 1.5rem; 
+  gap: 2rem;
+  background: #FFF;
+  box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.10); 
+  max-width: 17.9375rem;
+}
+.wrapper-modal {
+  position: fixed;
+  z-index: 55;
+  top: 20%;
+  left: 20%;
+}
+
+.modal-avatar {
+  width: 6rem !important;
+  height: 6rem !important;
+}
+
+Input {
+  background: #ECECEC !important;
+  color: #9C9C9C;
+}
+
+Input:focus {
+  border: 1px solid !important;
+  border-color: #505ACB !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+Select {
+  background: #ECECEC !important;
+  color: #9C9C9C;
+}
+
+Select:focus {
+  border: 1px solid !important;
+  border-color: #505ACB !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+Select option:focus {
+  background-color: #ECECEC !important;
+}
+.btn-outline-primary {
+	--bs-btn-active-color: #fff;
+  --bs-btn-hover-color: #fff;
+}
+.btn-outline-primary{
+  color: #008772;
+  border-radius: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .wrapper-modal {
+    position: fixed;
+    z-index: 55;
+    top: 20%;
+    left: 42.5%;
+  }
+}

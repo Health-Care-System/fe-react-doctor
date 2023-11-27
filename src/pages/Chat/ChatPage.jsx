@@ -9,7 +9,7 @@ import searchIconGrey from '../../assets/icon/search-grey.svg'
 import { UserChatListSkeleton } from "../../components/ui/Skeleton"
 import { ChatList } from "../../components/ui/Cards"
 import { Input } from "../../components/ui/Form"
-import { fetchUserChat } from "../../services/ChatService"
+import { fetchUserChat } from "../../services/chat-service"
 
 export const ChatPage = () => {
   // Buat nyari query url saat ini
