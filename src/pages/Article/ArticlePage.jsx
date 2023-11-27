@@ -67,7 +67,6 @@ const ArticleWrapper = ({ item, ...props }) => {
     try {
       setLoading(true);
       const res = await client.delete(`/doctors/articles/${id}`);
-      console.log(res)
     } catch (error) {
       console.log(error);
     } finally {
@@ -78,13 +77,13 @@ const ArticleWrapper = ({ item, ...props }) => {
   return (
     <>
 
-      {!loading &&
+      {/* {!loading &&
         <Transparent>
           <div className="spinner-border" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
         </Transparent>
-      }
+      } */}
       <article
         {...props}
         className="bg-primary d-flex flex-row gap-3 p-3 align-items-center rounded-3 text-white">
@@ -106,7 +105,7 @@ const ArticleWrapper = ({ item, ...props }) => {
 
         <div className="d-flex flex-column align-items-center">
           <Button
-            onClick={handleDelete(item.id)}
+            onClick={() => handleDelete(item.id)}
           >
             <img src={trash} width={36} height={36} alt="" />
           </Button>

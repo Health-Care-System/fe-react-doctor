@@ -1,5 +1,6 @@
 import { describe, it, vi } from 'vitest'
-import { validateArticleForm } from '../article-service';
+import { validateArticleForm } from '../validation';
+
 const mockSetErrors = vi.fn();
 describe('validateArticleForm', () => {
   it('return false, dan error untuk bagian title', () => {
