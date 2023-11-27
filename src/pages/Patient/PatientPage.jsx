@@ -19,6 +19,7 @@ import { UserChatListSkeleton } from "../../components/ui/Skeleton";
 import { RowTable } from "../../components/Table/RowTable";
 import { NewPatients } from "../Home/components/Pasien";
 import { CardContainer } from "../../components/ui/Container/CardContainer";
+import "./Patient.css";
 
 const PatientPage = () => {
   const { data } = useGetRecentsPatients();
@@ -41,35 +42,27 @@ const PatientPage = () => {
   };
 
   return (
-    <section className="container patient-container">
-      <div className="row d-flex flex-column flex-lg-row align-items-start gap-4 my-3 ms-md-1 ms-lg-0 ">
-        <div className="col-12 col-lg-5 ">
-          <CardContainer title="Pesan">
-            <div
-              className="d-grid gap-3 w-100"
-              style={{ overflow: "auto", maxHeight: "7.5rem" }}
-            >
-              <UnreadChat data={data} onClick={handleCurrentUserId} />
-            </div>
-          </CardContainer>
-        </div>
-        <div className="col-12 d-grid col-lg me-xl-5 ">
+    <section className="p-2 w-100 patient-container">
+      <div className="row gap-4 gap-xl-3 my-3 ms-md-1 ms-lg-0 ">
+        <CardContainer title="Pesan" className="col-12 col-lg-5">
+          <div className="d-flex flex-column gap-1 ">
+            <UnreadChat data={data} onClick={handleCurrentUserId} />
+          </div>
+        </CardContainer>
+        <div className="col-12 col-lg-6">
           <NewPatients onClick={handleCurrentUserId} />
         </div>
-        <div className="col-12 d-grid ">
-          <RecentPatients onClick={PatientDataById} />
-        </div>
-        {openModal && (
-          <ModalEditPasien
-            closeModal={() => setOpenModal(false)}
-            PatientListData={data[dataByIndex]}
-          />
-        )}
       </div>
+      <RecentPatients onClick={PatientDataById} />
+      {openModal && (
+        <ModalEditPasien
+          closeModal={() => setOpenModal(false)}
+          PatientListData={data[dataByIndex]}
+        />
+      )}
     </section>
   );
 };
-
 
 const UnreadChat = ({ onClick }) => {
   const formatDate = (dateString) => {

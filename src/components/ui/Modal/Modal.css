@@ -18,33 +18,35 @@
   height: 6rem !important;
 }
 
-Input {
-  background: #ECECEC !important;
+Input .input-diagnosa{
+  background: #ECECEC ;
   color: #9C9C9C;
 }
 
-Input:focus {
-  border: 1px solid !important;
-  border-color: #505ACB !important;
-  box-shadow: none !important;
-  background: transparent !important;
+Input .input-diagnosa:hover {
+  border: 1px solid ;
+  border-color: #505ACB ;
+  box-shadow: none ;
+  background: transparent ;
 }
 
 Select {
-  background: #ECECEC !important;
+  background: #ECECEC ;
   color: #9C9C9C;
 }
 
 Select:focus {
-  border: 1px solid !important;
-  border-color: #505ACB !important;
-  box-shadow: none !important;
-  background: transparent !important;
+  border: 1px solid ;
+  border-color: #505ACB ;
+  box-shadow: none ;
+  background: transparent ;
 }
 
 Select option:focus {
-  background-color: #ECECEC !important;
+  background-color: #ECECEC ;
 }
+
+
 .btn-outline-primary {
 	--bs-btn-active-color: #fff;
   --bs-btn-hover-color: #fff;

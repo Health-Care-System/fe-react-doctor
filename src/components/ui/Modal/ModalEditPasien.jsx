@@ -64,7 +64,7 @@ export const ModalEditPasien = ({ closeModal, PatientListData }) => {
                 <div className="col d-grid gap-2 ">
                   <div>
                     <label className="fs-3 fw-semibold ">Diagnosa</label>
-                    <Input placeHolder="Masukkan diagnosa Anda"  />
+                    <Input className="input-diagnosa" placeHolder="Masukkan diagnosa Anda"  />
                   </div>
                   <div>
                     <label className="fs-3 fw-semibold ">Status</label>
