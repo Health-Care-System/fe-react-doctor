@@ -1,8 +1,16 @@
-.table-wrapper {
+.patient-container {
   width: 100%;
 }
-@media (min-width: 768px) {
-  .table-wrapper {
-    max-width: calc(100vw - 11rem);
+
+.chat {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+@media (min-width: 767.98px) {
+  .patient-container {
+    max-width: calc(100vw - 17rem);
   }
 }

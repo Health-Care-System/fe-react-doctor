@@ -13,6 +13,38 @@
   left: 20%;
 }
 
+.modal-avatar {
+  width: 6rem !important;
+  height: 6rem !important;
+}
+
+Input {
+  background: #ECECEC !important;
+  color: #9C9C9C;
+}
+
+Input:focus {
+  border: 1px solid !important;
+  border-color: #505ACB !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+Select {
+  background: #ECECEC !important;
+  color: #9C9C9C;
+}
+
+Select:focus {
+  border: 1px solid !important;
+  border-color: #505ACB !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+Select option:focus {
+  background-color: #ECECEC !important;
+}
 .btn-outline-primary {
 	--bs-btn-active-color: #fff;
   --bs-btn-hover-color: #fff;
