@@ -37,7 +37,7 @@ export const menus = [
     icon: articleIcon,
     icon2: articleIconWhite,
     label: 'Kelola Artikel',
-    link: '/article'
+    link: '/articles'
   },
   {
     icon: feedBackIcon,
@@ -67,7 +67,7 @@ export const navbarTitle = [
     title: 'Kelola Pasien',
   },
   {
-    route: 'article',
+    route: 'articles',
     title: 'Kelola Artikel',
   },
   {

@@ -14,16 +14,22 @@ export const Select = ({
   options,
   name,
   handleChange,
-  value
+  value,
+  className,
+  setDefault,
+  ...props
 }) => {
   return (
     <select
+      {...props}
       name={name}
       onChange={handleChange}
       value={value}
-      className="form-select"
+      className={`form-select ${className}`}
     >
-      <option selected="">Choose</option>
+      {setDefault &&
+        <option selected="">Choose</option>
+      }
       {options?.map((item, index) => (
         <option
           key={index}
