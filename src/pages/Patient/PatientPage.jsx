@@ -9,7 +9,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import IconForAvatar from "../../assets/icon/avatar.svg";
 import { useGetRecentsPatients } from "../../services/patient-service";
 import { TableContainer } from "../../components/Table/TableContainer";
-import { newPatientsThead, recentPatientsThead } from "../../utils/dataObject";
+import { recentPatientsThead } from "../../utils/dataObject";
 import { Button } from "../../components/ui/Button";
 import useForm from "../../hooks/useForm";
 import { useState } from "react";
@@ -17,6 +17,8 @@ import { ModalEditPasien } from "../../components/ui/Modal/ModalEditPasien";
 import { ErrorStatus } from "../../components/Error/ErrorStatus";
 import { UserChatListSkeleton } from "../../components/ui/Skeleton";
 import { RowTable } from "../../components/Table/RowTable";
+import { NewPatients } from "../Home/components/Pasien";
+import { CardContainer } from "../../components/ui/Container/CardContainer";
 
 const PatientPage = () => {
   const { data } = useGetRecentsPatients();
@@ -41,11 +43,11 @@ const PatientPage = () => {
   return (
     <section className="container patient-container">
       <div className="row d-flex flex-column flex-lg-row align-items-start gap-4 my-3 ms-md-1 ms-lg-0 ">
-        <div className="col-12 col-lg-5 col-xl-4 ">
-          <CardContainer title="Pesan" subtitle="3 belum dibaca">
+        <div className="col-12 col-lg-5 ">
+          <CardContainer title="Pesan">
             <div
               className="d-grid gap-3 w-100"
-              style={{ overflow: "auto", maxHeight: "8rem" }}
+              style={{ overflow: "auto", maxHeight: "7.5rem" }}
             >
               <UnreadChat data={data} onClick={handleCurrentUserId} />
             </div>
@@ -68,22 +70,6 @@ const PatientPage = () => {
   );
 };
 
-const CardContainer = ({ title, subtitle, children }) => {
-  return (
-    <div
-      className="card border-0 rounded-4  "
-      style={{ boxShadow: "0px 0px 24px 0px rgba(0, 0, 0, 0.10)" }}
-    >
-      <div className="card-header border-0 bg-white pb-0 mt-2 ">
-        <div className="card-title d-flex align-items-center justify-content-between ">
-          <h3 className="fs-2 fw-semibold ">{title}</h3>
-          <p className="fs-4 text-primary fw-semibold ">{subtitle}</p>
-        </div>
-      </div>
-      <div className="card-body pt-0 ">{children}</div>
-    </div>
-  );
-};
 
 const UnreadChat = ({ onClick }) => {
   const formatDate = (dateString) => {
@@ -100,6 +86,7 @@ const UnreadChat = ({ onClick }) => {
   if (isPending) {
     return (
       <>
+        <UserChatListSkeleton />
         <UserChatListSkeleton />
       </>
     );
@@ -143,53 +130,53 @@ const UnreadChat = ({ onClick }) => {
   );
 };
 
-const NewPatients = ({ onClick }) => {
-  const formatToRupiah = (amount) => {
-    return `Rp. ${amount.toLocaleString("id-ID")}`;
-  };
-  const { data, refetch, isPending, isError } = useGetRecentsPatients();
-  return (
-    <>
-      <TableContainer
-        title={"Pasien Baru"}
-        className={"shadow-base bg-white"}
-        thead={newPatientsThead}
-        bgThead={"bg-white"}
-        maxHeight={"8rem"}
-        name={null}
-      >
-        <RowTable
-          isError={isError}
-          isPending={isPending}
-          refetch={refetch}
-          data={data}
-          ifEmpty={"Tidak Ada Pasien"}
-          paddingError={"2rem"}
-          renderItem={(table, index) => {
-            return (
-              <tr className="text-nowrap " key={index}>
-                <td>{table.id_patient}</td>
-                <td>{table.fullname}</td>
-                <td>{table.id_transaction}</td>
-                <td>{formatToRupiah(table.price)}</td>
-                <td className="text-center">
-                  <Button
-                    className={
-                      "btn-primary rounded-5 text-white fs-4 fw-semibold"
-                    }
-                    onClick={() => onClick(table.id_patient)}
-                  >
-                    Mulai Konsultasi
-                  </Button>
-                </td>
-              </tr>
-            );
-          }}
-        />
-      </TableContainer>
-    </>
-  );
-};
+// const NewPatients = ({ onClick }) => {
+//   const formatToRupiah = (amount) => {
+//     return `Rp. ${amount.toLocaleString("id-ID")}`;
+//   };
+//   const { data, refetch, isPending, isError } = useGetRecentsPatients();
+//   return (
+//     <>
+//       <TableContainer
+//         title={"Pasien Baru"}
+//         className={"shadow-base bg-white"}
+//         thead={newPatientsThead}
+//         bgThead={"bg-white"}
+//         maxHeight={"8rem"}
+//         name={null}
+//       >
+//         <RowTable
+//           isError={isError}
+//           isPending={isPending}
+//           refetch={refetch}
+//           data={data}
+//           ifEmpty={"Tidak Ada Pasien"}
+//           paddingError={"2rem"}
+//           renderItem={(table, index) => {
+//             return (
+//               <tr className="text-nowrap " key={index}>
+//                 <td>{table.id_patient}</td>
+//                 <td>{table.fullname}</td>
+//                 <td>{table.id_transaction}</td>
+//                 <td>{formatToRupiah(table.price)}</td>
+//                 <td className="text-center">
+//                   <Button
+//                     className={
+//                       "btn-primary rounded-5 text-white fs-4 fw-semibold"
+//                     }
+//                     onClick={() => onClick(table.id_patient)}
+//                   >
+//                     Mulai Konsultasi
+//                   </Button>
+//                 </td>
+//               </tr>
+//             );
+//           }}
+//         />
+//       </TableContainer>
+//     </>
+//   );
+// };
 
 const RecentPatients = ({ onClick }) => {
   const formatDate = (dateString) => {
@@ -207,7 +194,7 @@ const RecentPatients = ({ onClick }) => {
         handleInput={handleInput}
         inputValue={form.search}
         name={"search"}
-        maxHeight={"17.5rem"}
+        maxHeight={"10rem"}
         title={"Daftar Pasien"}
         placeHolder={"Nama, Gejala, Status"}
         thead={recentPatientsThead}
@@ -221,7 +208,9 @@ const RecentPatients = ({ onClick }) => {
           data={data}
           search={form?.search}
           ifEmpty={"Tidak ada riwayat transaksi konsultasi dokter!"}
-          paddingError={"2rem"}
+          paddingError={"py-2"}
+          totalCol={3}
+          totalRow={6}
           renderItem={(table, index) => {
             return (
               <tr className="text-nowrap" key={index}>
