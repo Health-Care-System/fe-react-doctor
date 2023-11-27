@@ -25,11 +25,11 @@ export const Navbar = () => {
           </h5>
         </div>
 
-        <div className='d-flex flex-row-reverse  flex-md-column pe-3 pe-md-0'>
+        <div className='d-flex flex-row-reverse  flex-md-column pe-md-0'>
           <div className='d-flex align-items-center gap-4'>
             <div className="form-switch form-check-reverse gap-3">
               <label 
-                className="form-check-label fw-semibold" 
+                className="form-check-label fw-semibold d-none d-md-inline-block" 
                 htmlFor="isActiveSwitchCheck">
                 {isActive ? 'Aktif' : 'Nonaktif'}
               </label>

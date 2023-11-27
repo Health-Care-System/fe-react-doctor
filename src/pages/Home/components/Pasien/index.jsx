@@ -1,38 +1,52 @@
+import { RowTable } from "../../../../components/Table/RowTable";
+import { TableContainer } from "../../../../components/Table/TableContainer";
 import { Button } from "../../../../components/ui/Button";
-import personIcon from '../../../../assets/icon/person.svg'
-import "./Pasien.css"
+import { useGetNewPatients } from "../../../../services/patient-service";
+import { newPatientsThead } from "../../../../utils/dataObject";
+import "./Pasien.css";
 
-export const Pasien = ({ name, gender, tanggal, waktu, tombol }) => {
-  const details = [
-    { title: 'Hari', data: tanggal },
-    { title: 'Waktu', data: waktu },
-  ]
+export const NewPatients = () => {
+  const {
+    data,
+    refetch,
+    isPending,
+    isError
+  } = useGetNewPatients();
 
   return (
-    <div className="card border-0 shadow-sm card-wrapper p-2 gap-2 w-100">
-      <div className="d-flex align-items-center gap-2">
-        <div className="rounded-circle border border-1">
-          <img src={personIcon} style={{ padding: "0.5rem", width: "2.3rem" }} alt="person" />
-        </div>
-        <div className="w-100">
-          <p className="fw-semibold m-0">{name}</p>
-          <p className="m-0">{gender}</p>
-        </div>
-      </div>
-      <div className="d-flex flex-column gap-2">
-        <div className="d-flex justify-content-between fw-semibold">
-          {details?.map((item, index) => (
-            <div key={index} style={{ width: "7rem" }}>
-              <p className="text-secondary">{item.title}</p>
-              <p className="text-black fw-semibold">{item.data}</p>
-            </div>
-          ))
+    <>
+      <TableContainer
+        title={'Pasien Baru'}
+        className={'shadow-base bg-white'}
+        thead={newPatientsThead}
+        bgThead={'bg-white'}
+        maxHeight={'8rem'}
+        name={null}
+      >
+      <RowTable
+          isError={isError}
+          isPending={isPending}
+          refetch={refetch}
+          data={data}
+          ifEmpty={'Tidak Ada Pasien'}
+          paddingError={'2rem'}
+          renderItem={(data, index) => {
+            return (
+              <tr className="text-nowrap" key={index}>
+                <td>{data.id_patient}</td>
+                <td>{data.fullname}</td>
+                <td>{data.id_transaction}</td>
+                <td>{data.price}</td>
+                <td className="text-center">
+                  <Button className={'btn-primary rounded-5 text-white fs-4 fw-semibold'}>Mulai Konsultasi</Button>
+                </td>
+              </tr>
+            )
           }
-        </div>
-        <Button className='btn-primary text-white '>
-          {tombol}
-        </Button>
-      </div>
-    </div>
+          }
+          >
+      </RowTable>
+      </TableContainer>
+    </>
   );
 };

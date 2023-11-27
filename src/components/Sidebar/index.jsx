@@ -1,21 +1,24 @@
 import { NavLink } from 'react-router-dom';
-import { useProfile } from '../../services/DoctorService';
-
 import { Button } from '../ui/Button';
 import { ProfileSkeleton } from '../ui/Skeleton/ProfileSkeleton';
+import ImageWithFallback from '../Error/ImageWithFallback';
 
 import logoutIcon from '../../assets/icon/logout.svg';
 import brandLogo from '../../assets/icon/brandLogo.png'
 import { menus } from '../../utils/dataObject';
+import doctorMale from '../../assets/icon/9432602.jpg'
+import doctorFemale from '../../assets/icon/maleDoc.jpg'
 import './Sidebar.css'
+import { useGetQuery } from '../../hooks/useGetQuery';
 
 const ProfileDoctor = () => {
   const {
     data,
-    refetch,
+    isPending,
     isError,
-    isFetching,
-  } = useProfile();
+    refetch
+  } = useGetQuery('profile', '/doctors/profile');
+
 
   if (isError) {
     return (
@@ -31,22 +34,24 @@ const ProfileDoctor = () => {
   }
 
 
-  if (isFetching) {
+  if (isPending) {
     return <ProfileSkeleton />;
   }
 
   return (
     <div>
       <figure className='figure d-flex'>
-        <img
-          src={data?.results?.ProfilePicture}
+        <ImageWithFallback
+          src={data?.results?.profile_picture}
+          fallback={data?.results?.gender === 'male' ? doctorMale : doctorFemale}
+          className='avatar object-fit-cover'
+          alt="Profile Picture"
           width={100}
           height={100}
-          className='avatar object-fit-cover'
-          alt="Profile Picture" />
+        />
         <div className='text-center'>
-          <h5 className='mt-2 fs-2 fw-semibold'>{data?.results?.Fullname}</h5>
-          <p>{data?.results?.Tag}</p>
+          <h5 className='mt-2 fs-2 fw-semibold'>{data?.results?.fullname}</h5>
+          <p className='text-capitalize'>{data?.results?.specialist}</p>
         </div>
       </figure>
       <div className='d-inline-flex gap-2'>

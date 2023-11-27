@@ -1,171 +1,252 @@
+/* Note:
+1. Menggunakan patient-service untuk melakukan pengambilan data.
+2. Menghandle isLoading, isPending, isError, refetch menggunakan useQuery pada file service.
+3. Menghandle button "Mulai Konsultasi" pada component <NewPatients /> yang mengarahkan pada page ChatPatients sesuai dengan id
+4. Menghandle button "Edit" pada component <RecentPatient /> untuk menampilkan modal berdasarkan id/index yang dimiliki user.
+*/
+
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import IconForAvatar from "../../assets/icon/avatar.svg";
+import { useGetRecentsPatients } from "../../services/patient-service";
+import { TableContainer } from "../../components/Table/TableContainer";
+import { newPatientsThead, recentPatientsThead } from "../../utils/dataObject";
+import { Button } from "../../components/ui/Button";
+import useForm from "../../hooks/useForm";
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-
-import searchIcon from "../../assets/icon/search.svg";
-
-import { NewPatientListTable } from "../../components/Table/NewPatientListTable";
-import { PatientListTable } from "../../components/Table/PatientListTable";
-// import { ChatDashboardCard } from "../../components/ui/Cards";
-import { PopupEditPasien } from "../../components/ui/Modal/PopupEditPasien";
-import { Input } from "../../components/ui/Form";
-
-import { fetchUserData } from "../../services/PatientService";
-import { useQuery } from "@tanstack/react-query";
-
-import "./Patient.css";
-import { fetchUserChat } from "../../services/ChatService";
-import { ChatDashboardCard } from "../../components/ui/Cards/ChatDashboardCard";
+import { ModalEditPasien } from "../../components/ui/Modal/ModalEditPasien";
+import { ErrorStatus } from "../../components/Error/ErrorStatus";
 import { UserChatListSkeleton } from "../../components/ui/Skeleton";
+import { RowTable } from "../../components/Table/RowTable";
 
 const PatientPage = () => {
-  // State
+  const { data } = useGetRecentsPatients();
   const [openModal, setOpenModal] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
-  const [selectedindex, setSelectedIndex] = useState(0);
+  const [dataByIndex, setDataByIndex] = useState(0);
 
-  // Queries
-  const patientQuery = useQuery({
-    queryKey: ["patients"],
-    queryFn: () => fetchUserData(),
-  });
-  const usersQuery = useQuery({
-    queryKey: ["users"],
-    queryFn: () => fetchUserChat(),
-  });
-
-  // Data Initialization
-  const chatMessages = (usersQuery.data?.data || []).slice(0, 3);
-  const NewPatientListData = (patientQuery.data || []).slice(0, 3);
-  const PatientListData = patientQuery.data || [];
-  // console.log(PatientListData);
-
-  // Hooks
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
 
-  // Functions
   const handleCurrentUserId = (id) => {
     searchParams.set("status", "all");
     searchParams.set("userId", id);
     navigate(`/chat/user?${searchParams.toString()}`);
   };
-  const handleChange = (event) => {
-    setSearchValue(event.target.value);
-  };
-  // Melakukan filtering data berdasarkan Nama, Diagnosis, dan juga Status
-  const filteredPatientData = PatientListData.filter((patient) => {
-    const lowerCaseSearch = searchValue.toLowerCase();
-    const lowerCaseName = patient.name.toLowerCase();
-    const lowerCaseDiagnosis = (patient.diagnosis || "")
-      .toString()
-      .toLowerCase();
-    const lowerCaseStatus = (patient.status || "").toString().toLowerCase();
-
-    return (
-      lowerCaseName.includes(lowerCaseSearch) ||
-      lowerCaseDiagnosis.includes(lowerCaseSearch) ||
-      lowerCaseStatus.includes(lowerCaseSearch)
-    );
-  });
 
   const PatientDataById = (index) => {
-    setSelectedIndex(index) 
-    setOpenModal(true)
-  } 
+    setDataByIndex(index);
+    setOpenModal(true);
+  };
 
   return (
-    <section className="container-fluid px-xl-4">
-      <div className="d-grid d-lg-flex gap-4 gap-lg-3 align-items-start align-items-lg-center my-3 gap-lg-4 ">
-        {/* Pesan Baru */}
-        <div className="shadow-sm rounded-4 chat_dashboard">
-          <div
-            className="p-2 w-100 d-grid gap-2"
-            style={{ maxHeight: "11.75rem", overflowY: "auto" }}
-          >
-            <div className="d-flex justify-content-between align-items-center">
-              <h3 className="m-0 fw-semibold fs-3">Pesan</h3>
-              <p className="text-info fw-semibold fs-4">
-                {chatMessages.length
-                  ? `${chatMessages.length} belum dibaca`
-                  : ""}
-              </p>
+    <section className="container patient-container">
+      <div className="row d-flex flex-column flex-lg-row align-items-start gap-4 my-3 ms-md-1 ms-lg-0 ">
+        <div className="col-12 col-lg-5 col-xl-4 ">
+          <CardContainer title="Pesan" subtitle="3 belum dibaca">
+            <div
+              className="d-grid gap-3 w-100"
+              style={{ overflow: "auto", maxHeight: "8rem" }}
+            >
+              <UnreadChat data={data} onClick={handleCurrentUserId} />
             </div>
-            {usersQuery.isLoading ? (
-              <UserChatListSkeleton />
-            ) : chatMessages.length > 0 ? (
-              chatMessages.map((message, index) => (
-                <div
-                  key={index}
-                  onClick={() => handleCurrentUserId(message.id)}
-                  className="text-decoration-none"
-                  style={{ cursor: "pointer" }}
-                >
-                  <ChatDashboardCard
-                    avatar={message.avatar}
-                    date={message.date}
-                    name={message.name}
-                    text={message.text}
-                  />
-                </div>
-              ))
-            ) : (
-              <div>Belum ada pesan</div>
-            )}
-          </div>
+          </CardContainer>
         </div>
-        {/* Chat Pasien Baru  */}
-        <div className="d-grid p-3 rounded-4 shadow-sm ">
-          <h3 className="fw-semibold fs-2 ">Pasien Baru</h3>
-          <div
-            className="table-responsive text-nowrap px-1 "
-            style={{ overflowY: "auto", height: "9.25rem" }}
-          >
-            <NewPatientListTable
-              patientData={NewPatientListData}
-              handleUser={handleCurrentUserId}
-              buttonName="Mulai Konsultasi"
-              buttonVariant="bg-primary text-white rounded-pill"
-            />
-          </div>
+        <div className="col-12 d-grid col-lg me-xl-5 ">
+          <NewPatients onClick={handleCurrentUserId} />
         </div>
-      </div>
-      {/* Daftar Pasien  */}
-      <div className="d-grid border-top rounded-top-4 p-2 ">
-        <div className="d-grid d-lg-flex justify-content-lg-between align-items-center">
-          <h1 className="fw-bold fs-1 mt-2">Daftar Pasien</h1>
-          <div className="position-relative pe-0 ">
-            <Input
-              placeHolder="Nama, Gejala, Status "
-              className="rounded-5 ps-5 border-0"
-              handleChange={handleChange}
-              value={searchValue}
-              name="search"
-            />
-            <button className="border-0 bg-transparent rounded-5 position-absolute start-0 ps-2 top-0 mt-1">
-              <img src={searchIcon} alt="searchIcon" className="w-75" />
-            </button>
-          </div>
+        <div className="col-12 d-grid ">
+          <RecentPatients onClick={PatientDataById} />
         </div>
-        <div
-          className="table-responsive text-nowrap table-wrapper mt-3"
-          style={{ overflowY: "auto", maxHeight: "21.25rem" }}
-        >
-          <PatientListTable
-            patientData={filteredPatientData}
-            buttonName="Edit"
-            buttonVariant="rounded-pill bg-primary text-white px-3"
-            onClick={PatientDataById}
+        {openModal && (
+          <ModalEditPasien
+            closeModal={() => setOpenModal(false)}
+            PatientListData={data[dataByIndex]}
           />
+        )}
+      </div>
+    </section>
+  );
+};
+
+const CardContainer = ({ title, subtitle, children }) => {
+  return (
+    <div
+      className="card border-0 rounded-4  "
+      style={{ boxShadow: "0px 0px 24px 0px rgba(0, 0, 0, 0.10)" }}
+    >
+      <div className="card-header border-0 bg-white pb-0 mt-2 ">
+        <div className="card-title d-flex align-items-center justify-content-between ">
+          <h3 className="fs-2 fw-semibold ">{title}</h3>
+          <p className="fs-4 text-primary fw-semibold ">{subtitle}</p>
         </div>
       </div>
-      {openModal && (
-        <PopupEditPasien
-          closeModal={() => setOpenModal(false)}
-          patientData={PatientListData[selectedindex]}
+      <div className="card-body pt-0 ">{children}</div>
+    </div>
+  );
+};
+
+const UnreadChat = ({ onClick }) => {
+  const formatDate = (dateString) => {
+    const options = { month: "short", day: "numeric" };
+    return new Date(dateString).toLocaleDateString("id-ID", options);
+  };
+
+  const { data, refetch, isPending, isError } = useGetRecentsPatients();
+
+  if (isError) {
+    return <ErrorStatus title={"Gagal memuat data pesan!"} action={refetch} />;
+  }
+
+  if (isPending) {
+    return (
+      <>
+        <UserChatListSkeleton />
+      </>
+    );
+  }
+
+  return (
+    <>
+      {data.map((msg) => {
+        return (
+          <div
+            className="d-flex flex-row gap-4 align-items-center text-decoration-none "
+            key={msg.id_patient}
+            onClick={() => onClick(msg.id_patient)}
+            style={{ cursor: "pointer" }}
+          >
+            <img
+              src={msg.avatar || IconForAvatar}
+              alt="Icon"
+              className="rounded-circle "
+              width={50}
+              height={50}
+            />
+            <div className="d-flex flex-column w-100 ">
+              <div className="d-flex align-items-center justify-content-between">
+                <h3 className="fs-3 fw-semibold mb-0 ">{msg.fullname}</h3>
+                <Link className="text-success fw-semibold fs-4 text-decoration-none ">
+                  {formatDate(msg.date)}
+                </Link>
+              </div>
+              <div className="d-flex align-items-center justify-content-between">
+                <p className="card-text fs-4 chat">{msg.text}</p>
+                <div className="badge bg-success-subtle rounded-circle text-primary fw-medium ">
+                  {msg.text.length}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </>
+  );
+};
+
+const NewPatients = ({ onClick }) => {
+  const formatToRupiah = (amount) => {
+    return `Rp. ${amount.toLocaleString("id-ID")}`;
+  };
+  const { data, refetch, isPending, isError } = useGetRecentsPatients();
+  return (
+    <>
+      <TableContainer
+        title={"Pasien Baru"}
+        className={"shadow-base bg-white"}
+        thead={newPatientsThead}
+        bgThead={"bg-white"}
+        maxHeight={"8rem"}
+        name={null}
+      >
+        <RowTable
+          isError={isError}
+          isPending={isPending}
+          refetch={refetch}
+          data={data}
+          ifEmpty={"Tidak Ada Pasien"}
+          paddingError={"2rem"}
+          renderItem={(table, index) => {
+            return (
+              <tr className="text-nowrap " key={index}>
+                <td>{table.id_patient}</td>
+                <td>{table.fullname}</td>
+                <td>{table.id_transaction}</td>
+                <td>{formatToRupiah(table.price)}</td>
+                <td className="text-center">
+                  <Button
+                    className={
+                      "btn-primary rounded-5 text-white fs-4 fw-semibold"
+                    }
+                    onClick={() => onClick(table.id_patient)}
+                  >
+                    Mulai Konsultasi
+                  </Button>
+                </td>
+              </tr>
+            );
+          }}
         />
-      )}
-    </section>
+      </TableContainer>
+    </>
+  );
+};
+
+const RecentPatients = ({ onClick }) => {
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return new Date(dateString).toLocaleDateString("id-ID", options);
+  };
+  const initialState = {
+    search: "",
+  };
+  const { form, handleInput } = useForm(initialState);
+  const { data, refetch, isPending, isError } = useGetRecentsPatients();
+  return (
+    <>
+      <TableContainer
+        handleInput={handleInput}
+        inputValue={form.search}
+        name={"search"}
+        maxHeight={"17.5rem"}
+        title={"Daftar Pasien"}
+        placeHolder={"Nama, Gejala, Status"}
+        thead={recentPatientsThead}
+        className={"border-top"}
+        bgThead={"bg-light"}
+      >
+        <RowTable
+          isError={isError}
+          isPending={isPending}
+          refetch={refetch}
+          data={data}
+          search={form?.search}
+          ifEmpty={"Tidak ada riwayat transaksi konsultasi dokter!"}
+          paddingError={"2rem"}
+          renderItem={(table, index) => {
+            return (
+              <tr className="text-nowrap" key={index}>
+                <td>{table.id_patient}</td>
+                <td>{table.fullname}</td>
+                <td>{table.id_transaction}</td>
+                <td>{formatDate(table.date)}</td>
+                <td>{table.diagnosis}</td>
+                <td>{table.status}</td>
+                <td className="text-center">
+                  <Button
+                    className={
+                      "btn-primary rounded-5 text-white fs-4 fw-semibold"
+                    }
+                    onClick={() => onClick(table.id_patient)}
+                  >
+                    Edit
+                  </Button>
+                </td>
+              </tr>
+            );
+          }}
+        />
+      </TableContainer>
+    </>
   );
 };
 

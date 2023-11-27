@@ -1,15 +1,16 @@
-import { LoginForm } from "../../components/ui/Form/LoginForm"
+import { LoginForm } from "../../components/ui/Form/LoginForm";
+import doctorLogin from '../../assets/image/doctorLogin.png'
 
 
 const LoginPage = () => {
 
     return (
-        <div className="p-5">
-            <div className="row">
-                <div className="col-md-5 col-lg-6 col-6">
-                    <img width={550} height={400} src="../../../public/loginimg.png" />
+        <div className=" min-vh-100 px-5">
+            <div className="d-flex min-vh-100 flex-column flex-md-row justify-content-evenly align-items-center">
+                <div className="d-none d-lg-block">
+                    <img width={528} height={591} src={doctorLogin} />
                 </div>
-                <div className="col-md-5 col-lg-6 col-6">
+                <div style={{ maxWidth: '29.9375rem'}}>
                     <LoginForm />
                 </div>
             </div>
