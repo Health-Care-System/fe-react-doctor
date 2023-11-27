@@ -1,3 +1,7 @@
+
+
+
+
 export const validateArticleForm = (form, content, setErrors) => {
   let valid = true;
   const newErrors = { title: '', image: null, content: '' };
@@ -28,7 +32,8 @@ export const validateArticleForm = (form, content, setErrors) => {
   } else {
     newErrors.content = '';
   }
-
+  
+  console.log(newErrors)
   setErrors(newErrors);
   return valid;
 };
