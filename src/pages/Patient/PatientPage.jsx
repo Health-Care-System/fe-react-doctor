@@ -24,7 +24,7 @@ import "./Patient.css";
 const PatientPage = () => {
   const { data } = useGetRecentsPatients();
   const [openModal, setOpenModal] = useState(false);
-  const [dataByIndex, setDataByIndex] = useState(0);
+  const [selectedPatientIndex, setSelectedPatientIndex] = useState(0);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -36,28 +36,28 @@ const PatientPage = () => {
     navigate(`/chat/user?${searchParams.toString()}`);
   };
 
-  const PatientDataById = (index) => {
-    setDataByIndex(index);
+  const openEditModal = (index) => {
+    setSelectedPatientIndex(index);
     setOpenModal(true);
   };
 
   return (
     <section className="p-2 w-100 patient-container">
-      <div className="row gap-4 gap-xl-3 my-3 ms-md-1 ms-lg-0 ">
-        <CardContainer title="Pesan" className="col-12 col-lg-5">
-          <div className="d-flex flex-column gap-1 ">
-            <UnreadChat data={data} onClick={handleCurrentUserId} />
-          </div>
-        </CardContainer>
+      <div className="row gap-3 my-3 patient-container ms-lg-1 ">
+          <CardContainer title="Pesan" detail={"3 belum dibaca"} className="col-12 col-lg-5  ">
+            <div className="d-flex flex-column gap-1 ">
+              <UnreadChat data={data} onClick={handleCurrentUserId} />
+            </div>
+          </CardContainer>
         <div className="col-12 col-lg-6">
           <NewPatients onClick={handleCurrentUserId} />
         </div>
       </div>
-      <RecentPatients onClick={PatientDataById} />
+      <RecentPatients onClick={openEditModal} />
       {openModal && (
         <ModalEditPasien
           closeModal={() => setOpenModal(false)}
-          PatientListData={data[dataByIndex]}
+          patientData={data[selectedPatientIndex]}
         />
       )}
     </section>
@@ -90,7 +90,6 @@ const UnreadChat = ({ onClick }) => {
       {data.map((msg) => {
         return (
           <div
-            className="d-flex flex-row gap-4 align-items-center text-decoration-none "
             key={msg.id_patient}
             onClick={() => onClick(msg.id_patient)}
             style={{ cursor: "pointer" }}
@@ -123,53 +122,6 @@ const UnreadChat = ({ onClick }) => {
   );
 };
 
-// const NewPatients = ({ onClick }) => {
-//   const formatToRupiah = (amount) => {
-//     return `Rp. ${amount.toLocaleString("id-ID")}`;
-//   };
-//   const { data, refetch, isPending, isError } = useGetRecentsPatients();
-//   return (
-//     <>
-//       <TableContainer
-//         title={"Pasien Baru"}
-//         className={"shadow-base bg-white"}
-//         thead={newPatientsThead}
-//         bgThead={"bg-white"}
-//         maxHeight={"8rem"}
-//         name={null}
-//       >
-//         <RowTable
-//           isError={isError}
-//           isPending={isPending}
-//           refetch={refetch}
-//           data={data}
-//           ifEmpty={"Tidak Ada Pasien"}
-//           paddingError={"2rem"}
-//           renderItem={(table, index) => {
-//             return (
-//               <tr className="text-nowrap " key={index}>
-//                 <td>{table.id_patient}</td>
-//                 <td>{table.fullname}</td>
-//                 <td>{table.id_transaction}</td>
-//                 <td>{formatToRupiah(table.price)}</td>
-//                 <td className="text-center">
-//                   <Button
-//                     className={
-//                       "btn-primary rounded-5 text-white fs-4 fw-semibold"
-//                     }
-//                     onClick={() => onClick(table.id_patient)}
-//                   >
-//                     Mulai Konsultasi
-//                   </Button>
-//                 </td>
-//               </tr>
-//             );
-//           }}
-//         />
-//       </TableContainer>
-//     </>
-//   );
-// };
 
 const RecentPatients = ({ onClick }) => {
   const formatDate = (dateString) => {
