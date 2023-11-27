@@ -4,10 +4,12 @@ export const Input = ({
   value,
   handleChange,
   type,
-  className
+  className,
+  ...props
 }) => {
   return (
     <input
+      {...props}
       type={type}
       name={name}
       value={value}
