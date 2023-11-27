@@ -12,6 +12,9 @@ export const useForm = ({error, fields, redirect}) => {
     if(formField.password === ""){
         return error
     }
+  
+    setFormField(fields)
+
 
     const navigate = useNavigate()
     
