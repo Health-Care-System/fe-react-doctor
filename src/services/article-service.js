@@ -5,30 +5,30 @@ export const validateArticleForm = (form, content, setErrors) => {
   if (!form.title) {
     newErrors.title = 'Judul artikel harap diisi';
     valid = false;
-  } else if (!form.title.length < 50) {
+  } else if (form.title.length > 50) {
     newErrors.title = 'Maksimal judul adalah 50 karakter!';
     valid = false;
   } else {
     newErrors.title = '';
-    valid = true;
   }
 
   if (!form.image) {
-    newErrors.image = 'Harap pilih file untuk thumnail artikel!';
+    newErrors.image = 'Harap pilih file untuk thumbnail artikel!';
     valid = false;
   } else {
     newErrors.image = '';
-    valid = true;
   }
 
   if (!content) {
-    newErrors.content = 'Harap input kontent artikel!'
+    newErrors.content = 'Harap input konten artikel!';
+    valid = false;
   } else if (content.length > 3000) {
-    newErrors.content = 'Maksimal isi konten artikel adalah 3000 karakter!'
+    newErrors.content = 'Maksimal isi konten artikel adalah 3000 karakter!';
+    valid = false;
   } else {
     newErrors.content = '';
-    valid = true;
   }
+
   setErrors(newErrors);
   return valid;
 };
