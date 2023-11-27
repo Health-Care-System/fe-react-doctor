@@ -6,12 +6,9 @@ import { Editor } from "../../components/Editor"
 import { Input } from "../../components/ui/Form"
 import { Button } from "../../components/ui/Button"
 import { ErrorMsg } from "../../components/Error/ErrorMsg"
-import {
-  validateArticleForm,
-  validateExtImage
-} from "../../services/article-service"
 import './Article.css'
 import { useGetQuery } from "../../hooks/useGetQuery"
+import { validateArticleForm, validateExtImage } from "../../utils/validation"
 const initialError = {
   title: '',
   image: '',
