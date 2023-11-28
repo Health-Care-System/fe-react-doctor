@@ -6,7 +6,8 @@ export const ErrorStatus = ({ title, action}) => {
       <p className="text-center">{title}</p>
       <Button
         onClick={action}
-        className={'btn-primary text-white w-25 mx-auto text-center'}
+        style={{ width: 'fit-content'}}
+        className={'btn-primary text-white mx-auto text-center text-nowrap'}
       >
         Coba Lagi
       </Button>

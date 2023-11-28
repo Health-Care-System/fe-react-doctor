@@ -8,7 +8,7 @@ export const Transparent = ({ children, onClick, ...props }) => {
         {...props}
         onClick={onClick}
         type='button'
-        className={`${styles.backdropBlur} bg-black h-100 w-100 border-0`}>
+        className={`${styles.backdropBlur} bg-white h-100 w-100 border-0`}>
       </input>
       {children}
     </>
