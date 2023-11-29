@@ -13,6 +13,40 @@
   left: 20%;
 }
 
+.modal-avatar {
+  width: 6rem !important;
+  height: 6rem !important;
+}
+
+Input .input-diagnosa{
+  background: #ECECEC ;
+  color: #9C9C9C;
+}
+
+Input .input-diagnosa:hover {
+  border: 1px solid ;
+  border-color: #505ACB ;
+  box-shadow: none ;
+  background: transparent ;
+}
+
+Select {
+  background: #ECECEC ;
+  color: #9C9C9C;
+}
+
+Select:focus {
+  border: 1px solid ;
+  border-color: #505ACB ;
+  box-shadow: none ;
+  background: transparent ;
+}
+
+Select option:focus {
+  background-color: #ECECEC ;
+}
+
+
 .btn-outline-primary {
 	--bs-btn-active-color: #fff;
   --bs-btn-hover-color: #fff;
