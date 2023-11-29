@@ -1,18 +1,29 @@
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import client from "../../utils/auth"
+// Pacakages
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+// Utility & Hooks
 import useForm from "../../hooks/useForm"
+import {
+  validateExtImage
+} from "../../utils/validation"
+
+// Components
 import { Editor } from "../../components/Editor"
 import { Input } from "../../components/ui/Form"
 import { Button } from "../../components/ui/Button"
 import { ErrorMsg } from "../../components/Error/ErrorMsg"
+
+// Assets
 import './Article.css'
-import { validateArticleForm, validateExtImage } from "../../utils/validation"
+import penIcon from '../../assets/icon/filled-pen.svg'
+import { handlePostArticle } from "../../services/article-service";
 
 const initialState = {
   title: '',
   image: null,
   tempImage: null,
+  clickImg: false,
 }
 const initialError = {
   title: '',
@@ -20,6 +31,7 @@ const initialError = {
   content: '',
 }
 export const CreateArticle = () => {
+  const [content, setContent] = useState('');
   const {
     form,
     setForm,
@@ -27,7 +39,6 @@ export const CreateArticle = () => {
     setError,
     handleInput,
   } = useForm(initialState, initialError);
-  const [content, setContent] = useState('');
 
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
@@ -45,48 +56,44 @@ export const CreateArticle = () => {
             ...form,
             image: file,
             tempImage: dataURL,
+            clickImg: false,
           });
         };
         reader.readAsDataURL(file);
       }
     }
   };
-
+  const handleImage = () => {
+    setForm((prev) => ({
+      ...form,
+      clickImg: !prev.clickImg
+    }))
+  }
+  
   const navigate = useNavigate();
   const handlePost = async () => {
-    const data = new FormData();
-    data.append('title', form.title);
-    data.append('content', content);
-    data.append('image', form.image);
-    if (validateArticleForm(form, content, setError)) {
-      try {
-        const res = await client.post('/doctors/articles', data);
-        if (res.status === 201) {
-          navigate('/articles')
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
+    const res = await handlePostArticle(form, content, setError);
+    if (res) return navigate('/articles')
   }
-
+  
   return (
     <>
       <div className="px-4 d-flex flex-column gap-4 mt-3">
-
         <div>
           <div className="d-flex flex-row justify-content-between gap-3">
             <Input
-              placeHolder={'Judul'}
-              name={'title'}
               type={'text'}
+              name={'title'}
               maxLength={50}
-              style={{ maxWidth: '90%' }}
-              className={'border-start-0 border-top-0 border-end-0'}
-              handleChange={(e) => handleInput(e)}
               value={form.title}
+              placeHolder={'Judul'}
+              style={{ maxWidth: '90%' }}
+              handleChange={(e) => handleInput(e)}
+              className={'border-start-0 border-top-0 border-end-0'}
             />
-            <Button onClick={handlePost} className={'btn-primary text-white'}>
+            <Button
+              onClick={handlePost}
+              className={'btn-primary text-white'}>
               Posting
             </Button>
           </div>
@@ -99,17 +106,42 @@ export const CreateArticle = () => {
             <>
               <div className="text-center">
                 <input
-                  onChange={(e) => handleFileInputChange(e)}
-                  type="file"
                   id="file"
-                  className={`inputfile form-control`}
+                  type="file"
                   name="file"
+                  onChange={(e) => handleFileInputChange(e)}
+                  className={`inputfile form-control`}
                 />
                 <label htmlFor="file">Upload Foto</label>
               </div>
               {error.image && <ErrorMsg msg={error.image} />}
             </>
-            : <img src={form.tempImage} width={211} alt="temp image" />
+            :
+            <div className="position-relative mb-3">
+              <img
+                src={form.tempImage}
+                onClick={handleImage}
+                width={211}
+                height={200}
+                className={form.clickImg
+                  ? 'object-fit-cover opacity-75'
+                  : ' object-fit-cover'
+                }
+                alt="temp image" />
+              {form.clickImg &&
+                <>
+                  <img
+                    src={penIcon}
+                    width={24}
+                    className="article-edit-icon"
+                    alt="Edit" />
+                  <EditButtonImage
+                    tempImage={form.tempImage}
+                    handleFileInputChange={handleFileInputChange}
+                    setForm={setForm} />
+                </>
+              }
+            </div>
           }
         </div>
 
@@ -117,6 +149,45 @@ export const CreateArticle = () => {
           {error.content && <ErrorMsg msg={error.content} />}
           <Editor content={content} setContent={setContent} />
         </div>
+      </div>
+    </>
+  )
+}
+
+export const EditButtonImage = ({ setForm, handleFileInputChange, tempImage }) => {
+  const deleteImage = () => {
+    setForm((prev) => ({
+      ...prev,
+      tempImage: null,
+      image: null,
+      clickImg: false,
+    }))
+  }
+
+  return (
+    <>
+      <div className="d-flex flex-column shadow rounded-2 p-2 edit-btn-wrapper" style={{ width: 'fit-content' }}>
+        <Link
+          target="_blank"
+          to={`${tempImage}`}
+          className={'btn fw-semibold'}>
+          {'Lihat Foto'}
+        </Link>
+        <div className="text-center">
+          <input
+            onChange={(e) => handleFileInputChange(e)}
+            type="file"
+            id="fileWhite"
+            className={`inputFileWhite form-control`}
+            name="fileWhite"
+          />
+          <label htmlFor="fileWhite" className="text-black bg-light">Unggah Foto</label>
+        </div>
+        <Button
+          onClick={deleteImage}
+          className={'fw-semibold'}>
+          {'Hapus Foto'}
+        </Button>
       </div>
     </>
   )

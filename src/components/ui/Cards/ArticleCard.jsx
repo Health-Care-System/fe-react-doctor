@@ -1,10 +1,10 @@
 import bulletIcon from '../../../assets/icon/bullet.svg'
 import './Card.css'
 
-export const ArticleCard = ({ title, content, date }) => {
+export const ArticleCard = ({ title, content, date, handleNavigate }) => {
 
   return (
-    <div className="card border-0 article-wrapper">
+    <div onClick={handleNavigate} className="card border-0 article-wrapper">
       <div className="card-body p-2">
         <h6 className="card-title fw-semibold text-truncate">{title}</h6>
         <p className="card-text line-clamp-2">{content}</p>
