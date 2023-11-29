@@ -1,6 +1,6 @@
 // Pacakages
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // Utility & Hooks
 import useForm from "../../hooks/useForm"
@@ -70,8 +70,10 @@ export const CreateArticle = () => {
     }))
   }
   
-  const handlePost = () => {
-    handlePostArticle(form, content, setError);
+  const navigate = useNavigate();
+  const handlePost = async () => {
+    const res = await handlePostArticle(form, content, setError);
+    if (res) return navigate('/articles')
   }
   
   return (

@@ -1,4 +1,3 @@
-import { redirect } from "react-router-dom";
 import client from "../utils/auth";
 import { validateArticleForm } from "../utils/validation";
 
@@ -15,16 +14,16 @@ export const handlePostArticle = async (
   content,
   setError,
 ) => {
-  console.log(form, content, setError)
   const data = prepareArticleData(form, content);
   if (validateArticleForm(form, content, setError)) {
     try {
       const res = await client.post(`/doctors/articles`, data);
       if (res.status === 201 || res.status === 200) {
-        redirect('/articles')
+        return true;
       }
     } catch (error) {
-      console.log(error);
+      console.log(error?.response?.data?.meta?.message);
+      return false;
     }
   }
 }
@@ -39,10 +38,27 @@ export const handleEditArticle = async (
     try {
       const res = await client.put(`/doctors/articles/${idArticle}`, data);
       if (res.status === 201 || res.status === 200) {
-        redirect('/articles')
+        return true;
       }
     } catch (error) {
-      console.log(error);
+      console.log(error?.response?.data?.meta?.message);
+      return false;
     }
+  }
+}
+
+
+export const handleDeleteArticle = async (id, setLoading, queryClient, setModalDelete) => {
+  try {
+    setLoading(true);
+    const res = await client.delete(`/doctors/articles/${id}`);
+    if (res.status === 200) {
+      queryClient.invalidateQueries({ queryKey: ['articles'] })
+    }
+  } catch (error) {
+    console.log(error?.response?.data?.meta?.message);
+  } finally {
+    setLoading(false);
+    setModalDelete(false);
   }
 }

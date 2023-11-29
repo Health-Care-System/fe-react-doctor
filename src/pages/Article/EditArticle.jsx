@@ -1,6 +1,6 @@
 // Packages
 import { useState } from "react"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 
 // Utils & Custom hooks
 import useForm from "../../hooks/useForm"
@@ -100,6 +100,7 @@ const EditorArticle = ({ data }) => {
             ...form,
             image: file,
             tempImage: dataURL,
+            clickImg: false
           });
         };
         reader.readAsDataURL(file);
@@ -107,8 +108,10 @@ const EditorArticle = ({ data }) => {
     }
   };
 
+  const navigate = useNavigate()
   const handlePost = async () => {
-    handleEditArticle(form, content, idArticle, setError)
+    const res = await handleEditArticle(form, content, idArticle, setError);
+    if (res) return navigate('/articles');
   }
 
   const handleImage = () => {

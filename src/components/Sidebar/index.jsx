@@ -107,7 +107,8 @@ export const Sidebar = () => {
         </ul>
         {modal &&
           <Transparent
-            className='min-vw-100 position-fixed end-0'
+            disabled={true}
+            className='min-vw-100'
           >
             <CustomModal
               title={'Ingin Keluar?'}
