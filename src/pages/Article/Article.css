@@ -15,7 +15,7 @@
 }
 .sort-article {
   background-image: url('../../assets/icon/expand-circle.svg') !important;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat !important;
   font-weight: 600 !important; 
   padding-left: 2rem !important; 
 	background-size: 24px !important;
