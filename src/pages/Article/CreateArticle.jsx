@@ -1,5 +1,7 @@
 // Pacakages
 import { useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
 
 // Utility & Hooks
@@ -18,6 +20,8 @@ import { ErrorMsg } from "../../components/Error/ErrorMsg"
 import './Article.css'
 import penIcon from '../../assets/icon/filled-pen.svg'
 import { handlePostArticle } from "../../services/article-service";
+import { useQueryClient } from "@tanstack/react-query";
+
 
 const initialState = {
   title: '',
@@ -69,13 +73,24 @@ export const CreateArticle = () => {
       clickImg: !prev.clickImg
     }))
   }
-  
+
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const handlePost = async () => {
     const res = await handlePostArticle(form, content, setError);
-    if (res) return navigate('/articles')
+    if (res) {
+      navigate('/articles');
+      queryClient.invalidateQueries({ queryKey: ['articles'] })
+      toast.success('Artikel berhasil dipublish!', {
+        delay: 800
+      });
+    } else {
+      toast.error('Artikel gagal dipublish!', {
+        delay: 800
+      });
+    }
   }
-  
+
   return (
     <>
       <div className="px-4 d-flex flex-column gap-4 mt-3">

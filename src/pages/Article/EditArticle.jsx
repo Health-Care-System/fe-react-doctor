@@ -1,6 +1,7 @@
 // Packages
-import { useState } from "react"
-import { useLocation, useNavigate } from "react-router-dom"
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
 
 // Utils & Custom hooks
 import useForm from "../../hooks/useForm"
@@ -20,6 +21,8 @@ import './Article.css'
 import { handleEditArticle } from "../../services/article-service"
 import { Transparent } from "../../components/ui/Container"
 import { ErrorStatus } from "../../components/Error/ErrorStatus"
+import { toast } from "react-toastify";
+import { useQueryClient } from "@tanstack/react-query";
 const initialError = {
   title: '',
   image: '',
@@ -81,6 +84,8 @@ const EditorArticle = ({ data }) => {
     error,
     setError,
     handleInput,
+    loading,
+    setLoading
   } = useForm(initialState, initialError);
   const [content, setContent] = useState(data?.results?.content || '');
 
@@ -108,10 +113,21 @@ const EditorArticle = ({ data }) => {
     }
   };
 
+  const queryClient = useQueryClient();
   const navigate = useNavigate()
   const handlePost = async () => {
-    const res = await handleEditArticle(form, content, idArticle, setError);
-    if (res) return navigate('/articles');
+    const res = await handleEditArticle(form, content, idArticle, setError, setLoading);
+    if (res) {
+      navigate('/articles');
+      queryClient.invalidateQueries({ queryKey: ['articles'] });
+      toast.success('Artikel berhasil diedit!', {
+        delay: 800
+      });
+    } else {
+      toast.error('Artikel gagal diedit!', {
+        delay: 800
+      });
+    }
   }
 
   const handleImage = () => {
@@ -137,6 +153,7 @@ const EditorArticle = ({ data }) => {
               value={form.title || data?.results?.title}
             />
             <Button
+              disabled={loading}
               onClick={handlePost}
               className={'btn-primary text-white'}>
               Posting
