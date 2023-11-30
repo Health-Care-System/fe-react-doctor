@@ -43,9 +43,9 @@ const PatientPage = () => {
 
   return (
     <section className="p-2 w-100 patient-container">
-      <div className="row gap-4 gap-xl-3 my-3 ms-md-1 ms-lg-0 ">
-        <CardContainer title="Pesan" className="col-12 col-lg-5">
-          <div className="d-flex flex-column gap-1 ">
+      <div className="row gap-4 gap-xl-3 my-3 ms-md-1 ms-lg-0">
+        <CardContainer title="Pesan" className="col-12 w col-lg-5">
+          <div className="d-flex flex-column gap-1">
             <UnreadChat data={data} onClick={handleCurrentUserId} />
           </div>
         </CardContainer>

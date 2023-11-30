@@ -20,11 +20,11 @@ const HomePage = () => {
 
       <div className="row mt-5 home-container me-3">
         <div className="col-12 col-lg-7 mb-3 mb-lg-0 d-flex flex-column">
-          <div className=" d-flex flex-column gap-3">
+          <div className="d-flex flex-column gap-3">
             <NewPatients />
             <CardContainer
               title={'Pesan'}
-              detail={'3 belum dibaca'}>
+              detail={''}>
               <div className="d-flex flex-column gap-1">
                 <ChatListWrapper />
               </div>
