@@ -5,7 +5,7 @@ import { useState } from "react";
 
 export const FeedbackPage = () => {
   const [userRating, setUserRating] = useState(0);
-  
+
   const handleRatingChange = (value) => {
     setUserRating(value);
   };
@@ -15,9 +15,9 @@ export const FeedbackPage = () => {
       {/* 1 */}
       <div className="d-lg-flex align-items-start justify-content-around gap-lg-4 gap-xl-2 gap-xxl-5">
         <div className="d-lg-flex flex-column justify-content-center align-items-center">
-            <p className="text-center rating-angka">{userRating}</p>
+            <p className="text-center rating-angka">{userRating || 0}</p>
             <div className="d-flex flex-column align-items-center">
-              <RatingStars handleRatingChange={handleRatingChange}/>
+              <RatingStars handleRatingChange={handleRatingChange} userRating={userRating || 0}/>
               <p style={{fontSize:"1.25rem"}}>Rata-rata Penilaian</p>
             </div>
         </div>
@@ -79,23 +79,23 @@ export const FeedbackPage = () => {
         </div>
         <div className="d-lg-flex flex-lg-column mt-4 mt-lg-0">
           <div className="d-flex align-items-center gap-2">
-            <RatingStars/>
+            <RatingStars handleRatingChange={handleRatingChange} userRating={userRating || 0}/>
             <p className="nilai-persen">70%</p>
           </div>
           <div className="d-flex align-items-center gap-2">
-            <RatingStars/>
+            <RatingStars handleRatingChange={handleRatingChange} userRating={userRating || 0}/>
             <p className="nilai-persen">20%</p>
           </div>
           <div className="d-flex align-items-center gap-2">
-            <RatingStars/>
+            <RatingStars handleRatingChange={handleRatingChange} userRating={userRating || 0}/>
             <p className="nilai-persen">8%</p>
           </div>
           <div className="d-flex align-items-center gap-2">
-            <RatingStars/>
+            <RatingStars handleRatingChange={handleRatingChange} userRating={userRating || 0}/>
             <p className="nilai-persen">4%</p>
           </div>
           <div className="d-flex align-items-center gap-2">
-            <RatingStars/>
+            <RatingStars handleRatingChange={handleRatingChange} userRating={userRating || 0}/>
             <p className="nilai-persen">0%</p>
           </div>
         </div>
