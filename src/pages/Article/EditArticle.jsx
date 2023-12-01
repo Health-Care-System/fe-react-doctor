@@ -1,28 +1,30 @@
 // Packages
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useQueryClient } from "@tanstack/react-query";
+import { useLocation, useNavigate } from "react-router-dom";
 
 // Utils & Custom hooks
-import useForm from "../../hooks/useForm"
-import { useGetQuery } from "../../hooks/useGetQuery"
-import { validateExtImage } from "../../utils/validation"
+import useForm from "../../hooks/useForm";
+import { useGetQuery } from "../../hooks/useGetQuery";
+import { validateExtImage } from "../../utils/validation";
 
 // Components
-import { Editor } from "../../components/Editor"
-import { Input } from "../../components/ui/Form"
+import { Editor } from "../../components/Editor";
+import { Input } from "../../components/ui/Form";
 import { EditButtonImage } from "./CreateArticle";
-import { Button } from "../../components/ui/Button"
-import { ErrorMsg } from "../../components/Error/ErrorMsg"
+import { Button } from "../../components/ui/Button";
+import { ErrorMsg } from "../../components/Error/ErrorMsg";
 
 // Assets
 import penIcon from '../../assets/icon/filled-pen.svg';
-import './Article.css'
-import { handleEditArticle } from "../../services/article-service"
-import { Transparent } from "../../components/ui/Container"
-import { ErrorStatus } from "../../components/Error/ErrorStatus"
-import { toast } from "react-toastify";
-import { useQueryClient } from "@tanstack/react-query";
+import './Article.css';
+import { handleEditArticle } from "../../services/article-service";
+import { Transparent } from "../../components/ui/Container";
+import { ErrorStatus } from "../../components/Error/ErrorStatus";
+import sendIcon from '../../assets/icon/send-white.svg';
+
 const initialError = {
   title: '',
   image: '',
@@ -141,22 +143,23 @@ const EditorArticle = ({ data }) => {
     <>
       <div className="px-4 d-flex flex-column gap-4 mt-3">
         <div>
-          <div className="d-flex flex-row justify-content-between gap-3">
+        <div className="d-flex flex-row justify-content-between gap-3">
             <Input
-              placeHolder={'Judul'}
-              name={'title'}
               type={'text'}
+              name={'title'}
               maxLength={50}
+              value={form.title}
+              placeHolder={'Judul'}
               style={{ maxWidth: '90%' }}
-              className={'border-start-0 border-top-0 border-end-0'}
               handleChange={(e) => handleInput(e)}
-              value={form.title || data?.results?.title}
+              className={'border-start-0 border-top-0 border-2 bg-light rounded-0 border-end-0 fw-bold fs-2'}
             />
             <Button
               disabled={loading}
               onClick={handlePost}
-              className={'btn-primary text-white'}>
-              Posting
+              className={'btn-primary text-white d-flex flex-row fkex-nowrap align-items-center'}>
+              <img src={sendIcon} className="pe-3" alt="" />
+              <p>Posting</p>
             </Button>
           </div>
           {error.title && <ErrorMsg msg={error.title} />}

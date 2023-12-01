@@ -11,6 +11,7 @@ import { formattedDate } from "../../utils/helpers";
 import { useNavigate } from "react-router-dom";
 import { useStatus } from "../../store/useStatus";
 import noMsgIcon from '../../assets/icon/noMsg.png'
+import { ArticleSkeletonWhite } from "../../components/ui/Skeleton/AticleSkeletonWhite";
 
 const HomePage = () => {
 
@@ -72,7 +73,6 @@ const ChatListWrapper = () => {
     );
   }
   
-    
   if (isError) {
     return <ErrorStatus title={'Gagal memuat data pesan!'} action={refetch} />
   }
@@ -120,10 +120,15 @@ const ArticleWrapper = () => {
   }
 
   if (isPending) {
-    return <p>Loading...</p>
+    return(
+      <>
+        <ArticleSkeletonWhite />
+        <ArticleSkeletonWhite />
+      </>
+    )
   }
 
-  if (isError) {
+  if (!isError) {
     return <ErrorStatus title={'Gagal memuat data pesan!'} action={refetch} />
   }  
   
