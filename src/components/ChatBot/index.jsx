@@ -30,20 +30,20 @@ const Chatbot = ({ handleClose }) => {
             <span className="carebot-title">Carebot</span>
           </div>
           <button type="button" className="close-btn" onClick={handleClose}>
-          <img src={arrowDown} alt="Close" className="close-btn" />
+            <img src={arrowDown} alt="Close" className="close-btn" />
           </button>
         </div>
         <div className="chat-history">
           {/* Display chat history */}
           {chatHistory.map((chat, index) => (
             <div key={index} className={chat.type === 'user' ? 'user-message' : 'chatbot-message'}>
-              {chat.text}
+              <div className="message-bubble">{chat.text}</div>
             </div>
           ))}
           {/* Display Chatbot's answer */}
           {answer && (
             <div className="chatbot-message">
-              {answer}
+              <div className="message-bubble">{answer}</div>
             </div>
           )}
         </div>
