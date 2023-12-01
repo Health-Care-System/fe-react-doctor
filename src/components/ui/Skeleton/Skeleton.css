@@ -1,0 +1,16 @@
+.article-skeleton {
+  width: 6rem;
+}
+
+@media (min-width: 768px) {
+  .article-skeleton {
+    width: 12rem;
+  }  
+}
+
+@media (min-width: 992px) {
+  .article-skeleton {
+    width: 28rem;
+  }  
+  
+}
