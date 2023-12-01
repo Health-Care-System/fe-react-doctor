@@ -1,25 +1,30 @@
+import React, { useState } from 'react';
 import mailIcon from '../../assets/icon/mail-fill.svg';
 import notifIcon from '../../assets/icon/notif.svg';
 import { Link, useLocation } from 'react-router-dom';
 import { navbarTitle } from '../../utils/dataObject';
-import './Navbar.css'
+import './Navbar.css';
 import { useStatus } from '../../store/useStatus';
+import Chatbot from '../ChatBot';
 
 export const Navbar = () => {
-  // Global State
   const isActive = useStatus((state) => state.isActive);
   const handleStatus = useStatus((state) => state.handleStatus);
   
-  
-  // Buat render title dan content secara dinamis berdasarkan rute
   const location = useLocation();
   const currentRoute = location.pathname.split('/')[1];
   const currentNavItem = navbarTitle.find((item) => item.route === currentRoute);
-  return (
+  
+  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
+  const handleMailIconClick = () => {
+    setIsChatbotOpen(!isChatbotOpen); // Toggle isChatbotOpen state
+  };
+
+  return (
     <header className='navbar p-0'>
       <nav className='navbar-content'>
-        <div >
+        <div>
           <h5 className='fw-semibold m-0 text-secondary'>
             {
               currentNavItem
@@ -51,13 +56,16 @@ export const Navbar = () => {
             <Link to={'/feedback'}>
               <img src={notifIcon} className='icon-size' alt='Notification' />
             </Link>
-            <img src={mailIcon} className='icon-size' alt='Search' />
+            <img
+              src={mailIcon}
+              className='icon-size'
+              alt='Search'
+              onClick={handleMailIconClick}
+            />
+            {isChatbotOpen && <div className="popup-background"><Chatbot handleClose={handleMailIconClick} /></div>}
           </div>
         </div>
-
       </nav>
     </header>
-  )
-}
-
-
+  );
+};

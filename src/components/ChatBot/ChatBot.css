@@ -1,31 +1,112 @@
+/* Container styling */
+.chatbot-container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 20px;
+  width: 500px;
+  height: 648px;
+  overflow: hidden;
+  z-index: 9999;
+}
+
+/* Main chatbot styling */
 .chatbot {
-  display: flex;
-  flex-direction: column;
-  max-width: 400px;
-  margin: 0 auto;
- }
- 
- .chat-history {
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  max-height: 500px;
- }
- 
- input[type='text'] {
+  background-color: #fff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
   width: 100%;
+  height: 100%;
+  padding-top: 80px;
+  position: relative;
+}
+
+/* Chatbot header styling */
+.chatbot-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #008772;
   padding: 10px;
-  margin-bottom: 10px;
- }
- 
- button {
-  padding: 10px;
-  background-color: #4caf50;
+  border-radius: 10px 10px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+}
+
+.carebot-logo {
+  width: 40px;
+  height: 40px;
+  margin-right: 15px;
+  margin-left: px;
+}
+
+.carebot-title {
+  font-weight: bold;
+  font-size: 1rem;
   color: white;
+}
+
+.close-btn {
+  width: 15px;
+  margin-right: 20px;
   border: none;
+  background: none;
+  color: white;
   cursor: pointer;
- }
- 
- button:hover {
-  background-color: #45a049;
- }
+}
+
+/* Chat history styling */
+.chat-history {
+  height: calc(100% - 80px);
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.user-message {
+  text-align: end;
+  margin-bottom: 10px;
+}
+
+.chatbot-message {
+  text-align: start;
+  margin-bottom: 10px;
+}
+
+/* User input styling */
+.user-input {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  background-color: #FBFBFB;
+  border-radius: 0 0 10px 10px;
+}
+
+.input-field {
+  flex: 1;
+  border-radius: 20px;
+  border: 1px solid #505ACB;
+  background-color: #FBFBFB;
+  padding-left: 40px;
+}
+
+.send-button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.send-icon {
+  width: 25px;
+  height: 25px;
+}
