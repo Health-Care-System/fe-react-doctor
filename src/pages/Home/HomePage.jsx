@@ -133,7 +133,7 @@ const ChatListWrapper = () => {
   )
 }
 
-const ArticleWrapper = (setIsArticleExist) => {
+const ArticleWrapper = ({setIsArticleExist}) => {
   const {
     data,
     isPending,
@@ -169,7 +169,7 @@ const ArticleWrapper = (setIsArticleExist) => {
       {data?.results?.slice(0, 2).map((article, index) => {
         const date = formattedDate(article.created_at);
         const handleNavigate = () => {
-          navigate(`/articles/edit?id=${article.id}`)
+          navigate(`/articles/edit/${article.id}`)
         }
         return (
           <ArticleCard

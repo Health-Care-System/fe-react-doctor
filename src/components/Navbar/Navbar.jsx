@@ -12,15 +12,16 @@ export const Navbar = () => {
   // Global State
   const isActive = useStatus((state) => state.isActive);
   const handleStatus = useStatus((state) => state.handleStatus);
-  const articles = ['/articles/create', '/articles/edit']
+  const articles = ['create', 'edit']
   
   // Buat render title dan content secara dinamis berdasarkan rute
   const location = useLocation();
   const currentRoute = location.pathname.split('/')[1];
+  const currentRoute2 = location.pathname.split('/')[2];
   const currentNavItem = navbarTitle.find((item) => item.route === currentRoute);
   
   // Buat cek apakah rutenya adalah edit article/ create articles, jika iya, maka tampilkan icon panah
-  const checkRouteisArticle = articles.some((article) => article === location.pathname);
+  const checkRouteisArticle = articles.some((article) => article === currentRoute2);
   return (
 
     <header className='navbar p-0'>

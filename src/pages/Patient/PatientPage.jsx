@@ -1,42 +1,32 @@
-/* Note:
-1. Menggunakan patient-service untuk melakukan pengambilan data.
-2. Menghandle isLoading, isPending, isError, refetch menggunakan useQuery pada file service.
-3. Menghandle button "Mulai Konsultasi" pada component <NewPatients /> yang mengarahkan pada page ChatPatients sesuai dengan id
-4. Menghandle button "Edit" pada component <RecentPatient /> untuk menampilkan modal berdasarkan id/index yang dimiliki user.
-*/
-
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import IconForAvatar from "../../assets/icon/avatar.svg";
-import { useGetRecentsPatients } from "../../services/patient-service";
-import { TableContainer } from "../../components/Table/TableContainer";
-import { recentPatientsThead } from "../../utils/dataObject";
-import { Button } from "../../components/ui/Button";
-import useForm from "../../hooks/useForm";
+// Packages
 import { useState } from "react";
-import { ModalEditPasien } from "../../components/ui/Modal/ModalEditPasien";
+import { Link, useNavigate } from "react-router-dom";
+
+// Utils / service / hooks
+import useForm from "../../hooks/useForm";
+import { formattedDate } from "../../utils/helpers";
+import { recentPatientsThead } from "../../utils/dataObject";
+import { useGetRecentsChats } from "../../services/chat-service";
+
+// Components
+import { Button } from "../../components/ui/Button";
+import { NewPatients } from "../Home/components/Pasien";
+import { RowTable } from "../../components/Table/RowTable";
 import { ErrorStatus } from "../../components/Error/ErrorStatus";
 import { UserChatListSkeleton } from "../../components/ui/Skeleton";
-import { RowTable } from "../../components/Table/RowTable";
-import { NewPatients } from "../Home/components/Pasien";
+import { TableContainer } from "../../components/Table/TableContainer";
+import { ModalEditPasien } from "../../components/ui/Modal/ModalEditPasien";
 import { CardContainer } from "../../components/ui/Container/CardContainer";
+
+// Assets
+import noMsg from '../../assets/image/noMsg.jpg'
+import IconForAvatar from "../../assets/icon/avatar.svg";
 import "./Patient.css";
-import { formattedDate } from "../../utils/helpers";
-import noMsg from '../../assets/icon/noMsg.png'
 
 const PatientPage = () => {
-  const { data } = useGetRecentsPatients();
+  const { data } = useGetRecentsChats();
   const [openModal, setOpenModal] = useState(false);
   const [dataByIndex, setDataByIndex] = useState(0);
-
-  const navigate = useNavigate();
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-
-  const handleCurrentUserId = (id) => {
-    searchParams.set("status", "all");
-    searchParams.set("userId", id);
-    navigate(`/chat/user?${searchParams.toString()}`);
-  };
 
   const PatientDataById = (index) => {
     setDataByIndex(index);
@@ -48,11 +38,11 @@ const PatientPage = () => {
       <div className="row gap-4 gap-xl-3 my-3 ms-md-1 ms-lg-0">
         <CardContainer title="Pesan" className="col-12 w col-lg-5">
           <div className="d-flex flex-column gap-1">
-            <UnreadChat data={data} onClick={handleCurrentUserId} />
+            <UnreadChat data={data} />
           </div>
         </CardContainer>
         <div className="col-12 col-lg-6">
-          <NewPatients onClick={handleCurrentUserId} />
+          <NewPatients />
         </div>
       </div>
       <RecentPatients onClick={PatientDataById} />
@@ -66,8 +56,12 @@ const PatientPage = () => {
   );
 };
 
-const UnreadChat = ({ onClick }) => {
-  const { data, refetch, isPending, isError } = useGetRecentsPatients();
+const UnreadChat = () => {
+  const { data, refetch, isPending, isError } = useGetRecentsChats();
+  const navigate = useNavigate();
+  const handleNavigate = (id) => {
+    navigate(`/chat/user?userId=${id}`)
+  }
 
   if (isPending) {
     return (
@@ -103,7 +97,7 @@ const UnreadChat = ({ onClick }) => {
           <div
             className="d-flex flex-row gap-4 align-items-center text-decoration-none "
             key={msg.id}
-            onClick={() => onClick(msg.id)}
+            onClick={() => handleNavigate(msg.id)}
             style={{ cursor: "pointer" }}
           >
             <img
@@ -134,54 +128,6 @@ const UnreadChat = ({ onClick }) => {
   );
 };
 
-// const NewPatients = ({ onClick }) => {
-//   const formatToRupiah = (amount) => {
-//     return `Rp. ${amount.toLocaleString("id-ID")}`;
-//   };
-//   const { data, refetch, isPending, isError } = useGetRecentsPatients();
-//   return (
-//     <>
-//       <TableContainer
-//         title={"Pasien Baru"}
-//         className={"shadow-base bg-white"}
-//         thead={newPatientsThead}
-//         bgThead={"bg-white"}
-//         maxHeight={"8rem"}
-//         name={null}
-//       >
-//         <RowTable
-//           isError={isError}
-//           isPending={isPending}
-//           refetch={refetch}
-//           data={data}
-//           ifEmpty={"Tidak Ada Pasien"}
-//           paddingError={"2rem"}
-//           renderItem={(table, index) => {
-//             return (
-//               <tr className="text-nowrap " key={index}>
-//                 <td>{table.id_patient}</td>
-//                 <td>{table.fullname}</td>
-//                 <td>{table.id_transaction}</td>
-//                 <td>{formatToRupiah(table.price)}</td>
-//                 <td className="text-center">
-//                   <Button
-//                     className={
-//                       "btn-primary rounded-5 text-white fs-4 fw-semibold"
-//                     }
-//                     onClick={() => onClick(table.id_patient)}
-//                   >
-//                     Mulai Konsultasi
-//                   </Button>
-//                 </td>
-//               </tr>
-//             );
-//           }}
-//         />
-//       </TableContainer>
-//     </>
-//   );
-// };
-
 const RecentPatients = ({ onClick }) => {
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric" };
@@ -191,7 +137,7 @@ const RecentPatients = ({ onClick }) => {
     search: "",
   };
   const { form, handleInput } = useForm(initialState);
-  const { data, refetch, isPending, isError } = useGetRecentsPatients();
+  const { data, refetch, isPending, isError } = useGetRecentsChats();
   return (
     <>
       <TableContainer

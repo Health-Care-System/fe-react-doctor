@@ -12,7 +12,6 @@ export const NewPatients = () => {
     isPending,
     isError
   } = useGetNewPatients();
-  console.log(data);
 
   return (
     <>

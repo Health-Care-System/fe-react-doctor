@@ -3,7 +3,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useQueryClient } from "@tanstack/react-query";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 // Utils & Custom hooks
 import useForm from "../../hooks/useForm";
@@ -32,16 +32,14 @@ const initialError = {
 }
 
 export const EditArticle = () => {
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const idArticle = searchParams.get('id');
+  let { id } = useParams();
   const {
     data,
     isPending,
     isError,
     refetch
-  } = useGetQuery('articleEdit', `/doctors/articles/${idArticle}`);
-
+  } = useGetQuery('articleEdit', `/doctors/articles/${id}`);
+  
   if (isPending) {
     return (
       <Transparent disabled={true}>
@@ -61,6 +59,7 @@ export const EditArticle = () => {
       </div>
     )
   }
+    
   
   return (
     <EditorArticle data={data} />

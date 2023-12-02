@@ -25,9 +25,11 @@ export const AppRoutes = () => {
           <Route path="/patients" element={<PatientPage />} />
           <Route path="/articles" element={<ArticlePage />} />
             <Route path="/articles/create" element={<CreateArticle />} />
-            <Route path="/articles/edit" element={<EditArticle />} />
+            <Route path="/articles/edit/:id" element={<EditArticle />} />
+            <Route path="/articles/*" element={<ArticlePage />} />
           <Route path="/feedback" element={<FeedbackPage />} />
           <Route path="/settings" element={<SettingPage />} />
+          <Route path="*" element={<HomePage />} />
         </Route>
       </Route>
     </Routes>

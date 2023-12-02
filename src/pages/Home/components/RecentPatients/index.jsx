@@ -2,7 +2,7 @@ import { TableContainer } from '../../../../components/Table/TableContainer';
 import { RowTable } from '../../../../components/Table/RowTable';
 import useForm from '../../../../hooks/useForm';
 import { recentPatientsThead } from '../../../../utils/dataObject';
-import { useGetRecentsPatients } from '../../../../services/patient-service';
+import { useGetRecentsChats } from '../../../../services/chat-service';
 
 const initialState = {
   search: '',
@@ -14,7 +14,7 @@ export const RecentPatient = () => {
     refetch,
     isPending,
     isError
-  } = useGetRecentsPatients();
+  } = useGetRecentsChats();
 
   const {
     form,

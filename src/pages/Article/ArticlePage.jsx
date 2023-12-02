@@ -132,7 +132,7 @@ const ArticleWrapper = ({ item, ...props }) => {
           <Button onClick={() => setModalDelete(true)}>
             <img src={trash} width={36} height={36} alt="" />
           </Button>
-          <Link className="btn" to={`/articles/edit?id=${item.id}`}>
+          <Link className="btn" to={`/articles/edit/${item.id}`}>
             <img src={filled} width={36} height={36} alt="" />
           </Link>
         </div>
