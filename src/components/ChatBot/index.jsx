@@ -1,65 +1,138 @@
+// Packages
 import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import carebotLogo from '../../assets/icon/carebot.svg'; 
+
+// Utils / hooks / services
+import useAutoScroll from '../../hooks/useAutoScroll';
+import { handleMessageChatBot } from '../../services/chat-service';
+
+// Components
+import { Button } from '../ui/Button';
+import { BubbleBot } from '../ui/Bubble';
+
+// Assets
 import sendIcon from '../../assets/icon/send.svg';
+import carebotLogo from '../../assets/icon/carebot.svg';
 import arrowDown from '../../assets/icon/arrow-down-2.svg';
-import './Chatbot.css'; 
+import deleteIcon from '../../assets/icon/delete-icon-red.svg'
+import './ChatBot.css'
 
-const Chatbot = ({ handleClose }) => {
-  const [userInput, setUserInput] = useState('');
-  const [chatHistory, setChatHistory] = useState([]);
-  const [answer, setAnswer] = useState('');
+const Chatbot = () => {
+  const [message, setMessage] = useState('');
+  const [menu, setMenu] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [historyChats, setHistoryChats] = useState([]);
+  const { bottomRef, scrollToBottom } = useAutoScroll();
 
-  const handleInputChange = (e) => {
-    setUserInput(e.target.value);
-  };
-
+  const handleClearChat = () => {
+    setMenu(false);
+    setHistoryChats([]);
+  }
+  
   const handleSubmit = (e) => {
     e.preventDefault();
-    setChatHistory([...chatHistory, { text: userInput, type: 'user' }]);
-    setUserInput('');
-    setAnswer('Pola hidup sehat melibatkan beberapa aspek penting. Ini beberapa langkah yang bisa membantumu 1. Makan Sehat: 2. Olahraga Teratur 3. Istirahat yang Cukup: 4. Atasi Stres: 5. Hindari Kebiasaan Berbahaya: 6. Perawatan Kesehatan Rutin: 7. Jaga Keseimbangan Emosional dan Sosial:  Melakukan perubahan kecil dalam rutinitas harianmu dapat memberikan dampak besar pada kesehatanmu secara keseluruhan.');
-  };
-
+    handleMessageChatBot(
+      setMessage,
+      setHistoryChats,
+      setLoading,
+      message,
+      scrollToBottom
+    );
+  }
+  const onEnter = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleMessageChatBot(
+        setMessage,
+        setHistoryChats,
+        setLoading,
+        message,
+        scrollToBottom
+      );
+    }
+  }
   return (
-    <div className="chatbot-container">
-      <div className="chatbot">
-        <div className="chatbot-header">
-          <div className="header-content">
-            <img src={carebotLogo} alt="Carebot Logo" className="carebot-logo" />
-            <span className="carebot-title">Carebot</span>
-          </div>
-          <button type="button" className="close-btn" onClick={handleClose}>
-            <img src={arrowDown} alt="Close" className="close-btn" />
-          </button>
+    <div className="chatbot-container pt-5 bg-white">
+      <div className="chatbot-header">
+        <div className="header-content">
+          <img src={carebotLogo} alt="Carebot Logo" className="carebot-logo" />
+          <span className="carebot-title">Carebot</span>
         </div>
-        <div className="chat-history">
-          {/* Display chat history */}
-          {chatHistory.map((chat, index) => (
-            <div key={index} className={chat.type === 'user' ? 'user-message' : 'chatbot-message'}>
-              <div className="message-bubble">{chat.text}</div>
+        <button
+          type="button"
+          className="close-btn"
+          onClick={() => setMenu(!menu)}>
+          <img src={arrowDown} alt="Close" className="close-btn" />
+        </button>
+        {/* Tombol menu, jika panah di navbar chat di klik */}
+        {menu &&
+          <Button
+            type="button"
+            className="position-absolute delete-menu text-danger bg-white border fw-semibold"
+            onClick={handleClearChat}>
+            <div className='d-flex flex-row gap-5 justify-content-between grey-hover px-2 py-1 rounded-3'>
+              <p>Hapus Pesan</p>
+              <img src={deleteIcon} width={24} height={24} alt="Close" />
             </div>
-          ))}
-          {/* Display Chatbot's answer */}
-          {answer && (
-            <div className="chatbot-message">
-              <div className="message-bubble">{answer}</div>
-            </div>
-          )}
-        </div>
-        <form onSubmit={handleSubmit} className="user-input">
-          <input
-            type="text"
-            value={userInput}
-            onChange={handleInputChange}
-            placeholder="Kirim Pertanyaan"
-            className="input-field"
-          />
-          <button type="submit" className="send-button">
-            <img src={sendIcon} alt="Send" className="send-icon" />
-          </button>
-        </form>
+          </Button>
+        }
       </div>
+      {/* Bagian chat body */}
+      <div className={`chat-history py-5 px-3 position-relative`}>
+        {
+          historyChats?.map((message, index) => {
+            const date = new Date(message.date)
+            const hours = date.getHours();
+            const minutes = date.getMinutes();
+            return (
+              <React.Fragment key={index}>
+                <BubbleBot
+                  author={message.author}
+                  text={message.content}
+                  date={message.date}
+                  type={message.type}
+                  status={message.status}
+                  time={`${hours}:${minutes}`}
+                />
+              </React.Fragment>
+            )
+          })
+        }
+        {/* Jika loading, dan patokan untuk scrollToBottom */}
+        <div className="py-5" ref={bottomRef} />
+        {loading &&
+          <span className="loader mx-auto"></span>
+        }
+      </div>
+
+      <form className="user-input">
+        <div className='position-relative w-100'>
+          <input
+            name={'Input-bot'}
+            type="text"
+            value={message}
+            disabled={loading}
+            onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={(e) => onEnter(e)}
+            placeholder="Kirim Pertanyaan"
+            className="form-control input-field rounded-5 border-0 w-100 pe-5 bg-neutral-200"
+          />
+          <button
+            onClick={(e) => handleSubmit(e)}
+            type="button"
+            disabled={loading}
+            className="send-button">
+            {loading
+              ? <div className="spinner-border spinner-border-sm text-secondary" role="status">
+                <span className="visually-hidden send-icon">Loading...</span>
+              </div>
+              : <img
+                src={sendIcon}
+                alt="Send"
+                className="send-icon" />
+            }
+          </button>
+        </div>
+      </form>
     </div>
   );
 };

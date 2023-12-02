@@ -6,15 +6,16 @@ import { navbarTitle } from '../../utils/dataObject';
 import './Navbar.css';
 import { useStatus } from '../../store/useStatus';
 import Chatbot from '../ChatBot';
+import { Button } from '../ui/Button';
 
 export const Navbar = () => {
   const isActive = useStatus((state) => state.isActive);
   const handleStatus = useStatus((state) => state.handleStatus);
-  
+
   const location = useLocation();
   const currentRoute = location.pathname.split('/')[1];
   const currentNavItem = navbarTitle.find((item) => item.route === currentRoute);
-  
+
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
   const handleMailIconClick = () => {
@@ -37,8 +38,8 @@ export const Navbar = () => {
         <div className='d-flex flex-row-reverse  flex-md-column pe-md-0'>
           <div className='d-flex align-items-center gap-4'>
             <div className="form-switch form-check-reverse gap-3">
-              <label 
-                className="form-check-label fw-semibold d-none d-md-inline-block" 
+              <label
+                className="form-check-label fw-semibold d-none d-md-inline-block"
                 htmlFor="isActiveSwitchCheck">
                 {isActive ? 'Aktif' : 'Tidak Melayani'}
               </label>
@@ -50,20 +51,28 @@ export const Navbar = () => {
                 type="checkbox"
                 role="switch"
                 id="isActiveSwitchCheck"
-                style={{ transform: 'scale(1.8)'}}
+                style={{ transform: 'scale(1.8)' }}
               />
             </div>
             <Link to={'/feedback'}>
               <img src={notifIcon} className='icon-size' alt='Notification' />
             </Link>
-            <img
-              src={mailIcon}
-              className='icon-size'
-              alt='Search'
+            <Button
+              className={'p-0'}
               onClick={handleMailIconClick}
-            />
-            {isChatbotOpen && <div className="popup-background"><Chatbot handleClose={handleMailIconClick} /></div>}
+            >
+              <img
+                src={mailIcon}
+                className='icon-size'
+                alt='Search'
+              />
+            </Button>
           </div>
+          {isChatbotOpen &&
+            <div className="popup-background">
+              <Chatbot handleClose={handleMailIconClick} />
+            </div>
+          }
         </div>
       </nav>
     </header>

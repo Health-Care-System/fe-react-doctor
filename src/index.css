@@ -56,11 +56,17 @@ body{
   -webkit-box-orient: vertical;  
   overflow: hidden;
 }
+.bg-neutral-200 {
+  background-color: #F5F5F5;
+}
 .bg-neutral-300 {
   background-color: #ECECEC;
 }
 .bg-grey-300 {
   background-color: #ccc;
+}
+.bg-green-50 {
+  background: rgba(0, 94, 97, 0.19); 
 }
 .bg-green-100 {
   background-color: #2db794;
