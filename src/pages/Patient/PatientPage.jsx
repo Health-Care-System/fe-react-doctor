@@ -22,7 +22,7 @@ import { CardContainer } from "../../components/ui/Container/CardContainer";
 import "./Patient.css";
 
 const PatientPage = () => {
-  const { data } = useGetRecentsPatients();
+  const { data } = useGetRecentsPatients('patients', '');
   const [openModal, setOpenModal] = useState(false);
   const [selectedPatientIndex, setSelectedPatientIndex] = useState(0);
 
