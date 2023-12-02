@@ -128,7 +128,7 @@ const ArticleWrapper = () => {
     )
   }
 
-  if (!isError) {
+  if (isError) {
     return <ErrorStatus title={'Gagal memuat data pesan!'} action={refetch} />
   }  
   
