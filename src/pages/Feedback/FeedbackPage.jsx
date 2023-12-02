@@ -11,7 +11,7 @@ export const FeedbackPage = () => {
   };
 
   return(
-    <div className="p-2 w-100 feedback-container bg-transparent">
+    <div className="p-2 ms-1 mt-3 w-100 feedback-container">
       {/* 1 */}
       <div className="d-lg-flex align-items-start justify-content-around gap-lg-4 gap-xl-2 gap-xxl-5">
         <div className="d-lg-flex flex-column justify-content-center align-items-center">
@@ -77,7 +77,7 @@ export const FeedbackPage = () => {
             />
           </div>
         </div>
-        <div className="d-lg-flex flex-lg-column mt-4 mt-lg-0">
+        <div className="d-lg-flex flex-lg-column mt-4 mt-lg-0" style={{ gap: '0.7rem'}}>
           <div className="d-flex align-items-center gap-2">
             <RatingStars handleRatingChange={handleRatingChange} userRating={userRating || 0}/>
             <p className="nilai-persen">70%</p>
