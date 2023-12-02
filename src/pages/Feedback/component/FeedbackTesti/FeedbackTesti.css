@@ -9,3 +9,20 @@
     font-weight: 500;
     line-height: 1.5rem;
 }
+.profile-picture {
+    width: 3rem;
+    height: 3rem;
+}
+.profile-wrapper {
+    width: 30%;
+}
+.rating-wrapper {
+    width: 70%;
+}
+
+@media (min-width: 768px) {
+    .profile-picture {
+        width: 6.25rem;
+        height: 6.25rem;
+    }
+}

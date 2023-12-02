@@ -1,5 +1,7 @@
 // Pacakages
 import { useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
 
 // Utility & Hooks
@@ -18,6 +20,9 @@ import { ErrorMsg } from "../../components/Error/ErrorMsg"
 import './Article.css'
 import penIcon from '../../assets/icon/filled-pen.svg'
 import { handlePostArticle } from "../../services/article-service";
+import { useQueryClient } from "@tanstack/react-query";
+import sendIcon from '../../assets/icon/send-white.svg';
+
 
 const initialState = {
   title: '',
@@ -69,13 +74,24 @@ export const CreateArticle = () => {
       clickImg: !prev.clickImg
     }))
   }
-  
+
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const handlePost = async () => {
     const res = await handlePostArticle(form, content, setError);
-    if (res) return navigate('/articles')
+    if (res) {
+      navigate('/articles');
+      queryClient.invalidateQueries({ queryKey: ['articles'] })
+      toast.success('Artikel berhasil dipublish!', {
+        delay: 800
+      });
+    } else {
+      toast.error('Artikel gagal dipublish!', {
+        delay: 800
+      });
+    }
   }
-  
+
   return (
     <>
       <div className="px-4 d-flex flex-column gap-4 mt-3">
@@ -89,12 +105,13 @@ export const CreateArticle = () => {
               placeHolder={'Judul'}
               style={{ maxWidth: '90%' }}
               handleChange={(e) => handleInput(e)}
-              className={'border-start-0 border-top-0 border-end-0'}
+              className={'border-start-0 border-top-0 border-2 bg-light rounded-0 border-end-0 fw-bold fs-2'}
             />
             <Button
               onClick={handlePost}
-              className={'btn-primary text-white'}>
-              Posting
+              className={'btn-primary text-white d-flex flex-row fkex-nowrap align-items-center'}>
+              <img src={sendIcon} className="pe-3" alt="" />
+              <p>Posting</p>
             </Button>
           </div>
           {error.title && <ErrorMsg msg={error.title} />}
@@ -185,7 +202,7 @@ export const EditButtonImage = ({ setForm, handleFileInputChange, tempImage }) =
         </div>
         <Button
           onClick={deleteImage}
-          className={'fw-semibold'}>
+          className={'fw-semibold ps-5'}>
           {'Hapus Foto'}
         </Button>
       </div>

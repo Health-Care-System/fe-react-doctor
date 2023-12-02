@@ -19,6 +19,7 @@ import lock from '../../assets/icon/lock.svg'
 import brandLogo from '../../assets/icon/brandLogo.png'
 import visibility from '../../assets/icon/visibility.svg'
 import doctorLogin from '../../assets/image/doctorLogin.png'
+import './Login.css'
 
 
 export const LoginPage = () => {
@@ -117,7 +118,7 @@ const LoginForm = () => {
                     </label>
                     <Input
                         type="email"
-                        className="form-control-lg"
+                        className="form-control-lg bg-neutral-300 border-0 form-color"
                         name="email"
                         value={form.email}
                         placeHolder="Masukkan email"
@@ -135,14 +136,14 @@ const LoginForm = () => {
                     <div className="input-group">
                         <Input
                             type={form.showPassword ? 'text' : 'password'}
-                            className="form-control-lg border-end-0"
+                            className="form-control-lg bg-neutral-300 form-color border-0"
                             name="password"
                             value={form.password}
                             placeHolder="Masukkan password"
                             handleChange={handleInput}
                         />
                         <span
-                            className="input-group-text cursor-pointer"
+                            className="input-group-text border-0 bg-neutral-300 cursor-pointer"
                             onClick={togglePasswordVisibility}>
                             <img
                                 src={visibility}

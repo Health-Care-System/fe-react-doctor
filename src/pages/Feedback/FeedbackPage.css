@@ -10,21 +10,45 @@
 .nilai-persen{
   color: #008772;
 }
+.container-rating {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+}
+
+.progress-wrapper {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+}
+.rating-wrapper {
+  width: fit-content !important;
+}
 
   @media (min-width: 768px) {
-    .feedback-container {
+    /* .feedback-container {
       max-width: calc(100vw - 17rem);
-    }
+    } */
 
     .diagram{
       width: 40.125rem;
     }
+    .container-rating {
+      width: 100%;
+      flex-direction: row;
+      gap: 3rem;
+    }
+    .progress-wrapper {
+      width: 80%;
+      gap: 3rem;
+    }
   }
-
+/* 
   @media (max-width: 1200px) {
     .feedback-container {
       max-width: 100%;
       margin: 0 auto;
     }
   
-  }
+  } */
