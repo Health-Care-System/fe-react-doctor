@@ -5,8 +5,8 @@ export const validateArticleForm = (form, content, setErrors) => {
   if (!form.title) {
     newErrors.title = 'Judul artikel harap diisi';
     valid = false;
-  } else if (form.title.length > 50) {
-    newErrors.title = 'Maksimal judul adalah 50 karakter!';
+  } else if (form.title.length > 70) {
+    newErrors.title = 'Maksimal judul adalah 70 karakter!';
     valid = false;
   } else {
     newErrors.title = '';
@@ -22,8 +22,8 @@ export const validateArticleForm = (form, content, setErrors) => {
   if (!content) {
     newErrors.content = 'Harap input konten artikel!';
     valid = false;
-  } else if (content.length > 3000) {
-    newErrors.content = 'Maksimal isi konten artikel adalah 3000 karakter!';
+  } else if (content.length > 5000) {
+    newErrors.content = 'Maksimal isi konten artikel adalah 5000 karakter!';
     valid = false;
   } else {
     newErrors.content = '';

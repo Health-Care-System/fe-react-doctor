@@ -1,19 +1,26 @@
-import { NavLink, useNavigate } from 'react-router-dom';
-import { Button } from '../ui/Button';
-import { ProfileSkeleton } from '../ui/Skeleton/ProfileSkeleton';
-import ImageWithFallback from '../Error/ImageWithFallback';
-
-import logoutIcon from '../../assets/icon/logout.svg';
-import brandLogo from '../../assets/icon/brandLogo.png'
-import { menus } from '../../utils/dataObject';
-import doctorMale from '../../assets/icon/9432602.jpg'
-import doctorFemale from '../../assets/icon/maleDoc.jpg'
-import './Sidebar.css'
-import { useGetQuery } from '../../hooks/useGetQuery';
+// Packages
 import Cookies from 'js-cookie';
 import { useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+
+// Utils, services
+import { menus } from '../../utils/dataObject';
+import { useGetQuery } from '../../hooks/useGetQuery';
+
+// Components
+import { Button } from '../ui/Button';
 import { Transparent } from '../ui/Container';
 import { CustomModal } from '../ui/Modal/Modal';
+import ImageWithFallback from '../Error/ImageWithFallback';
+import { ProfileSkeleton } from '../ui/Skeleton/ProfileSkeleton';
+
+// Assets
+import logoutIcon from '../../assets/icon/logout.svg';
+import doctorMale from '../../assets/icon/9432602.jpg'
+import brandLogo from '../../assets/icon/brandLogo.png'
+import doctorFemale from '../../assets/icon/maleDoc.jpg'
+import logoutLargeIcon from '../../assets/icon/logout-large.svg'
+import './Sidebar.css'
 
 const ProfileDoctor = () => {
   const {
@@ -53,14 +60,10 @@ const ProfileDoctor = () => {
           height={100}
         />
         <div className='text-center'>
-          <h5 className='mt-2 fs-2 fw-semibold'>{data?.results?.fullname}</h5>
+          <h5 className='fs-2 fw-semibold mb-0'>{data?.results?.fullname}</h5>
           <p className='text-capitalize'>{data?.results?.specialist}</p>
         </div>
       </figure>
-      <div className='d-inline-flex gap-2'>
-        <p className='border-end border-secondary border-1 pe-2'>Jam Operasional</p>
-        <p>09:00 - 17:00</p>
-      </div>
     </div>
   );
 };
@@ -107,11 +110,13 @@ export const Sidebar = () => {
         </ul>
         {modal &&
           <Transparent
-            className='min-vw-100 position-fixed end-0'
+            disabled={true}
+            className='min-vw-100'
           >
             <CustomModal
-              title={'Ingin Keluar?'}
-              content={'Apabila anda keluar maka anda tidak dapat menerima pasien.'}
+              icon={logoutLargeIcon}
+              title={'Keluar?'}
+              content={'Ingin beristirahat sejenak? keluar dan nikmati waktu Anda.'}
               confirmAction={handleLogout}
               cancelAction={() => setModal(false)}
             />

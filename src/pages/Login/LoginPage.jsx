@@ -1,13 +1,7 @@
 // Packages
 import { useState } from 'react';
-import Cookies from "js-cookie";
-import { Link, useNavigate } from "react-router-dom";
-
-// Utilty & Helper
+import { Link } from "react-router-dom";
 import useForm from "../../hooks/useForm";
-import client from "../../utils/auth";
-import { validateFormLogin } from "../../utils/validation";
-import { handleLoginError } from "../../utils/response-handler";
 
 // Components
 import { Input } from '../../components/ui/Form';
@@ -19,6 +13,8 @@ import lock from '../../assets/icon/lock.svg'
 import brandLogo from '../../assets/icon/brandLogo.png'
 import visibility from '../../assets/icon/visibility.svg'
 import doctorLogin from '../../assets/image/doctorLogin.png'
+import './Login.css'
+import { sendFormLogin } from '../../services/login-service';
 
 
 export const LoginPage = () => {
@@ -43,7 +39,6 @@ const initialState = {
 }
 
 const LoginForm = () => {
-    const navigate = useNavigate();
     const {
         form,
         setForm,
@@ -66,30 +61,7 @@ const LoginForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const newData = {
-            email: form.email,
-            password: form.password
-        }
-        if (validateFormLogin(newData, setErrors)) {
-            try {
-                setLoading(true);
-                const res = await client.post('/doctors/login', newData);
-                if (res.status === 200) {
-                    const { token } = res.data.results;
-                    Cookies.set('token', token);
-                    navigate('/');
-                }
-            } catch (error) {
-                handleLoginError(error, setErrors);
-            } finally {
-                setLoading(false);
-                setForm((prev) => ({
-                    ...prev,
-                    email: '',
-                    password: ''
-                }));
-            }
-        }
+        sendFormLogin(form, setErrors, setLoading, setForm);
     }
 
 
@@ -117,7 +89,7 @@ const LoginForm = () => {
                     </label>
                     <Input
                         type="email"
-                        className="form-control-lg"
+                        className="form-control-lg bg-neutral-300 border-0 form-color"
                         name="email"
                         value={form.email}
                         placeHolder="Masukkan email"
@@ -135,14 +107,14 @@ const LoginForm = () => {
                     <div className="input-group">
                         <Input
                             type={form.showPassword ? 'text' : 'password'}
-                            className="form-control-lg border-end-0"
+                            className="form-control-lg bg-neutral-300 form-color border-0"
                             name="password"
                             value={form.password}
                             placeHolder="Masukkan password"
                             handleChange={handleInput}
                         />
                         <span
-                            className="input-group-text cursor-pointer"
+                            className="input-group-text border-0 bg-neutral-300 cursor-pointer"
                             onClick={togglePasswordVisibility}>
                             <img
                                 src={visibility}
