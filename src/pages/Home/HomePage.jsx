@@ -1,23 +1,30 @@
-import { RecentPatient } from "./components/RecentPatients";
-import { ArticleCard, UserChat } from "../../components/ui/Cards";
-import { CardContainer } from "../../components/ui/Container/CardContainer";
-import { NewPatients } from "./components/Pasien";
-import './Home.css'
-import { UserChatListSkeleton } from "../../components/ui/Skeleton";
-import { ErrorStatus } from "../../components/Error/ErrorStatus";
-import { useGetQuery } from "../../hooks/useGetQuery";
-import { formattedDate } from "../../utils/helpers";
+// Packages
 import { useNavigate } from "react-router-dom";
+
+// Utils, Hooks, Services
 import { useStatus } from "../../store/useStatus";
-import noMsgIcon from '../../assets/icon/noMsg.png'
-import { ArticleSkeletonWhite } from "../../components/ui/Skeleton/AticleSkeletonWhite";
-import noDataImage from '../../assets/image/noData.jpg';
-import noMsgData from '../../assets/image/noMsg.jpg';
-import { useState } from "react";
+import { formattedDate } from "../../utils/helpers";
+import { useGetQuery } from "../../hooks/useGetQuery";
 import { useGetRecentChats } from "../../services/chat-service";
 
+// Components
+import { NewPatients } from "./components/Pasien";
+import { RecentPatient } from "./components/RecentPatients";
+import { ErrorStatus } from "../../components/Error/ErrorStatus";
+import { ArticleCard, UserChat } from "../../components/ui/Cards";
+import { UserChatListSkeleton } from "../../components/ui/Skeleton";
+import { CardContainer } from "../../components/ui/Container/CardContainer";
+import { ArticleSkeletonWhite } from "../../components/ui/Skeleton/AticleSkeletonWhite";
+
+// Assets
+import noMsgIcon from '../../assets/icon/noMsg.png'
+import noMsgData from '../../assets/image/noMsg.jpg';
+import noDataImage from '../../assets/image/noData.jpg';
+import './Home.css'
+
 const HomePage = () => {
-  const [isArticleExist, setIsArticleExist] = useState(false);
+  const articles = useGetQuery('articles', '/doctors/articles');
+  
   return (
     <div className="p-2 w-100 home-container bg-transparent">
     
@@ -48,9 +55,9 @@ const HomePage = () => {
           hrefTo={'/articles'}
           className='col-12 col-lg-5'
           title={'Artikel Terbaru'}
-          detail={isArticleExist && 'Lihat Semua'}>
+          detail={articles?.data?.results?.length > 0 ? 'Lihat Semua' : null}>
           <div className="d-flex flex-column gap-4 w-100" style={{ minHeight: '22rem'}}>
-            <ArticleWrapper setIsArticleExist={setIsArticleExist} />
+            <ArticleWrapper />
           </div>
         </CardContainer>
       </div>
@@ -133,7 +140,7 @@ const ChatListWrapper = () => {
   )
 }
 
-const ArticleWrapper = ({setIsArticleExist}) => {
+const ArticleWrapper = () => {
   const {
     data,
     isPending,
@@ -163,7 +170,6 @@ const ArticleWrapper = ({setIsArticleExist}) => {
     )
   }
   
-  setIsArticleExist(true)
   return (
     <>
       {data?.results?.slice(0, 2).map((article, index) => {

@@ -80,7 +80,7 @@ const ArticleBody = () => {
     )
   }
   if (isError) return <ErrorStatus title={'Gagal memuat data artikel'} action={refetch} />
-
+  
   return (
     data?.results?.length > 0
       ? data?.results?.map((item) => (
@@ -104,7 +104,7 @@ const ArticleWrapper = ({ item, ...props }) => {
   const handleDelete = async (id) => {
     handleDeleteArticle(id, setLoading, queryClient, setModalDelete)
   }
-
+  
   return (
     <>
       <article
