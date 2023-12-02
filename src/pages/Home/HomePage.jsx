@@ -11,6 +11,7 @@ import { formattedDate } from "../../utils/helpers";
 import { useNavigate } from "react-router-dom";
 import { useStatus } from "../../store/useStatus";
 import noMsgIcon from '../../assets/icon/noMsg.png'
+import { ArticleSkeletonWhite } from "../../components/ui/Skeleton/AticleSkeletonWhite";
 
 const HomePage = () => {
 
@@ -20,11 +21,11 @@ const HomePage = () => {
 
       <div className="row mt-5 home-container me-3">
         <div className="col-12 col-lg-7 mb-3 mb-lg-0 d-flex flex-column">
-          <div className=" d-flex flex-column gap-3">
+          <div className="d-flex flex-column gap-3">
             <NewPatients />
             <CardContainer
               title={'Pesan'}
-              detail={'3 belum dibaca'}>
+              detail={''}>
               <div className="d-flex flex-column gap-1">
                 <ChatListWrapper />
               </div>
@@ -72,7 +73,6 @@ const ChatListWrapper = () => {
     );
   }
   
-    
   if (isError) {
     return <ErrorStatus title={'Gagal memuat data pesan!'} action={refetch} />
   }
@@ -120,7 +120,12 @@ const ArticleWrapper = () => {
   }
 
   if (isPending) {
-    return <p>Loading...</p>
+    return(
+      <>
+        <ArticleSkeletonWhite />
+        <ArticleSkeletonWhite />
+      </>
+    )
   }
 
   if (isError) {
