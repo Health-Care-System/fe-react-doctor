@@ -1,20 +1,28 @@
-import React, { useState } from 'react';
-import mailIcon from '../../assets/icon/mail-fill.svg';
-import notifIcon from '../../assets/icon/notif.svg';
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { navbarTitle } from '../../utils/dataObject';
-import './Navbar.css';
+
+// Components
 import { useStatus } from '../../store/useStatus';
-import Chatbot from '../ChatBot';
+import notifIcon from '../../assets/icon/notif.svg';
+import arrowLeft from '../../assets/icon/arrowL.svg';
+import mailIcon from '../../assets/icon/mail-fill.svg';
+import './Navbar.css';
 import { Button } from '../ui/Button';
+import Chatbot from '../ChatBot';
 
 export const Navbar = () => {
   const isActive = useStatus((state) => state.isActive);
   const handleStatus = useStatus((state) => state.handleStatus);
-
+  const articles = ['/articles/create', '/articles/edit']
+  
+  // Buat render title dan content secara dinamis berdasarkan rute
   const location = useLocation();
   const currentRoute = location.pathname.split('/')[1];
   const currentNavItem = navbarTitle.find((item) => item.route === currentRoute);
+  
+  // Buat cek apakah rutenya adalah edit article/ create articles, jika iya, maka tampilkan icon panah
+  const checkRouteisArticle = articles.some((article) => article === location.pathname);
 
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
@@ -25,7 +33,13 @@ export const Navbar = () => {
   return (
     <header className='navbar p-0'>
       <nav className='navbar-content'>
-        <div>
+        <div className='d-flex flex-row align-items-center gap-2'>
+          {/* Icon panah kembali khusus halaman create / edit artcile */}
+          {checkRouteisArticle &&
+            <Link to={'/articles'}>
+              <img src={arrowLeft} width={40} height={40} alt='Kembali' />
+            </Link>
+          }
           <h5 className='fw-semibold m-0 text-secondary'>
             {
               currentNavItem
@@ -70,7 +84,7 @@ export const Navbar = () => {
           </div>
           {isChatbotOpen &&
             <div className="popup-background">
-              <Chatbot handleClose={handleMailIconClick} />
+              <Chatbot/>
             </div>
           }
         </div>

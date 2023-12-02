@@ -1,4 +1,4 @@
-import { describe, it, vi } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { validateArticleForm } from '../validation';
 
 const mockSetErrors = vi.fn();
@@ -15,14 +15,14 @@ describe('validateArticleForm', () => {
     });
   });
 
-  it('return false, dan error jika input title lebih dari 50 karakter', () => {
-    const form = { title: 'Lorem ipsum dolor sit amet consectetur adipiscing elit', image: 'sample.jpg' };
+  it('return false, dan error jika input title lebih dari 70 karakter', () => {
+    const form = { title: 'Lorem ipsum dolor sit amet consectetur adipiscing elit dolor sit amet lorem ipsum kiw kiw', image: 'sample.jpg' };
     const content = 'Sample content';
     const result = validateArticleForm(form, content, mockSetErrors);
 
     expect(result).toBe(false);
     expect(mockSetErrors).toHaveBeenCalledWith({
-      title: 'Maksimal judul adalah 50 karakter!',
+      title: 'Maksimal judul adalah 70 karakter!',
       image: '',
       content: '',
     });
@@ -41,16 +41,16 @@ describe('validateArticleForm', () => {
     });
   });
 
-  it('return false, dan ada error jika isi konten lebih 3000 karakter', () => {
+  it('return false, dan ada error jika isi konten lebih 5000 karakter', () => {
     const form = { title: 'Sample Title', image: 'sample.jpg' };
-    const content = 'a'.repeat(3001);
+    const content = 'a'.repeat(5001);
     const result = validateArticleForm(form, content, mockSetErrors);
 
     expect(result).toBe(false);
     expect(mockSetErrors).toHaveBeenCalledWith({
       title: '',
       image: '',
-      content: 'Maksimal isi konten artikel adalah 3000 karakter!',
+      content: 'Maksimal isi konten artikel adalah 5000 karakter!',
     });
   });
 

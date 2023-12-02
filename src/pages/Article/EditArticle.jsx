@@ -1,21 +1,37 @@
-import { useState } from "react"
-import { useLocation, useNavigate } from "react-router-dom"
-import client from "../../utils/auth"
-import useForm from "../../hooks/useForm"
-import { Editor } from "../../components/Editor"
-import { Input } from "../../components/ui/Form"
-import { Button } from "../../components/ui/Button"
-import { ErrorMsg } from "../../components/Error/ErrorMsg"
-import './Article.css'
-import { useGetQuery } from "../../hooks/useGetQuery"
-import { validateArticleForm, validateExtImage } from "../../utils/validation"
+// Packages
+import { useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useQueryClient } from "@tanstack/react-query";
+import { useLocation, useNavigate } from "react-router-dom";
+
+// Utils & Custom hooks
+import useForm from "../../hooks/useForm";
+import { useGetQuery } from "../../hooks/useGetQuery";
+import { validateExtImage } from "../../utils/validation";
+
+// Components
+import { Editor } from "../../components/Editor";
+import { Input } from "../../components/ui/Form";
+import { EditButtonImage } from "./CreateArticle";
+import { Button } from "../../components/ui/Button";
+import { ErrorMsg } from "../../components/Error/ErrorMsg";
+
+// Assets
+import penIcon from '../../assets/icon/filled-pen.svg';
+import './Article.css';
+import { handleEditArticle } from "../../services/article-service";
+import { Transparent } from "../../components/ui/Container";
+import { ErrorStatus } from "../../components/Error/ErrorStatus";
+import sendIcon from '../../assets/icon/send-white.svg';
+
 const initialError = {
   title: '',
   image: '',
   content: '',
 }
+
 export const EditArticle = () => {
-  const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const idArticle = searchParams.get('id');
@@ -25,20 +41,55 @@ export const EditArticle = () => {
     isError,
     refetch
   } = useGetQuery('articleEdit', `/doctors/articles/${idArticle}`);
+
+  if (isPending) {
+    return (
+      <Transparent disabled={true}>
+        <div className="spinner-border position-absolute start-50 z-3 top-50" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </Transparent>
+    )
+  }
+  
+  if (isError) {
+    return(
+      <div className=" position-absolute start-50 top-50">
+        <div style={{ width: 'fit-content'}}>
+        <ErrorStatus title={'Gagal memuat data artikel'} action={refetch} />
+        </div>
+      </div>
+    )
+  }
+  
+  return (
+    <EditorArticle data={data} />
+  )
+}
+
+
+const EditorArticle = ({ data }) => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const idArticle = searchParams.get('id');
+
   const initialState = {
     title: data?.results?.title,
     image: data?.results?.image,
     tempImage: data?.results?.image,
-  }
-  
+    clickImg: false,
+  };
+
   const {
     form,
     setForm,
     error,
     setError,
     handleInput,
+    loading,
+    setLoading
   } = useForm(initialState, initialError);
-  const [content, setContent] = useState(data?.results?.content);
+  const [content, setContent] = useState(data?.results?.content || '');
 
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
@@ -56,6 +107,7 @@ export const EditArticle = () => {
             ...form,
             image: file,
             tempImage: dataURL,
+            clickImg: false
           });
         };
         reader.readAsDataURL(file);
@@ -63,41 +115,51 @@ export const EditArticle = () => {
     }
   };
 
+  const queryClient = useQueryClient();
+  const navigate = useNavigate()
   const handlePost = async () => {
-    const data = new FormData();
-    data.append('title', form.title);
-    data.append('content', content);
-    data.append('image', form.image);
-    if (validateArticleForm(form, content, setError)) {
-      try {
-        const res = await client.put(`/doctors/articles/${idArticle}`, data);
-        if (res.status === 201 || res.status === 200) {
-          navigate('/articles')
-        }
-      } catch (error) {
-        console.log(error);
-      }
+    const res = await handleEditArticle(form, content, idArticle, setError, setLoading);
+    if (res) {
+      navigate('/articles');
+      queryClient.invalidateQueries({ queryKey: ['articles'] });
+      toast.success('Artikel berhasil diedit!', {
+        delay: 800
+      });
+    } else {
+      toast.error('Artikel gagal diedit!', {
+        delay: 800
+      });
     }
+  }
+
+  const handleImage = () => {
+    setForm((prev) => ({
+      ...form,
+      clickImg: !prev.clickImg
+    }))
   }
 
   return (
     <>
       <div className="px-4 d-flex flex-column gap-4 mt-3">
-
         <div>
-          <div className="d-flex flex-row justify-content-between gap-3">
+        <div className="d-flex flex-row justify-content-between gap-3">
             <Input
-              placeHolder={'Judul'}
-              name={'title'}
               type={'text'}
+              name={'title'}
               maxLength={50}
-              style={{ maxWidth: '90%' }}
-              className={'border-start-0 border-top-0 border-end-0'}
-              handleChange={(e) => handleInput(e)}
               value={form.title}
+              placeHolder={'Judul'}
+              style={{ maxWidth: '90%' }}
+              handleChange={(e) => handleInput(e)}
+              className={'border-start-0 border-top-0 border-2 bg-light rounded-0 border-end-0 fw-bold fs-2'}
             />
-            <Button onClick={handlePost} className={'btn-primary text-white'}>
-              Posting
+            <Button
+              disabled={loading}
+              onClick={handlePost}
+              className={'btn-primary text-white d-flex flex-row fkex-nowrap align-items-center'}>
+              <img src={sendIcon} className="pe-3" alt="" />
+              <p>Posting</p>
             </Button>
           </div>
           {error.title && <ErrorMsg msg={error.title} />}
@@ -109,23 +171,47 @@ export const EditArticle = () => {
             <>
               <div className="text-center">
                 <input
-                  onChange={(e) => handleFileInputChange(e)}
-                  type="file"
                   id="file"
-                  className={`inputfile form-control`}
                   name="file"
+                  type="file"
+                  className={`inputfile form-control`}
+                  onChange={(e) => handleFileInputChange(e)}
                 />
                 <label htmlFor="file">Upload Foto</label>
               </div>
               {error.image && <ErrorMsg msg={error.image} />}
             </>
-            : <img src={form.tempImage} width={211} alt="temp image" />
+            : <div className=" position-relative mb-3">
+              <img
+                width={211}
+                height={200}
+                src={form.tempImage || data?.results?.image}
+                onClick={handleImage}
+                className={form.clickImg
+                  ? 'object-fit-cover opacity-75'
+                  : 'object-fit-cover'
+                }
+                alt="temp image" />
+              {form.clickImg &&
+                <>
+                  <img
+                    src={penIcon}
+                    width={24}
+                    className="article-edit-icon"
+                    alt="Edit" />
+                  <EditButtonImage
+                    tempImage={form.tempImage}
+                    handleFileInputChange={handleFileInputChange}
+                    setForm={setForm} />
+                </>
+              }
+            </div>
           }
         </div>
 
         <div className="mb-5">
           {error.content && <ErrorMsg msg={error.content} />}
-          <Editor content={content} setContent={setContent} />
+          <Editor content={content || data?.results?.content} setContent={setContent} />
         </div>
       </div>
     </>

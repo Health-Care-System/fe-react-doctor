@@ -53,14 +53,10 @@ const ProfileDoctor = () => {
           height={100}
         />
         <div className='text-center'>
-          <h5 className='mt-2 fs-2 fw-semibold'>{data?.results?.fullname}</h5>
+          <h5 className='fs-2 fw-semibold mb-0'>{data?.results?.fullname}</h5>
           <p className='text-capitalize'>{data?.results?.specialist}</p>
         </div>
       </figure>
-      <div className='d-inline-flex gap-2'>
-        <p className='border-end border-secondary border-1 pe-2'>Jam Operasional</p>
-        <p>09:00 - 17:00</p>
-      </div>
     </div>
   );
 };
@@ -107,7 +103,8 @@ export const Sidebar = () => {
         </ul>
         {modal &&
           <Transparent
-            className='min-vw-100 position-fixed end-0'
+            disabled={true}
+            className='min-vw-100'
           >
             <CustomModal
               title={'Ingin Keluar?'}

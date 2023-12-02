@@ -7,6 +7,11 @@ import { useGetRecentChat } from "../../services/chat-service";
 import { UserChatListSkeleton } from "../../components/ui/Skeleton";
 import { ErrorStatus } from "../../components/Error/ErrorStatus";
 import { useGetQuery } from "../../hooks/useGetQuery";
+import { formattedDate } from "../../utils/helpers";
+import { useNavigate } from "react-router-dom";
+import { useStatus } from "../../store/useStatus";
+import noMsgIcon from '../../assets/icon/noMsg.png'
+import { ArticleSkeletonWhite } from "../../components/ui/Skeleton/AticleSkeletonWhite";
 
 const HomePage = () => {
 
@@ -14,13 +19,13 @@ const HomePage = () => {
     <div className="p-2 w-100 home-container bg-transparent">
       <RecentPatient />
 
-      <div className="row mt-5 home-container">
+      <div className="row mt-5 home-container me-3">
         <div className="col-12 col-lg-7 mb-3 mb-lg-0 d-flex flex-column">
-          <div className=" d-flex flex-column gap-3">
+          <div className="d-flex flex-column gap-3">
             <NewPatients />
             <CardContainer
               title={'Pesan'}
-              detail={'3 belum dibaca'}>
+              detail={''}>
               <div className="d-flex flex-column gap-1">
                 <ChatListWrapper />
               </div>
@@ -29,8 +34,12 @@ const HomePage = () => {
         </div>
 
 
-        <CardContainer className='col-12 col-lg-5' title={'Artikel Terbaru'} detail={'View all'}>
-          <div className=" d-flex flex-column gap-4 w-100">
+        <CardContainer 
+          hrefTo={'/articles'}
+          className='col-12 col-lg-5' 
+          title={'Artikel Terbaru'} 
+          detail={'Lihat Semua'}>
+          <div className="d-flex flex-column gap-4 w-100">
             <ArticleWrapper />
           </div>
         </CardContainer>
@@ -48,11 +57,26 @@ const ChatListWrapper = () => {
     isPending,
     isError
   } = useGetRecentChat();
-
+  const isActive = useStatus((state) => state.isActive);  
+  if (isActive) {
+    return(
+      <>
+        <div className="d-flex mx-auto gap-2 flex-column">
+          <img 
+            src={noMsgIcon} 
+            alt="Tidak Melayani" 
+            className="mx-auto"
+            style={{ width: 'fit-content'}} />
+          <p className="fw-semibold">Sedang Tidak Melayani</p>
+        </div>
+      </>
+    );
+  }
+  
   if (isError) {
     return <ErrorStatus title={'Gagal memuat data pesan!'} action={refetch} />
   }
-
+  
   if (isPending) {
     return (
       <>
@@ -61,6 +85,7 @@ const ChatListWrapper = () => {
       </>
     )
   }
+  
 
   return (
     <>
@@ -83,7 +108,8 @@ const ArticleWrapper = () => {
     isPending,
     isError,
     refetch
-  } = useGetQuery('articleByDoctor', '/doctors/articles')
+  } = useGetQuery('articles', '/doctors/articles')
+  const navigate = useNavigate()
 
   if (data === undefined) {
     return(
@@ -94,23 +120,36 @@ const ArticleWrapper = () => {
   }
 
   if (isPending) {
-    return <p>Loading...</p>
+    return(
+      <>
+        <ArticleSkeletonWhite />
+        <ArticleSkeletonWhite />
+      </>
+    )
   }
 
   if (isError) {
     return <ErrorStatus title={'Gagal memuat data pesan!'} action={refetch} />
-  }
+  }  
+  
+
   
   return (
     <>
-      {data?.results?.map((article, index) => (
+      {data?.results?.slice(0, 2).map((article, index) => { 
+      const date = formattedDate(article.created_at);
+      const handleNavigate = () => {
+          navigate(`/articles/edit?id=${article.id}`)
+      }
+      return (
         <ArticleCard
+          handleNavigate={handleNavigate}
           key={index}
           title={article.title}
           content={article.content}
-          date={article.date}
+          date={date}
         />
-      ))}
+      )})}
     </>
   )
 

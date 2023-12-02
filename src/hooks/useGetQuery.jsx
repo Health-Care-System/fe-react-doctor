@@ -7,7 +7,8 @@ export const useGetQuery = ( key, endpoint) => {
 		queryFn: async () => {
 			const res = await client.get(endpoint);
 			return res.data;
-		}
+		},
+		staleTime: Infinity
 	});
 	return {
 		data,

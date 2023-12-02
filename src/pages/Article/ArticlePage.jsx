@@ -1,26 +1,30 @@
+// Packages
+import { useState } from "react"
 import { Link } from "react-router-dom"
+import { useQueryClient } from "@tanstack/react-query"
+
+// Utility & Hooks
+import { handleDeleteArticle } from '../../services/article-service'
+import { formattedDate } from "../../utils/helpers"
 import { useGetQuery } from "../../hooks/useGetQuery"
+
+// Assets 
 import plusIcon from '../../assets/icon/plus.svg'
 import sortIcon from '../../assets/icon/sort.svg'
 import bullet from '../../assets/icon/bullet.svg'
 import filled from '../../assets/icon/filled-pen.svg'
 import trash from '../../assets/icon/trash.svg'
-import { Select } from "../../components/ui/Form/Select";
-import './Article.css'
+
+// Components
 import { Button } from "../../components/ui/Button"
-import { formattedDate } from "../../utils/helpers"
-import client from "../../utils/auth"
-import { useState } from "react"
+import { Select } from "../../components/ui/Form/Select";
 import { Transparent } from "../../components/ui/Container"
+import { CustomModal } from "../../components/ui/Modal/Modal"
+import { ErrorStatus } from "../../components/Error/ErrorStatus"
+import { ArticleSkeleton } from "../../components/ui/Skeleton/ArticleSkeleton"
+import './Article.css'
 
 export const ArticlePage = () => {
-  const {
-    data,
-    isPending,
-    isError,
-    refetch
-  } = useGetQuery('articles', '/doctors/articles');
-
   const sortMenu = [
     { label: 'Publish', value: 'Publish' },
     { label: 'Draf', value: 'Draf' },
@@ -29,7 +33,11 @@ export const ArticlePage = () => {
   return (
     <>
       <section className="d-flex flex-row justify-content-between mx-4 my-4">
-        <Link to={'/articles/create'} className="btn btn-primary text-white align-items-center gap-2 d-flex flex-row" style={{ width: 'fit-content', padding: '0.625rem' }}>
+        <Link 
+          to={'/articles/create'} 
+          className="btn btn-primary text-white align-items-center gap-2 d-flex flex-row" 
+          style={{ width: 'fit-content', padding: '0.625rem' }}
+        >
           <img src={plusIcon} width={28} height={28} alt="" />
           <p className="fs-3 fw-semibold">Tambah Artikel</p>
         </Link>
@@ -45,45 +53,60 @@ export const ArticlePage = () => {
           />
         </div>
       </section>
-
-      <section className="d-flex flex-column gap-3 mt-3 mx-4">
-        {data?.results?.length > 0
-          ? data?.results?.map((item) => (
-            <ArticleWrapper key={item.id} item={item} />
-          ))
-          : <p className="mx-auto fw-semibold fs-2 opacity-50">Tidak ada artikel di draf</p>
-        }
+      <section
+        className="d-flex flex-column gap-3 py-3 mx-4 overflow-y-scroll"
+        style={{ maxHeight: 'calc(100vh - 12rem)' }}
+      >
+        <ArticleBody />
       </section>
     </>
   )
 }
 
+const ArticleBody = () => {
+  const {
+    data,
+    isPending,
+    isError,
+    refetch
+  } = useGetQuery('articles', '/doctors/articles');
+
+  if (isPending) {
+    return (
+      <>
+        <ArticleSkeleton />
+        <ArticleSkeleton />
+      </>
+    )
+  }
+  if (isError) return <ErrorStatus title={'Gagal memuat data artikel'} action={refetch} />
+
+  return (
+    data?.results?.length > 0
+      ? data?.results?.map((item) => (
+        <ArticleWrapper
+          isPending={isPending}
+          key={item.id}
+          item={item} />
+      ))
+      : <p className="mx-auto fw-semibold fs-2 opacity-50">Tidak ada artikel di draf</p>
+
+  )
+}
+
 const ArticleWrapper = ({ item, ...props }) => {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [modalDelete, setModalDelete] = useState(false);
+  const queryClient = useQueryClient();
   const date = new Date(item.created_at);
   const formatDate = formattedDate(date);
 
   const handleDelete = async (id) => {
-    try {
-      setLoading(true);
-      const res = await client.delete(`/doctors/articles/${id}`);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
+    handleDeleteArticle(id, setLoading, queryClient, setModalDelete)
   }
 
   return (
     <>
-
-      {/* {!loading &&
-        <Transparent>
-          <div className="spinner-border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-        </Transparent>
-      } */}
       <article
         {...props}
         className="bg-primary d-flex flex-row gap-3 p-3 align-items-center rounded-3 text-white">
@@ -93,6 +116,8 @@ const ArticleWrapper = ({ item, ...props }) => {
           width={211}
           className="rounded-3 object-fit-cover d-none d-lg-block"
           alt="Thumbnails" />
+          
+        <div className="d-flex flex-row justify-content-between gap-3 w-100">
         <div className="d-flex flex-column gap-3">
           <h4 className="fw-semibold article-title">{item.title}</h4>
           <p className="line-clamp-2 article-p">{item.content}</p>
@@ -103,17 +128,32 @@ const ArticleWrapper = ({ item, ...props }) => {
           </div>
         </div>
 
-        <div className="d-flex flex-column align-items-center">
-          <Button
-            onClick={() => handleDelete(item.id)}
-          >
+        <div className="d-flex flex-column justify-content-center align-items-center">
+          <Button onClick={() => setModalDelete(true)}>
             <img src={trash} width={36} height={36} alt="" />
           </Button>
-          <Link to={`/articles/edit?id=${item.id}`}>
+          <Link className="btn" to={`/articles/edit?id=${item.id}`}>
             <img src={filled} width={36} height={36} alt="" />
           </Link>
         </div>
+        </div>
+        
       </article>
+      
+      {modalDelete &&
+        <Transparent
+          disabled={true}
+          className='min-vw-100 position-fixed end-0'
+        >
+          <CustomModal
+            disabled={loading}
+            title={'Hapus Artikel?'}
+            content={'Apabila anda menghapus artikel, maka artikel akan terhapus dari daftar list artikel.'}
+            confirmAction={() => handleDelete(item.id)}
+            cancelAction={() => setModalDelete(false)}
+          />
+        </Transparent>
+      }
     </>
   )
 }
