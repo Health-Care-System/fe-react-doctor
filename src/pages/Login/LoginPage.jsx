@@ -1,13 +1,7 @@
 // Packages
 import { useState } from 'react';
-import Cookies from "js-cookie";
-import { Link, useNavigate } from "react-router-dom";
-
-// Utilty & Helper
+import { Link } from "react-router-dom";
 import useForm from "../../hooks/useForm";
-import client from "../../utils/auth";
-import { validateFormLogin } from "../../utils/validation";
-import { handleLoginError } from "../../utils/response-handler";
 
 // Components
 import { Input } from '../../components/ui/Form';
@@ -20,6 +14,7 @@ import brandLogo from '../../assets/icon/brandLogo.png'
 import visibility from '../../assets/icon/visibility.svg'
 import doctorLogin from '../../assets/image/doctorLogin.png'
 import './Login.css'
+import { sendFormLogin } from '../../services/login-service';
 
 
 export const LoginPage = () => {
@@ -44,7 +39,6 @@ const initialState = {
 }
 
 const LoginForm = () => {
-    const navigate = useNavigate();
     const {
         form,
         setForm,
@@ -67,30 +61,7 @@ const LoginForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const newData = {
-            email: form.email,
-            password: form.password
-        }
-        if (validateFormLogin(newData, setErrors)) {
-            try {
-                setLoading(true);
-                const res = await client.post('/doctors/login', newData);
-                if (res.status === 200) {
-                    const { token } = res.data.results;
-                    Cookies.set('token', token);
-                    navigate('/');
-                }
-            } catch (error) {
-                handleLoginError(error, setErrors);
-            } finally {
-                setLoading(false);
-                setForm((prev) => ({
-                    ...prev,
-                    email: '',
-                    password: ''
-                }));
-            }
-        }
+        sendFormLogin(form, setErrors, setLoading, setForm);
     }
 
 

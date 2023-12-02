@@ -1,8 +1,8 @@
-import { TableContainer } from '../../../../components/Table/TableContainer';
-import { RowTable } from '../../../../components/Table/RowTable';
 import useForm from '../../../../hooks/useForm';
+import { RowTable } from '../../../../components/Table/RowTable';
 import { recentPatientsThead } from '../../../../utils/dataObject';
 import { useGetRecentChats } from '../../../../services/chat-service';
+import { TableContainer } from '../../../../components/Table/TableContainer';
 
 const initialState = {
   search: '',

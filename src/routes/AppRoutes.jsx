@@ -1,8 +1,7 @@
 import { Route, Routes } from "react-router-dom";
+import { Layout } from "../layout";
 import HomePage from '../pages/Home/HomePage'
 import PatientPage from "../pages/Patient/PatientPage";
-import SettingPage from "../pages/Setting/SettingPage";
-import { Layout } from "../layout";
 import { ChatPage } from "../pages/Chat/ChatPage";
 import { ArticlePage } from "../pages/Article/ArticlePage";
 import { FeedbackPage } from "../pages/Feedback/FeedbackPage";
@@ -28,7 +27,6 @@ export const AppRoutes = () => {
             <Route path="/articles/edit/:id" element={<EditArticle />} />
             <Route path="/articles/*" element={<ArticlePage />} />
           <Route path="/feedback" element={<FeedbackPage />} />
-          <Route path="/settings" element={<SettingPage />} />
           <Route path="*" element={<HomePage />} />
         </Route>
       </Route>
