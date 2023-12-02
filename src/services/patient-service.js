@@ -15,21 +15,7 @@ export const fetchUserData = async () => {
 	}
 }
 
-export const useGetRecentsPatients = () => {
-	const { data, isPending, isError,refetch } = useQuery({
-		queryKey: ['recentPatients'],
-		queryFn: async () => {
-			const res = await axios.get('http://localhost:3001/active-patients');
-			return res.data;
-		}
-	});
-	return {
-		data,
-		isPending,
-		isError,
-		refetch
-	}
-}
+
 export const useGetNewPatients = () => {
 	const { data, isPending, isError,refetch } = useQuery({
 		queryKey: ['newPatients'],

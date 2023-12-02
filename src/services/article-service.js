@@ -29,6 +29,7 @@ export const handlePostArticle = async (
     }
   }
 }
+
 export const handleEditArticle = async (
   form,
   content,
@@ -52,7 +53,6 @@ export const handleEditArticle = async (
     }
   }
 }
-
 
 export const handleDeleteArticle = async (id, setLoading, queryClient, setModalDelete) => {
   try {

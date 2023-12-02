@@ -80,7 +80,7 @@ const ArticleBody = () => {
     )
   }
   if (isError) return <ErrorStatus title={'Gagal memuat data artikel'} action={refetch} />
-
+  
   return (
     data?.results?.length > 0
       ? data?.results?.map((item) => (
@@ -104,7 +104,7 @@ const ArticleWrapper = ({ item, ...props }) => {
   const handleDelete = async (id) => {
     handleDeleteArticle(id, setLoading, queryClient, setModalDelete)
   }
-
+  
   return (
     <>
       <article
@@ -132,7 +132,7 @@ const ArticleWrapper = ({ item, ...props }) => {
           <Button onClick={() => setModalDelete(true)}>
             <img src={trash} width={36} height={36} alt="" />
           </Button>
-          <Link className="btn" to={`/articles/edit?id=${item.id}`}>
+          <Link className="btn" to={`/articles/edit/${item.id}`}>
             <img src={filled} width={36} height={36} alt="" />
           </Link>
         </div>

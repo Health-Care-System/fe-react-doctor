@@ -1,6 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import client from "../utils/auth";
+import { useQuery } from "@tanstack/react-query";
+
 export const createMessage = (author, content, type) => {
   return {
     author,
@@ -25,41 +26,51 @@ export const postMessage = async (newData) => {
   return await client.post('http://localhost:3001/roomchat', newData)
 }
 
-export const useGetRecentChat = () => {
-	const { data, isPending, isError,refetch } = useQuery({
-		queryKey: ['recentChat'],
-		queryFn: async () => {
-			const res = await axios.get('http://localhost:3001/user-chat');
-			return res.data;
-		}
-	});
-	return {
-		data,
-		isPending,
-		isError,
-		refetch
-	}
+export const useGetRecentChats = () => {
+  const { data, isPending, isError, refetch } = useQuery({
+    queryKey: ['recentPatients'],
+    queryFn: async () => {
+      try {
+        const res = await client.get('/doctors/chats');
+        return res.data;
+      } catch (error) {
+        console.log(error?.response?.data?.meta?.message);
+      }
+    }
+  });
+  return {
+    data,
+    isPending,
+    isError,
+    refetch
+  }
 }
 
-export const handleMessageChatBot = async (setMessage, setHistoryChats, setLoading, message, scrollToBottom) => {
-	setMessage('');
+export const handleMessageChatBot = async (
+  setMessage,
+  setHistoryChats,
+  setLoading,
+  message,
+  scrollToBottom
+) => {
+  setMessage('');
+  setHistoryChats(prevChats => [
+    ...prevChats,
+    createMessage('question', message, 'text')
+  ]);
+  scrollToBottom();
+
+  try {
+    setLoading(true);
+    const res = await client.post('/chatbot', { request: message });
     setHistoryChats(prevChats => [
       ...prevChats,
-      createMessage('question', message, 'text')
+      createMessage('answer', res?.data?.results, 'text')
     ]);
+  } catch (error) {
+    console.log(error?.response?.data?.meta?.message);
+  } finally {
+    setLoading(false);
     scrollToBottom();
-
-    try {
-      setLoading(true);
-      const res = await client.post('/chatbot', {request: message});
-      setHistoryChats(prevChats => [
-        ...prevChats,
-        createMessage('answer', res?.data?.results, 'text')
-      ]);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-      scrollToBottom();
-    }
+  }
 }
