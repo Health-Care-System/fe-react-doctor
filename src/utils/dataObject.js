@@ -37,7 +37,7 @@ export const menus = [
     icon: articleIcon,
     icon2: articleIconWhite,
     label: 'Kelola Artikel',
-    link: '/article'
+    link: '/articles'
   },
   {
     icon: feedBackIcon,
@@ -67,7 +67,7 @@ export const navbarTitle = [
     title: 'Kelola Pasien',
   },
   {
-    route: 'article',
+    route: 'articles',
     title: 'Kelola Artikel',
   },
   {
@@ -86,6 +86,8 @@ export const chatStatus = [
   { id: 3, value: 'recent', label: 'Terkini' },
 ]
 
+export const recentPatientsThead = ["Id Pasien", "Nama Lengkap", "Id Transaksi", "Tgl Konsultasi", "Diagnosis", "Status", ""]
+export const newPatientsThead = ["Id Pasien", "Nama Lengkap", "Id Transaksi", "Harga", ""]
 
 
 export const dataChart = [

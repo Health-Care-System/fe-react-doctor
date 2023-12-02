@@ -1,0 +1,63 @@
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+.icon-sort{
+  position: absolute;
+  left: 6px;
+  top: 12px;
+  transform: scale(0.8);
+}
+.sort-article {
+  background-image: url('../../assets/icon/expand-circle.svg') !important;
+  background-repeat: no-repeat;
+  font-weight: 600 !important; 
+  padding-left: 2rem !important; 
+	background-size: 24px !important;
+	background-position: 6rem center !important;
+	font-size: 1.5em;
+	color: #fff;
+}
+
+.inputfile + label {
+  padding: 0.75rem 1rem; 
+  border-radius: 0.5rem; 
+  width: fit-content;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  background-color: #008772;
+  display: inline-block;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+  background-color: #008772;
+}
+
+.inputfile + label {
+	cursor: pointer; /* "hand" cursor */
+}
+
+.inputfile:focus + label {
+	outline: 1px dotted #000;
+	outline: -webkit-focus-ring-color auto 5px;
+}
+.article-title {
+  font-size: 1.5rem !important;
+}
+.article-p {
+  font-size: 1rem;
+}
+@media (min-width: 768px) {
+  .article-title {
+    font-size: 2rem;
+  }
+  .article-p {
+    font-size: 1.375rem;
+  }
+}
