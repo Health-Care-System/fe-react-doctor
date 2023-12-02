@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { navbarTitle } from '../../utils/dataObject';
 
@@ -7,9 +8,10 @@ import notifIcon from '../../assets/icon/notif.svg';
 import arrowLeft from '../../assets/icon/arrowL.svg';
 import mailIcon from '../../assets/icon/mail-fill.svg';
 import './Navbar.css';
+import { Button } from '../ui/Button';
+import Chatbot from '../ChatBot';
 
 export const Navbar = () => {
-  // Global State
   const isActive = useStatus((state) => state.isActive);
   const handleStatus = useStatus((state) => state.handleStatus);
   const articles = ['create', 'edit']
@@ -22,8 +24,13 @@ export const Navbar = () => {
   
   // Buat cek apakah rutenya adalah edit article/ create articles, jika iya, maka tampilkan icon panah
   const checkRouteisArticle = articles.some((article) => article === currentRoute2);
-  return (
+  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
+  const handleMailIconClick = () => {
+    setIsChatbotOpen(!isChatbotOpen); // Toggle isChatbotOpen state
+  };
+
+  return (
     <header className='navbar p-0'>
       <nav className='navbar-content'>
         <div className='d-flex flex-row align-items-center gap-2'>
@@ -45,8 +52,8 @@ export const Navbar = () => {
         <div className='d-flex flex-row-reverse  flex-md-column pe-md-0'>
           <div className='d-flex align-items-center gap-4'>
             <div className="form-switch form-check-reverse gap-3">
-              <label 
-                className="form-check-label fw-semibold d-none d-md-inline-block" 
+              <label
+                className="form-check-label fw-semibold d-none d-md-inline-block"
                 htmlFor="isActiveSwitchCheck">
                 {isActive ? 'Aktif' : 'Tidak Melayani'}
               </label>
@@ -58,19 +65,30 @@ export const Navbar = () => {
                 type="checkbox"
                 role="switch"
                 id="isActiveSwitchCheck"
-                style={{ transform: 'scale(1.8)'}}
+                style={{ transform: 'scale(1.8)' }}
               />
             </div>
             <Link to={'/feedback'}>
               <img src={notifIcon} className='icon-size' alt='Notification' />
             </Link>
-            <img src={mailIcon} className='icon-size' alt='Search' />
+            <Button
+              className={'p-0'}
+              onClick={handleMailIconClick}
+            >
+              <img
+                src={mailIcon}
+                className='icon-size'
+                alt='Search'
+              />
+            </Button>
           </div>
+          {isChatbotOpen &&
+            <div className="popup-background">
+              <Chatbot/>
+            </div>
+          }
         </div>
-
       </nav>
     </header>
-  )
-}
-
-
+  );
+};

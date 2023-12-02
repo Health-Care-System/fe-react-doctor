@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import useForm from "../../hooks/useForm";
 import { formattedDate } from "../../utils/helpers";
 import { recentPatientsThead } from "../../utils/dataObject";
-import { useGetRecentsChats } from "../../services/chat-service";
+import { useGetRecentChats } from "../../services/chat-service";
 
 // Components
 import { Button } from "../../components/ui/Button";
@@ -24,7 +24,7 @@ import IconForAvatar from "../../assets/icon/avatar.svg";
 import "./Patient.css";
 
 const PatientPage = () => {
-  const { data } = useGetRecentsChats();
+  const { data } = useGetRecentChats();
   const [openModal, setOpenModal] = useState(false);
   const [dataByIndex, setDataByIndex] = useState(0);
 
@@ -57,7 +57,7 @@ const PatientPage = () => {
 };
 
 const UnreadChat = () => {
-  const { data, refetch, isPending, isError } = useGetRecentsChats();
+  const { data, refetch, isPending, isError } = useGetRecentChats();
   const navigate = useNavigate();
   const handleNavigate = (id) => {
     navigate(`/chat/user?userId=${id}`)
@@ -137,7 +137,7 @@ const RecentPatients = ({ onClick }) => {
     search: "",
   };
   const { form, handleInput } = useForm(initialState);
-  const { data, refetch, isPending, isError } = useGetRecentsChats();
+  const { data, refetch, isPending, isError } = useGetRecentChats();
   return (
     <>
       <TableContainer

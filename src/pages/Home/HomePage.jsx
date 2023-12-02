@@ -3,7 +3,6 @@ import { ArticleCard, UserChat } from "../../components/ui/Cards";
 import { CardContainer } from "../../components/ui/Container/CardContainer";
 import { NewPatients } from "./components/Pasien";
 import './Home.css'
-import { useGetRecentsChats } from "../../services/chat-service";
 import { UserChatListSkeleton } from "../../components/ui/Skeleton";
 import { ErrorStatus } from "../../components/Error/ErrorStatus";
 import { useGetQuery } from "../../hooks/useGetQuery";
@@ -15,6 +14,7 @@ import { ArticleSkeletonWhite } from "../../components/ui/Skeleton/AticleSkeleto
 import noDataImage from '../../assets/image/noData.jpg';
 import noMsgData from '../../assets/image/noMsg.jpg';
 import { useState } from "react";
+import { useGetRecentChats } from "../../services/chat-service";
 
 const HomePage = () => {
   const [isArticleExist, setIsArticleExist] = useState(false);
@@ -66,7 +66,7 @@ const ChatListWrapper = () => {
     refetch,
     isPending,
     isError
-  } = useGetRecentsChats();
+  } = useGetRecentChats();
   
   // ini adalah selector isActive (global state)
   const isActive = useStatus((state) => state.isActive);
