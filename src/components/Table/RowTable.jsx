@@ -12,6 +12,11 @@ export const RowTable = ({
   totalCol,
   totalRow
 }) => {
+  if (isPending) {
+    return (
+      <ColumnSkeleton totalRow={totalRow} totalCol={totalCol} />
+    )
+  }
   if (isError) {
     return (
       <TableRow>
@@ -23,13 +28,7 @@ export const RowTable = ({
     )
   }
 
-  if (isPending) {
-    return (
-      <ColumnSkeleton totalRow={totalRow} totalCol={totalCol} />
-    )
-  }
-
-  if (data.results?.length < 1) {
+  if (data.results?.length < 1 || data.results === null) {
     return (
       <>
         <tr>
@@ -38,10 +37,11 @@ export const RowTable = ({
       </>
     )
   }
+  
 
   return (
     <>
-      {data.results?.map((data, index) => (
+      {data?.results?.map((data, index) => (
         renderItem(data, index)
       ))}
     </>

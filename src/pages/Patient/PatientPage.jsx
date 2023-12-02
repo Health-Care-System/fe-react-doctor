@@ -20,6 +20,8 @@ import { RowTable } from "../../components/Table/RowTable";
 import { NewPatients } from "../Home/components/Pasien";
 import { CardContainer } from "../../components/ui/Container/CardContainer";
 import "./Patient.css";
+import { formattedDate } from "../../utils/helpers";
+import noMsg from '../../assets/icon/noMsg.png'
 
 const PatientPage = () => {
   const { data } = useGetRecentsPatients();
@@ -65,16 +67,7 @@ const PatientPage = () => {
 };
 
 const UnreadChat = ({ onClick }) => {
-  const formatDate = (dateString) => {
-    const options = { month: "short", day: "numeric" };
-    return new Date(dateString).toLocaleDateString("id-ID", options);
-  };
-
   const { data, refetch, isPending, isError } = useGetRecentsPatients();
-
-  if (isError) {
-    return <ErrorStatus title={"Gagal memuat data pesan!"} action={refetch} />;
-  }
 
   if (isPending) {
     return (
@@ -84,15 +77,33 @@ const UnreadChat = ({ onClick }) => {
       </>
     );
   }
+  if (isError) {
+    return <ErrorStatus title={"Gagal memuat data pesan!"} action={refetch} />;
+  }
+
+  if (data.results?.length < 1 || data.results === null) {
+    return (
+      <>
+        <tr>
+          <td colSpan={12} className="text-center d-flex flex-column rounded-3 fs-3">
+            <img src={noMsg} className="mx-auto" width={100} height={100} alt="Tidak ada pesan" />
+            {'Tidak ada data pesan'}
+          </td>
+        </tr>
+      </>
+    )
+  }
+
+
 
   return (
     <>
-      {data.map((msg) => {
+      {data?.results?.map((msg) => {
         return (
           <div
             className="d-flex flex-row gap-4 align-items-center text-decoration-none "
-            key={msg.id_patient}
-            onClick={() => onClick(msg.id_patient)}
+            key={msg.id}
+            onClick={() => onClick(msg.id)}
             style={{ cursor: "pointer" }}
           >
             <img
@@ -106,11 +117,11 @@ const UnreadChat = ({ onClick }) => {
               <div className="d-flex align-items-center justify-content-between">
                 <h3 className="fs-3 fw-semibold mb-0 ">{msg.fullname}</h3>
                 <Link className="text-success fw-semibold fs-4 text-decoration-none ">
-                  {formatDate(msg.date)}
+                  {formattedDate(msg.created_at)}
                 </Link>
               </div>
               <div className="d-flex align-items-center justify-content-between">
-                <p className="card-text fs-4 chat">{msg.text}</p>
+                <p className="card-text fs-4 chat">{msg.last_message}</p>
                 <div className="badge bg-success-subtle rounded-circle text-primary fw-medium ">
                   {msg.text.length}
                 </div>

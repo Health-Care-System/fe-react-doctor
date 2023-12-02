@@ -25,13 +25,16 @@ export const postMessage = async (newData) => {
   return await client.post('http://localhost:3001/roomchat', newData)
 }
 
-
-export const useGetRecentChat = () => {
+export const useGetRecentsChats = () => {
 	const { data, isPending, isError,refetch } = useQuery({
-		queryKey: ['recentChat'],
+		queryKey: ['recentPatients'],
 		queryFn: async () => {
-			const res = await axios.get('http://localhost:3001/user-chat');
-			return res.data;
+			try {				
+				const res = await client.get('/doctors/chats');
+				return res.data;
+			} catch (error) {
+				console.log(error);
+			}
 		}
 	});
 	return {
