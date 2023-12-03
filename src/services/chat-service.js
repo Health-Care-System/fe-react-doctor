@@ -34,6 +34,11 @@ export const useGetRecentChats = () => {
         const res = await client.get('/doctors/chats');
         return res.data;
       } catch (error) {
+        if (error.response.status === 404) {
+          return {
+            results: []
+          }
+        }
         console.log(error?.response?.data?.meta?.message);
       }
     }

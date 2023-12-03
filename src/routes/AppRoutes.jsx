@@ -1,7 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { Layout } from "../layout";
 import HomePage from '../pages/Home/HomePage'
-import PatientPage from "../pages/Patient/PatientPage";
 import { ChatPage } from "../pages/Chat/ChatPage";
 import { ArticlePage } from "../pages/Article/ArticlePage";
 import { FeedbackPage } from "../pages/Feedback/FeedbackPage";
@@ -11,6 +10,7 @@ import { CreateArticle } from "../pages/Article/CreateArticle";
 import { EditArticle } from "../pages/Article/EditArticle";
 import { LoginPage } from "../pages/Login/LoginPage";
 import { ForgotPasswordPage } from "../pages/ForgotPassword/ForgotPasswordPage";
+import { PatientPage } from "../pages/Patient/PatientPage";
 
 export const AppRoutes = () => {
   return (

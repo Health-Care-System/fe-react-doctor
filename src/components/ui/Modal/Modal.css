@@ -12,6 +12,11 @@
   top: 20%;
   left: 20%;
 }
+.edit-modal {
+  width: 100% !important;
+  height: 43.75rem !important;
+  max-width: 51.25rem !important;
+}
 
 .modal-avatar {
   width: 6rem !important;

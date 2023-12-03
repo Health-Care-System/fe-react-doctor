@@ -8,7 +8,7 @@ export const CardContainer = ({ children, title, detail, className, hrefTo, ...p
           <div className="d-flex flex-column gap-3 ">
             <div className="d-flex align-items-center justify-content-between">
               <h5 className="fw-semibold fs-2 m-0 text-nowrap">{title}</h5>
-              <Link to={hrefTo} className="fw-semibold text-decoration-none text-nowrap fs-3 m-0 text-primary">{detail}</Link>
+              <Link to={hrefTo} className="fw-semibold text-decoration-none text-nowrap fs-4 m-0 text-primary">{detail}</Link>
             </div>
             {children}
           </div>
