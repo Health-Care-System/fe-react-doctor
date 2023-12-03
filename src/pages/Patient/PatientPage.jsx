@@ -78,13 +78,11 @@ const UnreadChat = () => {
   if (data.results?.length < 1 || data.results === null) {
     return (
       <>
-        <tr>
-          <td colSpan={12} className="text-center d-flex flex-column rounded-3 fs-3">
+          <div className="text-center d-flex flex-column rounded-3 fs-3">
             <img src={noMsg} className="mx-auto" width={100} height={100} alt="Tidak ada pesan" />
             {'Tidak ada data pesan'}
-          </td>
-        </tr>
-      </>
+          </div>
+        </>
     )
   }
 

@@ -10,11 +10,13 @@ import { PrivateRoute } from "./PrivateRoute";
 import { CreateArticle } from "../pages/Article/CreateArticle";
 import { EditArticle } from "../pages/Article/EditArticle";
 import { LoginPage } from "../pages/Login/LoginPage";
+import { ForgotPasswordPage } from "../pages/ForgotPassword/ForgotPasswordPage";
 
 export const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       <Route element={<PrivateRoute />}>
         <Route element={<Layout />}>
           <Route path="/" element={<HomePage />} />

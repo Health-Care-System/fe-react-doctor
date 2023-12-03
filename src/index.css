@@ -143,3 +143,13 @@ body{
   }
 }
 
+@media (min-width: 2000px) {
+  .drawer-content {
+    max-width: calc(1900px - 17rem);
+  }
+  .main-layout {
+    margin: auto;
+    justify-content: center;
+  }
+}
+

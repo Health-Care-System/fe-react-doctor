@@ -33,12 +33,13 @@ const initialError = {
 
 export const EditArticle = () => {
   let { id } = useParams();
+  const navigate = useNavigate();
   const {
     data,
     isPending,
     isError,
     refetch
-  } = useGetQuery('articleEdit', `/doctors/articles/${id}`);
+  } = useGetQuery('articleEdit', `/doctors/articles/${id}`, 0);
   
   if (isPending) {
     return (
@@ -59,7 +60,11 @@ export const EditArticle = () => {
       </div>
     )
   }
-    
+  
+  
+  if (!data?.results?.title || !data?.results?.content) {
+    navigate('/articles');
+  }
   
   return (
     <EditorArticle data={data} />

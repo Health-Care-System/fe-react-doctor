@@ -31,8 +31,8 @@ const HomePage = () => {
       {/* Komponen yng memuat daftar pasien */}
       <RecentPatient />
 
-      <div className="row mt-5 home-container me-3">
-        <div className="col-12 col-lg-7 mb-3 mb-lg-0 d-flex flex-column">
+      <div className="row mt-5 home-container mx-2 me-lg-4">
+        <div className="col-12 col-lg-7 mb-3 mb-lg-0 px-0 px-md-3 d-flex flex-column">
           <div className="d-flex flex-column gap-3">
 
             {/* Card container untuk pesan baru */}
@@ -53,7 +53,7 @@ const HomePage = () => {
         {/* Card container untuk artikel */}
         <CardContainer
           hrefTo={'/articles'}
-          className='col-12 col-lg-5'
+          className='col-12 col-lg-5 px-0'
           title={'Artikel Terbaru'}
           detail={articles?.data?.results?.length > 0 ? 'Lihat Semua' : null}>
           <div className="d-flex flex-column gap-4 w-100" style={{ minHeight: '22rem'}}>
@@ -79,7 +79,7 @@ const ChatListWrapper = () => {
   const isActive = useStatus((state) => state.isActive);
   
   // isActive adalah kondisi jika dokter menonaktifkan toogle di navbar
-  if (isActive) {
+  if (!isActive) {
     return (
       <>
         <div className="d-flex mx-auto gap-2 flex-column">

@@ -69,7 +69,7 @@ const ArticleBody = () => {
     isPending,
     isError,
     refetch
-  } = useGetQuery('articles', '/doctors/articles');
+  } = useGetQuery('articles', '/doctors/articles', Infinity);
 
   if (isPending) {
     return (
