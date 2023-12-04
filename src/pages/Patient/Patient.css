@@ -1,0 +1,16 @@
+.patient-container {
+  width: 100%;
+}
+
+.chat {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+@media (min-width: 767.98px) {
+  .patient-container {
+    max-width: calc(100vw - 17rem);
+  }
+}

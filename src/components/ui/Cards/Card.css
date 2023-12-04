@@ -1,0 +1,106 @@
+.medical-card {
+  width: 20rem;
+}
+.chat-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+}
+.chat-list:hover {
+  border-radius: 0.5rem;
+  background: #f0f0f0;
+  cursor: pointer;
+}
+.article-wrapper:hover {
+  cursor: pointer;
+  background: #f0f0f0;
+}
+
+.chart_gender {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 8.125rem;
+  height: 13.375rem;
+  padding: 0.53444rem 0.85506rem;
+  align-items: flex-start;
+  gap: 0.534rem;
+  box-shadow: 0px 1.71014px 3.42px 0px rgba(0, 0, 0, 0.25);
+}
+
+.chart_gender_circle {
+  width: 1.28263rem;
+  height: 1.28263rem;
+}
+
+/* Chart Data Pasien  */
+.chart_pasien {
+  display: flex;
+  height: 5.6875rem;
+  padding: 0.53444rem; 
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar_icon {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.card-stats {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+.chat-dashboard {
+  padding: 0.9375rem; 
+  width: 100%;
+  height: 13.375rem;
+}
+
+.list-chat-content:hover {
+  background: #ededed;
+  border-radius: .25rem;
+}
+
+@media (min-width: 768px) {
+  .table_pasien_content {
+    display: flex;
+    height: fit-content;
+    max-width: 23.688rem;
+    margin: auto;
+  }
+  .card-stats {
+    width: fit-content;
+  }
+
+}
+
+@media (min-width: 1023.98px) {
+  .chat-dashboard {
+    max-width: 17.25rem;
+  }
+}
+
+.avatar_icon {
+  width: 3.125rem;
+  height: 3.125rem;
+}
+
+.chat {
+  width: 200px; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  flex: 1 0 0;
+}
+
+.message {
+  height: auto;
+  max-height: 12.6875rem;
+}
