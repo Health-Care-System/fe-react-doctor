@@ -23,7 +23,7 @@ import noDataImage from '../../assets/image/noData.jpg';
 import './Home.css'
 
 const HomePage = () => {
-  const articles = useGetQuery('articles', '/doctors/articles');
+  const articles = useGetQuery('articlesDashboard', '/doctors/articles?limit=2&offset=0', Infinity);
   
   return (
     <div className="p-2 w-100 home-container bg-transparent">
@@ -146,7 +146,7 @@ const ArticleWrapper = () => {
     isPending,
     isError,
     refetch
-  } = useGetQuery('articles', '/doctors/articles')
+  } = useGetQuery('articlesDashboard', '/doctors/articles?limit=2&offset=0', Infinity)
   const navigate = useNavigate();  
   if (isPending) {
     return (
@@ -169,7 +169,7 @@ const ArticleWrapper = () => {
       </div>
     )
   }
-  
+    
   return (
     <>
       {data?.results?.slice(0, 2).map((article, index) => {

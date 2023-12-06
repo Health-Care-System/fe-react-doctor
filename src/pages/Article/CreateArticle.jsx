@@ -82,6 +82,7 @@ export const CreateArticle = () => {
     if (res) {
       navigate('/articles');
       queryClient.invalidateQueries({ queryKey: ['articles'] })
+      queryClient.invalidateQueries({ queryKey: ['articlesDashboard'] })
       toast.success('Artikel berhasil dipublish!', {
         delay: 800
       });

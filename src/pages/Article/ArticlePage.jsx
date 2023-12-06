@@ -34,9 +34,9 @@ export const ArticlePage = () => {
   return (
     <>
       <section className="d-flex flex-row justify-content-between mx-4 my-4">
-        <Link 
-          to={'/articles/create'} 
-          className="btn btn-primary text-white align-items-center gap-2 d-flex flex-row" 
+        <Link
+          to={'/articles/create'}
+          className="btn btn-primary text-white align-items-center gap-2 d-flex flex-row"
           style={{ width: 'fit-content', padding: '0.625rem' }}
         >
           <img src={plusIcon} width={28} height={28} alt="" />
@@ -74,14 +74,14 @@ const ArticleBody = () => {
     isFetchingNextPage,
     hasNextPage
   } = useGetAllArticles();
-  
+
   const { ref, inView } = useInView();
   useEffect(() => {
     if (inView && hasNextPage) {
       fetchNextPage();
     }
   }, [inView, hasNextPage, fetchNextPage]);
-  
+
   if (isPending) {
     return (
       <>
@@ -91,28 +91,26 @@ const ArticleBody = () => {
     )
   }
   if (isError) return <ErrorStatus title={'Gagal memuat data artikel'} action={refetch} />
-  
-  return (
-    <>
-    {data?.pages?.map((item) => (
-      item?.results?.map((item) => (
-        <ArticleWrapper
-          isPending={isPending}
-          key={item.id}
-          item={item} />
-      ))
-    ))}
-      
-      <p ref={ref}>
-        {isFetchingNextPage
-          ? <div className="text-center text-secondary">
-          <Spinner />
-          </div>
-          : ''
-        }
-      </p>
-    </>
 
+  return (
+    data?.pages?.map((item) => (
+      <>
+        {item?.results?.map((item) => (
+          <ArticleWrapper
+            isPending={isPending}
+            key={item.id}
+            item={item} />
+        ))}
+        <p ref={ref}>
+          {isFetchingNextPage
+            ? <div className="text-center text-secondary">
+              <Spinner />
+            </div>
+            : ''
+          }
+        </p>
+      </>
+    ))
   )
 }
 
@@ -126,7 +124,7 @@ const ArticleWrapper = ({ item, ...props }) => {
   const handleDelete = async (id) => {
     handleDeleteArticle(id, setLoading, queryClient, setModalDelete)
   }
-  
+
   return (
     <>
       <article
@@ -138,30 +136,30 @@ const ArticleWrapper = ({ item, ...props }) => {
           width={211}
           className="rounded-3 object-fit-cover d-none d-lg-block"
           alt="Thumbnails" />
-          
+
         <div className="d-flex flex-row justify-content-between gap-3 w-100">
-        <div className="d-flex flex-column gap-3">
-          <h4 className="fw-semibold article-title">{item.title}</h4>
-          <p className="line-clamp-2 article-p">{item.content}</p>
-          <div className="d-flex flex-row gap-2 align-items-center">
-            <p className="article-p">Publish</p>
-            <img src={bullet} width={6} height={6} alt="" />
-            <p className="article-p">{formatDate}</p>
+          <div className="d-flex flex-column gap-3">
+            <h4 className="fw-semibold article-title">{item.title}</h4>
+            <p className="line-clamp-2 article-p">{item.content}</p>
+            <div className="d-flex flex-row gap-2 align-items-center">
+              <p className="article-p">Publish</p>
+              <img src={bullet} width={6} height={6} alt="" />
+              <p className="article-p">{formatDate}</p>
+            </div>
+          </div>
+
+          <div className="d-flex flex-column justify-content-center align-items-center">
+            <Button onClick={() => setModalDelete(true)}>
+              <img src={trash} width={36} height={36} alt="" />
+            </Button>
+            <Link className="btn" to={`/articles/edit/${item.id}`}>
+              <img src={filled} width={36} height={36} alt="" />
+            </Link>
           </div>
         </div>
 
-        <div className="d-flex flex-column justify-content-center align-items-center">
-          <Button onClick={() => setModalDelete(true)}>
-            <img src={trash} width={36} height={36} alt="" />
-          </Button>
-          <Link className="btn" to={`/articles/edit/${item.id}`}>
-            <img src={filled} width={36} height={36} alt="" />
-          </Link>
-        </div>
-        </div>
-        
       </article>
-      
+
       {modalDelete &&
         <Transparent
           disabled={true}
