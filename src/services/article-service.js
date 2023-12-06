@@ -78,8 +78,8 @@ export const handleDeleteArticle = async (id, setLoading, queryClient, setModalD
 
 const getAllArticles = async ({ pageParam}) => {
   try {
-    const offset = pageParam * 2;
-    const res = await client.get(`/doctors/articles?offset=${offset}&limit=2`);
+    const offset = pageParam * 4;
+    const res = await client.get(`/doctors/articles?offset=${offset}&limit=4`);
     return res.data;
   } catch (error) {    
     console.log(error?.response?.data?.meta?.message)
