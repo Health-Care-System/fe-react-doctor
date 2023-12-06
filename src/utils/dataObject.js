@@ -97,3 +97,9 @@ export const dataChart = [
   },
 ]
 
+export const patientDiagnosa = [
+  { label: "Diberi resep", value: "Diberi resep" },
+  { label: "Konsultasi lanjutan", value: "Konsultasi lanjutan" },
+  { label: "Dirujuk", value: "Dirujuk" },
+];
+

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import client from "../utils/auth";
 
-export const useGetQuery = (key, endpoint) => {
+export const useGetQuery = (key, endpoint, stale) => {
 	const { data, isPending, isError, refetch } = useQuery({
 		queryKey: [key],
 		queryFn: async () => {
@@ -17,7 +17,7 @@ export const useGetQuery = (key, endpoint) => {
 				}
 			}
 		},
-		staleTime: Infinity
+		staleTime: stale
 	});
 	return {
 		data,

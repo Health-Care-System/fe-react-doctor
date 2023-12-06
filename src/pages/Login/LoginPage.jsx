@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { Link } from "react-router-dom";
 import useForm from "../../hooks/useForm";
+import { sendFormLogin } from '../../services/login-service';
 
 // Components
 import { Input } from '../../components/ui/Form';
@@ -13,8 +14,6 @@ import lock from '../../assets/icon/lock.svg'
 import brandLogo from '../../assets/icon/brandLogo.png'
 import visibility from '../../assets/icon/visibility.svg'
 import doctorLogin from '../../assets/image/doctorLogin.png'
-import './Login.css'
-import { sendFormLogin } from '../../services/login-service';
 
 
 export const LoginPage = () => {
@@ -127,7 +126,7 @@ const LoginForm = () => {
 
                 <div className="d-flex justify-content-end mb-3">
                     <Link
-                        to={'/login'}
+                        to={'/forgot-password'}
                         className="p-2 g-col-6 text-black link-underline-dark">
                         <img src={lock} alt="lock" />
                         Lupa Kata Sandi
