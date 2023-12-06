@@ -15,48 +15,37 @@ import { RowTable } from "../../components/Table/RowTable";
 import { ErrorStatus } from "../../components/Error/ErrorStatus";
 import { UserChatListSkeleton } from "../../components/ui/Skeleton";
 import { TableContainer } from "../../components/Table/TableContainer";
-import { ModalEditPasien } from "../../components/ui/Modal/ModalEditPasien";
 import { CardContainer } from "../../components/ui/Container/CardContainer";
 
 // Assets
 import noMsg from '../../assets/image/noMsg.jpg'
 import IconForAvatar from "../../assets/icon/avatar.svg";
 import "./Patient.css";
+import { useGetAllPatients } from "../../services/patient-service";
+import ImageWithFallback from "../../components/Error/ImageWithFallback";
+import { ModalEditPasien } from "../../components/ui/Modal/ModalEditPasien";
 
-const PatientPage = () => {
-  const { data } = useGetRecentChats();
-  const [openModal, setOpenModal] = useState(false);
-  const [dataByIndex, setDataByIndex] = useState(0);
+export const PatientPage = () => {
 
-  const PatientDataById = (index) => {
-    setDataByIndex(index);
-    setOpenModal(true);
-  };
 
   return (
     <section className="p-2 w-100 patient-container">
       <div className="row gap-4 gap-xl-3 my-3 ms-md-1 ms-lg-0">
-        <CardContainer title="Pesan" className="col-12 w col-lg-5">
+        <CardContainer title="Pesan" detail={'2 belum dibaca'} className="col-12 w col-lg-5">
           <div className="d-flex flex-column gap-1">
-            <UnreadChat data={data} />
+            <ListChat />
           </div>
         </CardContainer>
         <div className="col-12 col-lg-6">
           <NewPatients />
         </div>
       </div>
-      <RecentPatients onClick={PatientDataById} />
-      {openModal && (
-        <ModalEditPasien
-          closeModal={() => setOpenModal(false)}
-          PatientListData={data[dataByIndex]}
-        />
-      )}
+      <PatientList />
     </section>
   );
 };
 
-const UnreadChat = () => {
+const ListChat = () => {
   const { data, refetch, isPending, isError } = useGetRecentChats();
   const navigate = useNavigate();
   const handleNavigate = (id) => {
@@ -78,17 +67,13 @@ const UnreadChat = () => {
   if (data.results?.length < 1 || data.results === null) {
     return (
       <>
-        <tr>
-          <td colSpan={12} className="text-center d-flex flex-column rounded-3 fs-3">
-            <img src={noMsg} className="mx-auto" width={100} height={100} alt="Tidak ada pesan" />
-            {'Tidak ada data pesan'}
-          </td>
-        </tr>
+        <div className="text-center d-flex flex-column rounded-3 fs-3">
+          <img src={noMsg} className="mx-auto" width={100} height={100} alt="Tidak ada pesan" />
+          {'Tidak ada data pesan'}
+        </div>
       </>
     )
   }
-
-
 
   return (
     <>
@@ -96,29 +81,23 @@ const UnreadChat = () => {
         return (
           <div
             className="d-flex flex-row gap-4 align-items-center text-decoration-none "
-            key={msg.id}
+            key={msg?.id}
             onClick={() => handleNavigate(msg.id)}
             style={{ cursor: "pointer" }}
           >
-            <img
-              src={msg.avatar || IconForAvatar}
-              alt="Icon"
-              className="rounded-circle "
-              width={50}
-              height={50}
-            />
+            <ImageWithFallback className={'avatar'} width={50} height={50} fallback={IconForAvatar} src={msg?.src} />
             <div className="d-flex flex-column w-100 ">
               <div className="d-flex align-items-center justify-content-between">
-                <h3 className="fs-3 fw-semibold mb-0 ">{msg.fullname}</h3>
+                <h3 className="fs-3 fw-semibold mb-0 ">{msg?.fullname}</h3>
                 <Link className="text-success fw-semibold fs-4 text-decoration-none ">
-                  {formattedDate(msg.created_at)}
+                  {formattedDate(msg?.created_at)}
                 </Link>
               </div>
               <div className="d-flex align-items-center justify-content-between">
-                <p className="card-text fs-4 chat">{msg.last_message}</p>
-                <div className="badge bg-success-subtle rounded-circle text-primary fw-medium ">
+                <p className="card-text fs-4 chat">{msg?.last_message}</p>
+                {/* <div className="badge bg-success-subtle rounded-circle text-primary fw-medium ">
                   {msg.text.length}
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -128,16 +107,20 @@ const UnreadChat = () => {
   );
 };
 
-const RecentPatients = ({ onClick }) => {
-  const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    return new Date(dateString).toLocaleDateString("id-ID", options);
-  };
-  const initialState = {
-    search: "",
-  };
+const initialState = {
+  search: "",
+};
+const PatientList = () => {
   const { form, handleInput } = useForm(initialState);
-  const { data, refetch, isPending, isError } = useGetRecentChats();
+  const { data, refetch, isPending, isError } = useGetAllPatients();
+  const [openModal, setOpenModal] = useState(false);
+
+  const PatientDataById = () => {
+    setOpenModal(true);
+  };
+  
+  console.log(data)
+
   return (
     <>
       <TableContainer
@@ -163,24 +146,30 @@ const RecentPatients = ({ onClick }) => {
           totalRow={6}
           renderItem={(table, index) => {
             return (
-              <tr className="text-nowrap" key={index}>
-                <td>{table.id_patient}</td>
-                <td>{table.fullname}</td>
-                <td>{table.id_transaction}</td>
-                <td>{formatDate(table.date)}</td>
-                <td>{table.diagnosis}</td>
-                <td>{table.status}</td>
-                <td className="text-center">
-                  <Button
-                    className={
-                      "btn-primary rounded-5 text-white fs-4 fw-semibold"
-                    }
-                    onClick={() => onClick(table.id_patient)}
-                  >
-                    Edit
-                  </Button>
-                </td>
-              </tr>
+              <>
+                {openModal && (
+                  <ModalEditPasien
+                    closeModal={() => setOpenModal(false)}
+                    PatientListData={table}
+                  />
+                )}
+                <tr className="text-nowrap" key={index}>
+                  <td>{table?.user_id}</td>
+                  <td>{table?.fullname}</td>
+                  <td>{table?.transaction_id}</td>
+                  <td>{formattedDate(table?.created_at)}</td>
+                  <td>{table?.health_details}</td>
+                  <td>{table?.patient_status}</td>
+                  <td className="text-center">
+                    <Button
+                      className={"btn-primary rounded-5 text-white fs-4 fw-semibold"}
+                      onClick={() => PatientDataById(table?.user_id)}
+                    >
+                      Edit
+                    </Button>
+                  </td>
+                </tr>
+              </>
             );
           }}
         />
@@ -188,5 +177,3 @@ const RecentPatients = ({ onClick }) => {
     </>
   );
 };
-
-export default PatientPage;

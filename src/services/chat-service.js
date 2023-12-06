@@ -34,6 +34,11 @@ export const useGetRecentChats = () => {
         const res = await client.get('/doctors/chats');
         return res.data;
       } catch (error) {
+        if (error.response.status === 404) {
+          return {
+            results: []
+          }
+        }
         console.log(error?.response?.data?.meta?.message);
       }
     }
@@ -68,6 +73,12 @@ export const handleMessageChatBot = async (
       createMessage('answer', res?.data?.results, 'text')
     ]);
   } catch (error) {
+    if (error?.response?.status === 400) {
+      setHistoryChats(prevChats => [
+        ...prevChats,
+        createMessage('answer', error?.response?.data?.results, 'text')
+      ]);
+    }
     console.log(error?.response?.data?.meta?.message);
   } finally {
     setLoading(false);

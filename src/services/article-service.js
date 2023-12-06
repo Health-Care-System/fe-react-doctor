@@ -2,6 +2,7 @@ import { toast } from "react-toastify";
 import client from "../utils/auth";
 import "react-toastify/dist/ReactToastify.css";
 import { validateArticleForm } from "../utils/validation";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 const prepareArticleData = (form, content) => {
   const data = new FormData();
@@ -73,4 +74,27 @@ export const handleDeleteArticle = async (id, setLoading, queryClient, setModalD
     setLoading(false);
     setModalDelete(false);
   }
+}
+
+const getAllArticles = async ({ pageParam}) => {
+  try {
+    const offset = pageParam * 4;
+    const res = await client.get(`/doctors/articles?offset=${offset}&limit=4`);
+    return res.data;
+  } catch (error) {    
+    console.log(error?.response?.data?.meta?.message)
+  }
+}
+
+export const useGetAllArticles = () => {
+  return useInfiniteQuery({
+    queryKey: ['articles'],
+    queryFn: getAllArticles,
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, allPages) => {
+      const nextPage = lastPage?.results?.length ? allPages?.length : undefined;
+      return nextPage;
+    },
+  });
+
 }

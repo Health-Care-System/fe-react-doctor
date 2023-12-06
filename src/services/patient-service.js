@@ -5,7 +5,7 @@ import client from "../utils/auth";
 export const fetchUserData = async () => {
 	try {
 		const query = import.meta.env.VITE_MOCK_PATIENT_API;
-		const respone =  await axios.get(`${query}/patients`);
+		const respone = await axios.get(`${query}/patients`);
 		console.log(respone);
 		return respone.data
 	} catch (error) {
@@ -17,7 +17,7 @@ export const fetchUserData = async () => {
 
 
 export const useGetNewPatients = () => {
-	const { data, isPending, isError,refetch } = useQuery({
+	const { data, isPending, isError, refetch } = useQuery({
 		queryKey: ['newPatients'],
 		queryFn: async () => {
 			const res = await client.get('/doctors/doctor-consultation');
@@ -30,4 +30,30 @@ export const useGetNewPatients = () => {
 		isError,
 		refetch
 	}
+}
+
+export const useGetAllPatients = () => {
+	const { data, isPending, isError, refetch } = useQuery({
+		queryKey: ['allPatients'],
+		queryFn: async () => {
+			try {
+				const res = await client.get('/doctors/manage-user');
+				return res.data;
+			} catch (error) {
+				if (error.response.status === 404) {
+					return {
+						results: []
+					};
+				}
+			}
+		}
+	});
+
+	return {
+		data,
+		isPending,
+		isError,
+		refetch
+	}
+
 }
