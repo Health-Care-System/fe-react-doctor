@@ -15,6 +15,7 @@ import carebotLogo from '../../assets/icon/carebot.svg';
 import arrowDown from '../../assets/icon/arrow-down-2.svg';
 import deleteIcon from '../../assets/icon/delete-icon-red.svg'
 import './ChatBot.css'
+import useShortCutKeyboard from '../../hooks/useShortcutKeyboard';
 
 const Chatbot = () => {
   const [message, setMessage] = useState('');
@@ -22,6 +23,8 @@ const Chatbot = () => {
   const [loading, setLoading] = useState(false);
   const [historyChats, setHistoryChats] = useState([]);
   const { bottomRef, scrollToBottom } = useAutoScroll();
+  const { shortcutInputBot } = useShortCutKeyboard('k');
+
 
   const handleClearChat = () => {
     setMenu(false);
@@ -109,6 +112,7 @@ const Chatbot = () => {
           <input
             name={'Input-bot'}
             type="text"
+            ref={shortcutInputBot}
             value={message}
             disabled={loading}
             onChange={(e) => setMessage(e.target.value)}
@@ -120,6 +124,9 @@ const Chatbot = () => {
             onClick={(e) => handleSubmit(e)}
             type="button"
             disabled={loading}
+            style={{
+              right: loading ? '10px' : '30px'
+            }}
             className="send-button">
             {loading
               ? <div className="spinner-border spinner-border-sm text-secondary" role="status">
@@ -128,7 +135,7 @@ const Chatbot = () => {
               : <img
                 src={sendIcon}
                 alt="Send"
-                className="send-icon" />
+                className="send-icon position-absolute" />
             }
           </button>
         </div>

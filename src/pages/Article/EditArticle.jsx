@@ -3,7 +3,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useQueryClient } from "@tanstack/react-query";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 // Utils & Custom hooks
 import useForm from "../../hooks/useForm";
@@ -73,9 +73,7 @@ export const EditArticle = () => {
 
 
 const EditorArticle = ({ data }) => {
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const idArticle = searchParams.get('id');
+  let { id } = useParams();
 
   const initialState = {
     title: data?.results?.title,
@@ -122,7 +120,7 @@ const EditorArticle = ({ data }) => {
   const queryClient = useQueryClient();
   const navigate = useNavigate()
   const handlePost = async () => {
-    const res = await handleEditArticle(form, content, idArticle, setError, setLoading);
+    const res = await handleEditArticle(form, content, id, setError, setLoading);
     if (res) {
       navigate('/articles');
       queryClient.invalidateQueries({ queryKey: ['articles'] });

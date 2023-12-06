@@ -1,12 +1,12 @@
 // Packages
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { useQueryClient } from "@tanstack/react-query"
 
 // Utility & Hooks
-import { handleDeleteArticle } from '../../services/article-service'
+import { handleDeleteArticle, useGetAllArticles } from '../../services/article-service'
 import { formattedDate } from "../../utils/helpers"
-import { useGetQuery } from "../../hooks/useGetQuery"
+import { useInView } from "react-intersection-observer"
 
 // Assets 
 import plusIcon from '../../assets/icon/plus.svg'
@@ -23,6 +23,7 @@ import { CustomModal } from "../../components/ui/Modal/Modal"
 import { ErrorStatus } from "../../components/Error/ErrorStatus"
 import { ArticleSkeleton } from "../../components/ui/Skeleton/ArticleSkeleton"
 import './Article.css'
+import { Spinner } from "../../components/Loader/Spinner"
 
 export const ArticlePage = () => {
   const sortMenu = [
@@ -68,9 +69,19 @@ const ArticleBody = () => {
     data,
     isPending,
     isError,
-    refetch
-  } = useGetQuery('articles', '/doctors/articles', Infinity);
-
+    refetch,
+    fetchNextPage,
+    isFetchingNextPage,
+    hasNextPage
+  } = useGetAllArticles();
+  
+  const { ref, inView } = useInView();
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, fetchNextPage]);
+  
   if (isPending) {
     return (
       <>
@@ -82,14 +93,25 @@ const ArticleBody = () => {
   if (isError) return <ErrorStatus title={'Gagal memuat data artikel'} action={refetch} />
   
   return (
-    data?.results?.length > 0
-      ? data?.results?.map((item) => (
+    <>
+    {data?.pages?.map((item) => (
+      item?.results?.map((item) => (
         <ArticleWrapper
           isPending={isPending}
           key={item.id}
           item={item} />
       ))
-      : <p className="mx-auto fw-semibold fs-2 opacity-50">Tidak ada artikel di draf</p>
+    ))}
+      
+      <p ref={ref}>
+        {isFetchingNextPage
+          ? <div className="text-center text-secondary">
+          <Spinner />
+          </div>
+          : ''
+        }
+      </p>
+    </>
 
   )
 }
