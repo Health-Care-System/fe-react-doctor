@@ -1,8 +1,12 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useInView } from "react-intersection-observer";
+
+import { newPatientsThead } from "../../../../utils/dataObject";
+import { useGetNewPatients } from "../../../../services/patient-service";
+
 import { RowTable } from "../../../../components/Table/RowTable";
 import { TableContainer } from "../../../../components/Table/TableContainer";
-import { useGetNewPatients } from "../../../../services/patient-service";
-import { newPatientsThead } from "../../../../utils/dataObject";
 import "./Pasien.css";
 
 export const NewPatients = () => {
@@ -10,8 +14,19 @@ export const NewPatients = () => {
     data,
     refetch,
     isPending,
-    isError
+    isError, 
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage
   } = useGetNewPatients();
+  
+  // Effect Infinite Scroling...
+  const { ref, inView } = useInView();
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, fetchNextPage]);
 
   return (
     <>
@@ -27,7 +42,9 @@ export const NewPatients = () => {
           isError={isError}
           isPending={isPending}
           refetch={refetch}
-          data={data}
+          data={data?.pages}
+          reffer={ref}
+          isFetchingNextPage={isFetchingNextPage}
           ifEmpty={'Tidak Ada Pasien'}
           paddingError={'2rem'}
           totalCol={1}

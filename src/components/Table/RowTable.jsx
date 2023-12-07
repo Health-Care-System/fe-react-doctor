@@ -1,3 +1,4 @@
+import { Spinner } from "../Loader/Spinner";
 import { Button } from "../ui/Button";
 import { ColumnSkeleton } from "../ui/Skeleton/ColumnSkeleton";
 
@@ -10,7 +11,9 @@ export const RowTable = ({
   ifEmpty,
   paddingError,
   totalCol,
-  totalRow
+  totalRow,
+  reffer,
+  isFetchingNextPage
 }) => {
   if (isPending) {
     return (
@@ -41,9 +44,18 @@ export const RowTable = ({
 
   return (
     <>
-      {data?.results?.map((data, index) => (
-        renderItem(data, index)
-      ))}
+      {data?.map((item) => (
+        item?.results?.map((res, index) => (
+          renderItem(res, index, item?.pagination?.offset)
+        ))
+      ))
+      }
+      <tr colSpan={12} ref={reffer}>
+        {isFetchingNextPage
+          ? <td colSpan={12} className="text-center text-secondary"><Spinner /></td>
+          : ''
+        }
+      </tr>
     </>
   )
 

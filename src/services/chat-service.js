@@ -31,7 +31,7 @@ export const useGetRecentChats = () => {
     queryKey: ['recentPatients'],
     queryFn: async () => {
       try {
-        const res = await client.get('/doctors/chats');
+        const res = await client.get('/doctors/chats?limit=0&offset=10');
         return res.data;
       } catch (error) {
         if (error.response.status === 404) {
