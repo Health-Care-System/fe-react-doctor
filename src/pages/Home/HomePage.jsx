@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { useStatus } from "../../store/useStatus";
 import { formattedDate } from "../../utils/helpers";
 import { useGetQuery } from "../../hooks/useGetQuery";
-import { useGetRecentChats } from "../../services/chat-service";
 
 // Components
 import { NewPatients } from "./components/Pasien";
@@ -21,6 +20,7 @@ import noMsgIcon from '../../assets/icon/noMsg.png'
 import noMsgData from '../../assets/image/noMsg.jpg';
 import noDataImage from '../../assets/image/noData.jpg';
 import './Home.css'
+import { useGetAllRoomChat } from "../../services/chat-service";
 
 const HomePage = () => {
   const articles = useGetQuery('articlesDashboard', '/doctors/articles?limit=2&offset=0', Infinity);
@@ -73,7 +73,7 @@ const ChatListWrapper = () => {
     refetch,
     isPending,
     isError
-  } = useGetRecentChats();
+  } = useGetAllRoomChat();
   
   // ini adalah selector isActive (global state)
   const isActive = useStatus((state) => state.isActive);

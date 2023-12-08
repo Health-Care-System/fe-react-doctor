@@ -1,7 +1,7 @@
 import useForm from '../../../../hooks/useForm';
 import { RowTable } from '../../../../components/Table/RowTable';
 import { recentPatientsThead } from '../../../../utils/dataObject';
-import { useGetRecentChats } from '../../../../services/chat-service';
+import { useGetAllRoomChat } from '../../../../services/chat-service';
 import { TableContainer } from '../../../../components/Table/TableContainer';
 
 const initialState = {
@@ -14,7 +14,7 @@ export const RecentPatient = () => {
     refetch,
     isPending,
     isError
-  } = useGetRecentChats();
+  } = useGetAllRoomChat();
 
   const {
     form,

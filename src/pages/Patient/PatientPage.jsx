@@ -9,13 +9,14 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useForm from "../../hooks/useForm";
 // import useDebounce from "../../hooks/useDebounce";
 import { formattedDate } from "../../utils/helpers";
-import { useGetRecentChats } from "../../services/chat-service";
+import { useGetAllRoomChat } from "../../services/chat-service";
 import { diagnosa, recentPatientsThead } from "../../utils/dataObject";
 import { editPatientStatusAndDiagnosa, useGetAllPatients } from "../../services/patient-service";
 
 // Components
 import { Button } from "../../components/ui/Button";
 import { NewPatients } from "../Home/components/Pasien";
+import { Spinner } from "../../components/Loader/Spinner";
 import { RowTable } from "../../components/Table/RowTable";
 import { ErrorStatus } from "../../components/Error/ErrorStatus";
 import { UserChatListSkeleton } from "../../components/ui/Skeleton";
@@ -32,9 +33,15 @@ import "./Patient.css";
 export const PatientPage = () => {
   return (
     <section className="p-2 w-100 patient-container">
-      <div className="row gap-4 gap-xl-3 my-3 ms-md-1 ms-lg-0">
-        <CardContainer title="Pesan" detail={'2 belum dibaca'} className="col-12 w col-lg-5">
-          <div className="d-flex flex-column gap-1">
+      <div className="row gap-4 gap-xl-3 my-3 mb-4 ms-md-1 ms-lg-0">
+        <CardContainer
+          style={{ height: '12.6875rem' }}
+          title="Pesan"
+          detail={'2 belum dibaca'}
+          className="col-12 w col-lg-5 p-2">
+          <div
+            className="d-flex flex-column gap-3 overflow-y-scroll"
+            style={{ maxHeight: '8.5rem' }}>
             <ListChat />
           </div>
         </CardContainer>
@@ -49,10 +56,26 @@ export const PatientPage = () => {
 
 // Untuk bagian table atas paling kiri, tabel pesan
 const ListChat = () => {
-  const { data, refetch, isPending, isError } = useGetRecentChats();
+  const {
+    data,
+    refetch,
+    isPending,
+    isError,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage
+  } = useGetAllRoomChat();
   const navigate = useNavigate();
+  
+  const { ref, inView } = useInView();
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, fetchNextPage]);
+  
   const handleNavigate = (id) => {
-    navigate(`/chat/user?userId=${id}`)
+    navigate(`/chat/user?room=${id}`)
   }
 
   if (isPending) {
@@ -67,7 +90,7 @@ const ListChat = () => {
     return <ErrorStatus title={"Gagal memuat data pesan!"} action={refetch} />;
   }
 
-  if (data.results?.length < 1 || data.results === null) {
+  if (data?.pages?.length < 1) {
     return (
       <>
         <div className="text-center d-flex flex-column rounded-3 fs-3">
@@ -80,32 +103,40 @@ const ListChat = () => {
 
   return (
     <>
-      {data?.results?.map((msg) => {
-        return (
-          <div
-            className="d-flex flex-row gap-4 align-items-center text-decoration-none "
-            key={msg?.id}
-            onClick={() => handleNavigate(msg.id)}
-            style={{ cursor: "pointer" }}
-          >
-            <ImageWithFallback className={'avatar'} width={50} height={50} fallback={IconForAvatar} src={msg?.src} />
-            <div className="d-flex flex-column w-100 ">
-              <div className="d-flex align-items-center justify-content-between">
-                <h3 className="fs-3 fw-semibold mb-0 ">{msg?.fullname}</h3>
-                <Link className="text-success fw-semibold fs-4 text-decoration-none ">
-                  {formattedDate(msg?.created_at)}
-                </Link>
-              </div>
-              <div className="d-flex align-items-center justify-content-between">
-                <p className="card-text fs-4 chat">{msg?.last_message}</p>
-                {/* <div className="badge bg-success-subtle rounded-circle text-primary fw-medium ">
+      {data?.pages?.map((item) => (
+        item?.results?.map((msg) => {
+          return (
+            <div
+              className="d-flex flex-row gap-4 align-items-center text-decoration-none "
+              key={msg?.id}
+              onClick={() => handleNavigate(msg.id)}
+              style={{ cursor: "pointer" }}
+            >
+              <ImageWithFallback className={'avatar'} width={50} height={50} fallback={IconForAvatar} src={msg?.profile_picture} />
+              <div className="d-flex flex-column w-100 ">
+                <div className="d-flex align-items-center justify-content-between">
+                  <h3 className="fs-3 fw-semibold mb-0 ">{msg?.fullname}</h3>
+                  <Link className="text-success fw-semibold fs-4 text-decoration-none ">
+                    {formattedDate(msg?.created_at)}
+                  </Link>
+                </div>
+                <div className="d-flex align-items-center justify-content-between">
+                  <p className="card-text fs-4 chat">{msg?.last_message}</p>
+                  {/* <div className="badge bg-success-subtle rounded-circle text-primary fw-medium ">
                   {msg.text.length}
                 </div> */}
+                </div>
               </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })
+      ))}
+      <p className="text-center text-light" ref={ref}>
+        {isFetchingNextPage
+          ? <Spinner />
+          : 'loading...'
+        }
+      </p>
     </>
   );
 };
@@ -199,11 +230,11 @@ const PatientList = () => {
       transaction_id
     })
   }
-  
+
   // // Fitur searching
   // const [filterData, setFilterData] = useState([]);
   // const [loadingSearch, setLoadingSearch] = useState(false);
-  
+
   // const debouncedValue = useDebounce(form?.searchDoctor, 500);
   // useEffect(() => {
   //   if (debouncedValue !== '') {
