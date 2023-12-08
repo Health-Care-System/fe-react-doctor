@@ -50,7 +50,7 @@ export const RowTable = ({
           renderItem(res, index, 0)
         ))
         : <tr className="text-center">
-          <td colSpan={totalRow}>{`Data pasien dengan id transaksi = "${searchValue}" tidak ditemukan!`}</td>
+          <td colSpan={totalRow}>{`Data pasien dengan kata kunci "${searchValue}" tidak ditemukan!`}</td>
         </tr>
     )
   }

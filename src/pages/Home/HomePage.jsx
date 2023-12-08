@@ -24,7 +24,7 @@ const HomePage = () => {
     <div className="p-2 w-100 home-container bg-transparent">
 
       {/* Komponen yng memuat daftar pasien */}
-      <PatientList height={'48rem'} />
+      <PatientList height={'90rem'} />
 
       <div className="row mt-3 home-container mx-2 me-lg-4">
         <div className="col-12 col-lg-7 mb-3 mb-lg-0 px-0 px-md-3 d-flex flex-column">

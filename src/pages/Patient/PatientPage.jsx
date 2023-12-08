@@ -260,9 +260,10 @@ export const PatientList = ({ height }) => {
         handleInput={handleInput}
         inputValue={form.searchPatient}
         name={"searchPatient"}
+        minHeight={'12rem'}
         maxHeight={`calc(100vh - ${tableHeight})`}
         title={"Daftar Pasien"}
-        placeHolder={"Cari ID Transaksi"}
+        placeHolder={"Cari ID Transaksi, Status"}
         thead={recentPatientsThead}
         className={"border-top"}
         bgThead={"bg-light"}

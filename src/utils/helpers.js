@@ -19,3 +19,24 @@ export const formattedDate = (date) => {
   const formattedDate = utc.toLocaleDateString('ID-id', options);
   return formattedDate;
 }
+
+export const convertPatientStatus = (text) => {
+  const statusMappings = {
+    'dirujuk': 'referred',
+    'diberi': 'recovered',
+    'diberi resep': 'recovered',
+    'konsultasi': 'ongoing consultation',
+    'konsultasi lanjutan': 'ongoing consultation',
+    'menunggu': 'pending',
+    '-': 'pending'
+  };
+
+  const lowercaseText = text.toLowerCase();
+
+  // Temukan status yang cocok secara parsial
+  const matchedStatus = Object.keys(statusMappings).find(status =>
+    status.toLowerCase().includes(lowercaseText)
+  );
+
+  return statusMappings[matchedStatus] || 'unknown';
+}

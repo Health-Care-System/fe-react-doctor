@@ -1,5 +1,6 @@
 import client from "../utils/auth";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { convertPatientStatus } from "../utils/helpers";
 
 export const useGetNewPatients = () => {
 	return useInfiniteQuery({
@@ -74,7 +75,8 @@ export const editPatientStatusAndDiagnosa = async (newData) => {
 }
 
 export const getPatientByTransactionID = async (id) => {
-  const res = await client.get(`/doctors/manage-user?transaction_id=${id}&offset=0&limit=5`);
+	const newStatus = convertPatientStatus(id);
+  const res = await client.get(`/doctors/manage-user?transaction_id=${id}&patient_status=${newStatus}&offset=0&limit=5`);
   return res?.data;
 }
 export const getDoctorTransactionByID = async (setLoadingSearch, setFilterData, id) => {
