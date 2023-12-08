@@ -6,6 +6,8 @@ import arrowLeftIcon from '../../assets/icon/arrow-left.svg'
 import { Link } from 'react-router-dom'
 import './Navbar.css'
 import { Button } from '../ui/Button'
+import ImageWithFallback from '../Error/ImageWithFallback'
+import avatar from '../../assets/icon/avatar.svg'
 
 
 export const NavbarChat = ({ data }) => {
@@ -22,13 +24,13 @@ export const NavbarChat = ({ data }) => {
           <Link className=' d-lg-none' to={'/chat'}>
             <img src={arrowLeftIcon} width={24} alt='Back' />
           </Link>
-          <img width={50} height={50} className="rounded-3 object-fit-cover" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Profile Picture" />
+          <ImageWithFallback src={data?.profile_picture} fallback={avatar}  width={50} height={50} className="rounded-3 object-fit-cover" />
           <div className="w-75 m-0">
-            <h6 className=" fw-semibold">{data?.name}</h6>
-            <div className='d-flex align-items-center gap-1'>
+            <h6 className=" fw-semibold">{data?.fullname}</h6>
+            {/* <div className='d-flex align-items-center gap-1'>
               <div className={`bullet ${data?.isOnline ? 'bg-success-100' : 'bg-secondary-subtle'}`}></div>
               <p className="line-clamp-1 fs-4 fw-medium m-0">{data?.isOnline ? 'Online' : 'Offline'}</p>
-            </div>
+            </div> */}
           </div>
         </figure>
         <figure className='d-inline-flex align-items-center gap-1 gap-lg-4'>

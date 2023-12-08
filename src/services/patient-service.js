@@ -74,3 +74,22 @@ export const editPatientStatusAndDiagnosa = async (newData) => {
 		throw new Error(error.response ? error.response.data : 'Something went wrong');
 	}
 }
+
+export const getPatientByTransactionID = async (id) => {
+  const res = await client.get(`/doctors/manage-user?${id}`);
+  return res?.data;
+}
+export const getDoctorTransactionByID = async (setLoadingSearch, setFilterData, id) => {
+  try {
+    setLoadingSearch(true);
+    const data = await getPatientByTransactionID(id);
+    setFilterData(data && data.results ? data.results : []);
+  } catch (error) {
+    if (error.response.status === 404) {
+      setFilterData([]);
+    }
+    console.error("Error fetching user data:", error);
+  } finally {
+    setLoadingSearch(false);
+  }
+};

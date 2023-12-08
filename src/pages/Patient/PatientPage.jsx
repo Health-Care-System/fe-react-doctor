@@ -7,6 +7,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 // Utils / service / hooks
 import useForm from "../../hooks/useForm";
+// import useDebounce from "../../hooks/useDebounce";
 import { formattedDate } from "../../utils/helpers";
 import { useGetRecentChats } from "../../services/chat-service";
 import { diagnosa, recentPatientsThead } from "../../utils/dataObject";
@@ -198,6 +199,21 @@ const PatientList = () => {
       transaction_id
     })
   }
+  
+  // // Fitur searching
+  // const [filterData, setFilterData] = useState([]);
+  // const [loadingSearch, setLoadingSearch] = useState(false);
+  
+  // const debouncedValue = useDebounce(form?.searchDoctor, 500);
+  // useEffect(() => {
+  //   if (debouncedValue !== '') {
+  //     getDoctorTransactionByID(
+  //       setLoadingSearch,
+  //       setFilterData,
+  //       debouncedValue
+  //       )
+  //   }
+  // }, [debouncedValue]);
 
   return (
     <>
