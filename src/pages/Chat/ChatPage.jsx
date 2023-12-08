@@ -1,5 +1,4 @@
-import React, { Suspense } from "react"
-import { useQuery } from "@tanstack/react-query"
+import React, { Suspense, useEffect } from "react"
 import { Outlet, useLocation, useNavigate } from "react-router-dom"
 import './Chat.css'
 
@@ -9,7 +8,10 @@ import searchIconGrey from '../../assets/icon/search-grey.svg'
 import { UserChatListSkeleton } from "../../components/ui/Skeleton"
 import { ChatList } from "../../components/ui/Cards"
 import { Input } from "../../components/ui/Form"
-import { fetchUserChat } from "../../services/chat-service"
+import { useGetAllRoomChat } from "../../services/chat-service"
+import { useInView } from "react-intersection-observer"
+import { Spinner } from "../../components/Loader/Spinner"
+import { ErrorStatus } from "../../components/Error/ErrorStatus"
 
 export const ChatPage = () => {
   // Buat nyari query url saat ini
@@ -22,24 +24,15 @@ export const ChatPage = () => {
     searchParams.set("status", value);
     navigate(`${location.pathname}?${searchParams.toString()}`);
   };
-  
+
   const handleCurrentUserChat = (id) => {
-    searchParams.set("userId", id);
+    searchParams.set("room", id);
     navigate(`/chat/user?${searchParams.toString()}`);
   };
-  
 
-  // Tanstack query untuk fetching semua data chat user
-  const usersQuery = useQuery({
-    queryKey: ['users'],
-    queryFn: () => fetchUserChat(),
-  })
-  
-  const chatListStyle = location.pathname === '/chat/user' 
-    ? 'd-none d-lg-flex' 
+  const chatListStyle = location.pathname === '/chat/user'
+    ? 'd-none d-lg-flex'
     : 'chat-userlist__wrapper';
-  
-  
 
   return (
     <>
@@ -76,9 +69,9 @@ export const ChatPage = () => {
                     id={`btnradio${status.id}`}
                     autoComplete="off"
                   />
-                  <label 
-                    className="btn border-0 btn-outline-primary text-nowrap w-25 fs-4" 
-                    style={{padding: '0.75rem 1rem'}} 
+                  <label
+                    className="btn border-0 btn-outline-primary text-nowrap w-25 fs-4"
+                    style={{ padding: '0.75rem 1rem' }}
                     htmlFor={`btnradio${status.id}`}>
                     {status.label}
                   </label>
@@ -89,29 +82,69 @@ export const ChatPage = () => {
           </section>
 
           <section className="chat-userlist-wrapper px-3">
-            {
-              usersQuery.isLoading
-                ? <UserChatListSkeleton />
-                : usersQuery.data.data.map((user, index) => (
-                  <Suspense
-                    key={index}
-                    fallback={<UserChatListSkeleton />}
-                  >
-                    <ChatList
-                      id={user.id}
-                      name={user.name}
-                      messages={user.text}
-                      hanldeUser={handleCurrentUserChat}
-                    />
-                  </Suspense>
-                ))
-
-            }
+            <ChatListContainer handleCurrentUserChat={handleCurrentUserChat} />
           </section>
         </section>
         <section className="chat-body__wrapper">
           <Outlet />
         </section>
+      </div>
+    </>
+  )
+}
+
+const ChatListContainer = ({ handleCurrentUserChat}) => {
+  // Tanstack query untuk fetching semua data chat user
+  const {
+    data,
+    refetch,
+    isPending,
+    isError,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage
+  } = useGetAllRoomChat();
+
+  const { ref, inView } = useInView();
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, fetchNextPage]);
+
+  if (isPending) {
+    return (
+      <>
+        <UserChatListSkeleton />
+        <UserChatListSkeleton />
+        <UserChatListSkeleton />
+      </>
+    )
+  }
+  
+  if (isError) return <ErrorStatus title={'Gagal memuat data pesan'} action={refetch} />
+
+  return (
+    <>
+      {data?.pages?.map((user) => (
+        user?.results?.map((item, index) => (
+          <Suspense
+            key={index}
+            fallback={<UserChatListSkeleton />}
+          >
+            <ChatList
+              item={item}
+              hanldeUser={handleCurrentUserChat}
+            />
+          </Suspense>
+        ))
+      ))
+      }
+      <div ref={ref}>
+        {isFetchingNextPage
+          ? <div className=" text-center"><Spinner /></div>
+          : ''
+        }
       </div>
     </>
   )

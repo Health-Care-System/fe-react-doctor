@@ -6,15 +6,20 @@ import arrowLeftIcon from '../../assets/icon/arrow-left.svg'
 import { Link } from 'react-router-dom'
 import './Navbar.css'
 import { Button } from '../ui/Button'
+import ImageWithFallback from '../Error/ImageWithFallback'
+import avatar from '../../assets/icon/avatar.svg'
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css';
 
 
-export const NavbarChat = ({ data }) => {
+
+export const NavbarChat = ({ data, isPending }) => {
   const navIconMenu = [
     { icon: cameraIcon, alt: 'Camera' },
     { icon: searchIconChat, alt: 'Search' },
     { icon: arrowDownIcon, alt: 'Arrow' }
   ]
-
+  
   return (
     <>
       <nav className='sticky-top z-1 text-white d-flex flex-row justify-content-between w-100 px-4 pt-3 shadow-sm bg-primary'>
@@ -22,9 +27,18 @@ export const NavbarChat = ({ data }) => {
           <Link className=' d-lg-none' to={'/chat'}>
             <img src={arrowLeftIcon} width={24} alt='Back' />
           </Link>
-          <img width={50} height={50} className="rounded-3 object-fit-cover" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Profile Picture" />
+          {isPending
+            ? <Skeleton width={50} height={50} />
+            : <ImageWithFallback src={data?.profile_picture} fallback={avatar} width={50} height={50} className="rounded-3 object-fit-cover" />
+          }
+
           <div className="w-75 m-0">
-            <h6 className=" fw-semibold">{data?.name}</h6>
+            <h6 className="fw-semibold">
+              {isPending
+                ? <Skeleton width={100} height={16} />
+                : data?.fullname
+              }
+            </h6>
             <div className='d-flex align-items-center gap-1'>
               <div className={`bullet ${data?.isOnline ? 'bg-success-100' : 'bg-secondary-subtle'}`}></div>
               <p className="line-clamp-1 fs-4 fw-medium m-0">{data?.isOnline ? 'Online' : 'Offline'}</p>
@@ -34,12 +48,12 @@ export const NavbarChat = ({ data }) => {
         <figure className='d-inline-flex align-items-center gap-1 gap-lg-4'>
           {navIconMenu?.map((item, index) => (
             <Button key={index}>
-            <img
-              key={index}
-              height={'24px'}
-              src={item.icon}
-              alt={item.alt}
-            />
+              <img
+                key={index}
+                height={'24px'}
+                src={item.icon}
+                alt={item.alt}
+              />
             </Button>
           ))}
         </figure>

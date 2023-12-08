@@ -1,34 +1,39 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useStatus } from '../../store/store';
 import { navbarTitle } from '../../utils/dataObject';
 
 // Components
-import { useStatus } from '../../store/useStatus';
+import Chatbot from '../ChatBot';
+import { Button } from '../ui/Button';
+
+// Assets
 import notifIcon from '../../assets/icon/notif.svg';
 import arrowLeft from '../../assets/icon/arrowL.svg';
 import mailIcon from '../../assets/icon/mail-fill.svg';
 import './Navbar.css';
-import { Button } from '../ui/Button';
-import Chatbot from '../ChatBot';
+import { Notification } from '../Notif';
 
 export const Navbar = () => {
   const isActive = useStatus((state) => state.isActive);
   const handleStatus = useStatus((state) => state.handleStatus);
   const articles = ['create', 'edit']
-  
+
   // Buat render title dan content secara dinamis berdasarkan rute
   const location = useLocation();
   const currentRoute = location.pathname.split('/')[1];
   const currentRoute2 = location.pathname.split('/')[2];
   const currentNavItem = navbarTitle.find((item) => item.route === currentRoute);
-  
+
   // Buat cek apakah rutenya adalah edit article/ create articles, jika iya, maka tampilkan icon panah
   const checkRouteisArticle = articles.some((article) => article === currentRoute2);
   const [isChatbotOpen, setIsChatbotOpen] = useState(false);
+  const [modalNotif, setModalNotif] = useState(false);
 
   const handleMailIconClick = () => {
     setIsChatbotOpen(!isChatbotOpen); // Toggle isChatbotOpen state
   };
+
 
   return (
     <header className='navbar p-0'>
@@ -49,7 +54,7 @@ export const Navbar = () => {
           </h5>
         </div>
 
-        <div className='d-flex flex-row-reverse  flex-md-column pe-md-0'>
+        <div className='d-flex flex-row-reverse position-relative  flex-md-column pe-md-0'>
           <div className='d-flex align-items-center gap-4'>
             <div className="form-switch form-check-reverse gap-3">
               <label
@@ -68,9 +73,17 @@ export const Navbar = () => {
                 style={{ transform: 'scale(1.8)' }}
               />
             </div>
-            <Link to={'/feedback'}>
+            <Button
+              onClick={() => setModalNotif(!modalNotif)}
+              className={'p-0 position-relative'}>
               <img src={notifIcon} className='icon-size' alt='Notification' />
-            </Link>
+              {/* {newNotif &&
+              <span 
+                style={{ top: '5px', left: '21px'}} className="position-absolute translate-middle p-1 bg-danger border border-light rounded-circle border-0">
+                <span className="visually-hidden">New alerts</span>
+              </span>
+              } */}
+            </Button>
             <Button
               className={'p-0'}
               onClick={handleMailIconClick}
@@ -84,8 +97,12 @@ export const Navbar = () => {
           </div>
           {isChatbotOpen &&
             <div className="popup-background">
-              <Chatbot/>
+              <Chatbot />
             </div>
+          }
+
+          {modalNotif &&
+            <Notification closeModal={setModalNotif} />
           }
         </div>
       </nav>

@@ -98,8 +98,15 @@ export const dataChart = [
 ]
 
 export const patientDiagnosa = [
-  { label: "Diberi resep", value: "Diberi resep" },
-  { label: "Konsultasi lanjutan", value: "Konsultasi lanjutan" },
-  { label: "Dirujuk", value: "Dirujuk" },
+  { label: "Menunggu", value: "pending" },
+  { label: "Diberi resep", value: "recovered" },
+  { label: "Konsultasi lanjutan", value: "ongoing consultation" },
+  { label: "Dirujuk", value: "referred" },
 ];
 
+export const diagnosa = {
+  pending: '-',
+  recovered: 'Diberi Resep',
+  'ongoing consultation': 'Konsultasi lanjutan',
+  referred: 'Dirujuk'
+}

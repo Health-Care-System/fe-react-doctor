@@ -6,45 +6,30 @@ import { formattedDate } from '../../../utils/helpers';
 import { patientDiagnosa } from '../../../utils/dataObject';
 import useForm from '../../../hooks/useForm';
 import { Spinner } from '../../Loader/Spinner';
-import client from '../../../utils/auth';
 
-const initState = {
-  status: null,
-  diagnosa: null
-}
+import ImageWithFallback from '../../Error/ImageWithFallback';
 
-export const ModalEditPasien = ({ closeModal, PatientListData }) => {
-  const { user_id, transaction_id, fullname, created_at } = PatientListData;
+
+export const ModalEditPasien = ({ closeModal, PatientListData, handleSubmitEdit, pending }) => {
+  const { user_id, transaction_id, fullname, created_at, patient_status, health_details, profile_picture } = PatientListData;
+  const initState = {
+    status: patient_status,
+    diagnosa: health_details,
+  }
   const {
     form,
     handleInput,
-    setLoading,
-    loading
   } = useForm(initState);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const data = new FormData();
-    data.append("health_details", form.diagnosa);
-    data.append("patient_status", form.status);
-    try {
-      setLoading(true);
-      const res = await client.put(`/doctors/manage-user?transaction_id=${transaction_id}`, data);
-      console.log(res);
-    } catch (error) {
-      console.log(error.response);
-    } finally {
-      setLoading(false);
-      closeModal(false);
-    }
-  }
+  
+  const healthDetailsIsChange = health_details === form.diagnosa;
+  const patientStatusIsChange = patient_status === form.status;
 
   return (
     <>
       <div
         className="modal-backdrop"
         style={{
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          backgroundColor: 'rgba(0, 0, 0, 0.25)',
           zIndex: '1030'
         }}>
       </div>
@@ -56,7 +41,7 @@ export const ModalEditPasien = ({ closeModal, PatientListData }) => {
         style={{ display: "block", zIndex: '1040' }}
       >
         <div className="modal-dialog modal-dialog-centered modal-lg" >
-          <div className="modal-content px-4 pb-5 rounded-5" style={{ maxWidth: '51.25rem' }}>
+          <div className="modal-content px-4 pb-5 rounded-5 border-0" style={{ maxWidth: '51.25rem' }}>
             <div className="modal-header p-3 ">
               <h5 className="modal-title fs-1 ">Edit</h5>
               <button
@@ -68,7 +53,11 @@ export const ModalEditPasien = ({ closeModal, PatientListData }) => {
             <div className="modal-body" >
               <div className="row mb-3">
                 <div className="col-12 col-sm-3">
-                  <img src={IconForAvatar} alt="avatar" className="modal-avatar mb-3 mb-sm-0 rounded-4 " />
+                  <ImageWithFallback 
+                    src={profile_picture} 
+                    fallback={IconForAvatar} 
+                    alt="avatar" 
+                    className="modal-avatar mb-3 mb-sm-0 rounded-4 object-fit-cover" />
                 </div>
                 <div className="col-12 col-sm-9">
                   <div className="row g-3 ">
@@ -109,7 +98,6 @@ export const ModalEditPasien = ({ closeModal, PatientListData }) => {
                       options={patientDiagnosa}
                       name="status"
                       value={form.status}
-                      setDefault={true}
                       handleChange={handleInput}
                     />
                   </div>
@@ -119,19 +107,20 @@ export const ModalEditPasien = ({ closeModal, PatientListData }) => {
             <div className="modal-footer justify-content-start border-0 pt-0 ">
               <Button
                 type="button"
-                className="btn bg-transparent border-2 border-primary text-primary fw-semibold px-3"
+                className="btn-outline-primary border-2 fw-semibold px-3"
+                style={{ minWidth: '5.75rem'}}
                 onClick={() => closeModal(false)}
               >
                 Batal
               </Button>
               <Button
-                onClick={handleSubmit}
-                disabled={!form.status || !form.diagnosa || loading}
+                onClick={(e) => handleSubmitEdit(e, form.diagnosa, form.status, transaction_id)}
+                disabled={(!form.status || form.status === 'pending') || pending || !form.diagnosa || (healthDetailsIsChange && patientStatusIsChange)}
                 type="button"
                 className="btn btn-primary text-white fw-semibold px-3"
                 style={{ minWidth: '5.75rem' }}
               >
-                {loading
+                {pending
                   ? <Spinner />
                   : 'Simpan'
                 }

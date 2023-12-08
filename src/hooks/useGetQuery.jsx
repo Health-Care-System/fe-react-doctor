@@ -10,7 +10,9 @@ export const useGetQuery = (key, endpoint, stale) => {
 				return res.data;
 			} catch (error) {
 				if (error.response.status === 404) {
-					return [];
+					return {
+						results: []
+					}
 				} else {
 					console.log(error?.response?.data?.meta?.message);
 					return error;

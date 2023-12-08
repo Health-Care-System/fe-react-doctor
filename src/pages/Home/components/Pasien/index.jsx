@@ -1,8 +1,12 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useInView } from "react-intersection-observer";
+
+import { newPatientsThead } from "../../../../utils/dataObject";
+import { useGetNewPatients } from "../../../../services/patient-service";
+
 import { RowTable } from "../../../../components/Table/RowTable";
 import { TableContainer } from "../../../../components/Table/TableContainer";
-import { useGetNewPatients } from "../../../../services/patient-service";
-import { newPatientsThead } from "../../../../utils/dataObject";
 import "./Pasien.css";
 
 export const NewPatients = () => {
@@ -10,9 +14,20 @@ export const NewPatients = () => {
     data,
     refetch,
     isPending,
-    isError
+    isError, 
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
   } = useGetNewPatients();
-
+    
+  // Effect Infinite Scroling...
+  const { ref, inView } = useInView();
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, fetchNextPage]);  
+    
   return (
     <>
       <TableContainer
@@ -21,14 +36,19 @@ export const NewPatients = () => {
         thead={newPatientsThead}
         bgThead={'bg-white'}
         maxHeight={'8rem'}
+        minHeight={'8rem'}
         name={null}
       >
         <RowTable
+          // Handle react query
+          reffer={ref}
           isError={isError}
-          isPending={isPending}
           refetch={refetch}
-          data={data}
-          ifEmpty={'Tidak Ada Pasien'}
+          data={data?.pages}
+          isPending={isPending}
+          isFetchingNextPage={isFetchingNextPage}
+          
+          ifEmpty={'Tidak ada pasien baru'}
           paddingError={'2rem'}
           totalCol={1}
           totalRow={4}
@@ -41,7 +61,7 @@ export const NewPatients = () => {
                 <td>{data?.price}</td>
                 <td className="text-center">
                   <Link
-                    to={`/chat/user?userId=${data?.user_id}`}
+                    to={`/chat/user?status=all&room=${data?.room_chat_id}`}
                     className={'btn btn-primary rounded-5 text-white fs-4 fw-semibold'}
                   >
                     Mulai Konsultasi
