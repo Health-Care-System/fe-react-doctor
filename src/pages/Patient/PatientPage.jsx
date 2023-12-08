@@ -11,7 +11,7 @@ import useForm from "../../hooks/useForm";
 import { formattedDate } from "../../utils/helpers";
 import { useGetAllRoomChat } from "../../services/chat-service";
 import { diagnosa, recentPatientsThead } from "../../utils/dataObject";
-import { editPatientStatusAndDiagnosa, useGetAllPatients } from "../../services/patient-service";
+import { editPatientStatusAndDiagnosa, getDoctorTransactionByID, useGetAllPatients } from "../../services/patient-service";
 
 // Components
 import { Button } from "../../components/ui/Button";
@@ -29,6 +29,7 @@ import { ModalEditPasien } from "../../components/ui/Modal/ModalEditPasien";
 import noMsg from '../../assets/image/noMsg.jpg'
 import IconForAvatar from "../../assets/icon/avatar.svg";
 import "./Patient.css";
+import useDebounce from "../../hooks/useDebounce";
 
 export const PatientPage = () => {
   return (
@@ -37,7 +38,7 @@ export const PatientPage = () => {
         <CardContainer
           style={{ height: '12.6875rem' }}
           title="Pesan"
-          detail={'2 belum dibaca'}
+          detail={''}
           className="col-12 w col-lg-5 p-2">
           <div
             className="d-flex flex-column gap-3 overflow-y-scroll"
@@ -55,7 +56,7 @@ export const PatientPage = () => {
 };
 
 // Untuk bagian table atas paling kiri, tabel pesan
-const ListChat = () => {
+export const ListChat = () => {
   const {
     data,
     refetch,
@@ -66,14 +67,14 @@ const ListChat = () => {
     fetchNextPage
   } = useGetAllRoomChat();
   const navigate = useNavigate();
-  
+
   const { ref, inView } = useInView();
   useEffect(() => {
     if (inView && hasNextPage) {
       fetchNextPage();
     }
   }, [inView, hasNextPage, fetchNextPage]);
-  
+
   const handleNavigate = (id) => {
     navigate(`/chat/user?room=${id}`)
   }
@@ -93,9 +94,9 @@ const ListChat = () => {
   if (data?.pages?.length < 1) {
     return (
       <>
-        <div className="text-center d-flex flex-column rounded-3 fs-3">
+        <div className="text-center d-flex flex-column fw-semibold rounded-3 fs-3">
           <img src={noMsg} className="mx-auto" width={100} height={100} alt="Tidak ada pesan" />
-          {'Tidak ada data pesan'}
+          {'Tidak ada data pesan!'}
         </div>
       </>
     )
@@ -107,12 +108,18 @@ const ListChat = () => {
         item?.results?.map((msg) => {
           return (
             <div
-              className="d-flex flex-row gap-4 align-items-center text-decoration-none "
+              className="d-flex flex-row gap-4 align-items-center text-decoration-none grey-hover"
               key={msg?.id}
               onClick={() => handleNavigate(msg.id)}
               style={{ cursor: "pointer" }}
             >
-              <ImageWithFallback className={'avatar'} width={50} height={50} fallback={IconForAvatar} src={msg?.profile_picture} />
+              <ImageWithFallback
+                className={'avatar object-fit-cover'}
+                width={55}
+                height={50}
+                fallback={IconForAvatar}
+                src={msg?.profile_picture}
+              />
               <div className="d-flex flex-column w-100 ">
                 <div className="d-flex align-items-center justify-content-between">
                   <h3 className="fs-3 fw-semibold mb-0 ">{msg?.fullname}</h3>
@@ -143,9 +150,9 @@ const ListChat = () => {
 
 // Untuk Tabel yang paling bawah, yaitu tabel Daftar Pasien
 const initialState = {
-  search: "",
+  searchPatient: "",
 };
-const PatientList = () => {
+export const PatientList = ({ height }) => {
   const { form, handleInput } = useForm(initialState);
   const [openModal, setOpenModal] = useState(false);
   const [detailsData, setDetailsData] = useState(null);
@@ -231,42 +238,46 @@ const PatientList = () => {
     })
   }
 
-  // // Fitur searching
-  // const [filterData, setFilterData] = useState([]);
-  // const [loadingSearch, setLoadingSearch] = useState(false);
+  // Fitur searching
+  const [filterData, setFilterData] = useState([]);
+  const [loadingSearch, setLoadingSearch] = useState(false);
 
-  // const debouncedValue = useDebounce(form?.searchDoctor, 500);
-  // useEffect(() => {
-  //   if (debouncedValue !== '') {
-  //     getDoctorTransactionByID(
-  //       setLoadingSearch,
-  //       setFilterData,
-  //       debouncedValue
-  //       )
-  //   }
-  // }, [debouncedValue]);
+  const debouncedValue = useDebounce(form?.searchPatient, 500);
+  useEffect(() => {
+    if (debouncedValue !== '') {
+      getDoctorTransactionByID(
+        setLoadingSearch,
+        setFilterData,
+        debouncedValue
+      )
+    }
+  }, [debouncedValue]);
+
+  const tableHeight = height ?? '30rem';
 
   return (
     <>
       <TableContainer
         handleInput={handleInput}
-        inputValue={form.search}
-        name={"search"}
-        maxHeight={"calc(100vh - 30rem)"}
+        inputValue={form.searchPatient}
+        name={"searchPatient"}
+        maxHeight={`calc(100vh - ${tableHeight})`}
         title={"Daftar Pasien"}
-        placeHolder={"Nama, Gejala, Status"}
+        placeHolder={"Cari ID Transaksi"}
         thead={recentPatientsThead}
         className={"border-top"}
         bgThead={"bg-light"}
       >
         <RowTable
           // Handle React Query & infinite scrolling
-          data={data?.pages}
-          isError={isError}
-          isPending={isPending}
-          refetch={refetch}
-          isFetchingNextPage={isFetchingNextPage}
           reffer={ref}
+          isError={isError}
+          refetch={refetch}
+          searchValue={debouncedValue}
+          isDebounce={debouncedValue !== ''}
+          isPending={isPending || loadingSearch}
+          isFetchingNextPage={isFetchingNextPage}
+          data={debouncedValue !== '' ? filterData : data?.pages}
 
           // Searching
           search={form?.search}

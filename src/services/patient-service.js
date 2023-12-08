@@ -76,7 +76,7 @@ export const editPatientStatusAndDiagnosa = async (newData) => {
 }
 
 export const getPatientByTransactionID = async (id) => {
-  const res = await client.get(`/doctors/manage-user?${id}`);
+  const res = await client.get(`/doctors/manage-user?transaction_id=${id}&offset=0&limit=5`);
   return res?.data;
 }
 export const getDoctorTransactionByID = async (setLoadingSearch, setFilterData, id) => {

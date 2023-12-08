@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { NavbarBottomChat, NavbarChat } from "../Navbar"
 import './Chatbody.css'
 import { useMutation, useQueryClient } from "@tanstack/react-query"
@@ -19,7 +19,8 @@ export const Chatbody = () => {
   // Setup query client buat fetching data messages ke BE nantinya, 
   const queryClient = useQueryClient();
   const {
-    data
+    data,
+    isPending
   } = useGetRoomChatDetails(roomId);
 
   const mutation = useMutation({
@@ -57,7 +58,7 @@ export const Chatbody = () => {
   return (
     <>
       <section className="chat-body-wrapper position-relative">
-        <NavbarChat data={data?.results?.user} />
+        <NavbarChat isPending={isPending} data={data?.results?.user} />
 
         <div className="chat-body">
           {

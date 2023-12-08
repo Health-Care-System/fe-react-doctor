@@ -27,7 +27,8 @@ export const NewPatients = () => {
       fetchNextPage();
     }
   }, [inView, hasNextPage, fetchNextPage]);
-
+  
+  
   return (
     <>
       <TableContainer
@@ -50,6 +51,7 @@ export const NewPatients = () => {
           totalCol={1}
           totalRow={4}
           renderItem={(data, index) => {
+            console.log(data)
             return (
               <tr className="text-nowrap" key={index}>
                 <td>{data?.user_id}</td>
@@ -58,7 +60,7 @@ export const NewPatients = () => {
                 <td>{data?.price}</td>
                 <td className="text-center">
                   <Link
-                    to={`/chat/user?userId=${data?.user_id}`}
+                    to={`/chat/user?status=all&room=${data?.room_chat_id}`}
                     className={'btn btn-primary rounded-5 text-white fs-4 fw-semibold'}
                   >
                     Mulai Konsultasi
