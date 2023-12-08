@@ -5,24 +5,35 @@ Note:
 */
 import DOMPurify from 'dompurify';
 
-export const Bubble = ({ text, author, type, time }) => {
+export const Bubble = ({ data }) => {
+  const {
+    user_id,
+    message,
+    image,
+    audio,
+    created_at
+  } = data;
   const className =
-    author === "user"
+    user_id !== 0
       ? "bg-neutral-300 rounded-top-4 rounded-end-4 align-self-start"
       : "bg-grey-300 rounded-top-4 rounded-start-4 align-self-end";
 
-  const whoIs = author !== "user";
+  const isUser = user_id === 0;
+
+  const time = new Date(created_at);
+  const hours = time?.getHours();
+  const formattedClock = `${hours % 12 || 12}:${String(time.getMinutes()).padStart(2, '0')}`;
 
   return (
     <>
-      <div className={`d-flex flex-column ${whoIs ? 'align-self-end' : 'align-self-start'}`}>
+      <div className={`d-flex flex-column ${isUser ? 'align-self-end' : 'align-self-start'}`}>
 
         {
-          type === "audio"
+          audio !== ''
             ? (
               <audio className="" controls>
                 <source
-                  src={text?.url}
+                  src={audio}
                   type="audio/wav" />
                 Your browser does not support the audio element.
               </audio>
@@ -31,11 +42,11 @@ export const Bubble = ({ text, author, type, time }) => {
 
             : (
               <div className={`${className}`}>
-                {type === 'image'
+                {image !== ''
                   ? (
                     <img
                       width={'187px'}
-                      src={text}
+                      src={image}
                       alt="Image"
                       className={className} />
                   )
@@ -44,20 +55,20 @@ export const Bubble = ({ text, author, type, time }) => {
                       className="opacity-75 text-black fs-3 m-0"
                       style={{ width: '20rem', padding: '1rem 1.5rem' }}
                     >
-                      {text}
+                      {message}
                     </h5>
                   )
                 }
               </div>
             )}
-        <span className={`text-royal-blue fs-4 mt-1 ${whoIs ? 'text-end' : 'text-start'}`}>{time}</span>
+        <span className={`text-royal-blue fs-4 mt-1 ${isUser ? 'text-end' : 'text-start'}`}>{formattedClock}</span>
       </div>
 
     </>
   );
 };
 
-export const BubbleBot = ({ text, author, type, time }) => {
+export const BubbleBot = ({ text, author, time }) => {
   const className =
     author === "answer"
       ? "bg-green-50 rounded-top-4 rounded-end-4 align-self-start"
@@ -68,8 +79,8 @@ export const BubbleBot = ({ text, author, type, time }) => {
     <>
       <div className={`d-flex flex-column ${whoIs ? 'align-self-end' : 'align-self-start'}`}>
         <div className={`${className}`}>
-          <p 
-            className='text-black m-0' 
+          <p
+            className='text-black m-0'
             style={{ width: '20rem', padding: '1rem 1.5rem' }}
             dangerouslySetInnerHTML=
             {{
