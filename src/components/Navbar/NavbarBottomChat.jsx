@@ -12,12 +12,20 @@ import AudioReactRecorder, { RecordState } from 'audio-react-recorder'
 import { AttachmentModal } from '../ui/Modal/AttachmentModal'
 
 
-export const NavbarBottomChat = ({ message, setMessage, onEnter, handleVoiceRecorder }) => {
+export const NavbarBottomChat = ({ 
+  message, 
+  setMessage, 
+  onEnter, 
+  handleVoiceRecorder, 
+  handleImage,
+  showAttach,
+  setShowAttach,
+  onClickSend,
+  }) => {
   const [showEmoji, setShowEmoji] = useState(false);
-  const [showAttach, setShowAttach] = useState(false);
   const [recordState, setRecordState] = useState(null);
   const [onRecord, setOnRecord] = useState(false);
-
+  
   const { shortcutDiv } = useShortCutKeyboard('k');
   const onEmojiClick = (emojiData) => {
     setMessage((prevMsg) => prevMsg + emojiData.emoji);
@@ -36,7 +44,7 @@ export const NavbarBottomChat = ({ message, setMessage, onEnter, handleVoiceReco
     <>
       <div className='sticky-bottom z-1'>
         {showAttach &&
-          <AttachmentModal />
+          <AttachmentModal handleImage={handleImage} />
         }
         {showEmoji &&
           <div className='emoji-wrapper'>
@@ -65,6 +73,7 @@ export const NavbarBottomChat = ({ message, setMessage, onEnter, handleVoiceReco
           {message !== ''
             ?
             <Button
+              onClick={onClickSend}
               className={'p-0'}>
               <img height={'24px'} src={sendIcon} alt='Send' />
             </Button>

@@ -7,13 +7,12 @@ import { Button } from "../Button";
 
 const initialState = {
   image: null,
-  tempImage: null,
 }
 const initialError = {
   image: '',
 }
 
-export const AttachmentModal = () => {
+export const AttachmentModal = ({ handleImage }) => {
   const {
     form,
     setForm,
@@ -33,6 +32,7 @@ export const AttachmentModal = () => {
         const reader = new FileReader();
         reader.onload = (e) => {
           const dataURL = e.target.result;
+          handleImage(file)
           setForm({
             ...form,
             image: file,

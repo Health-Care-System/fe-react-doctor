@@ -11,6 +11,8 @@ import { Bubble } from "../ui/Bubble"
 export const Chatbody = () => {
   const [message, setMessage] = useState('');
   const { bottomRef, scrollToBottom } = useAutoScroll();
+  const [showAttach, setShowAttach] = useState(false);
+
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -34,10 +36,13 @@ export const Chatbody = () => {
         console.log(oldData)
       })
       scrollToBottom();
+    },
+    onSettled: () => {
+      setShowAttach(false);
     }
   })
 
-
+  console.log(message);
   // Pesan akan terkirim jika klik user Enter
   const onEnter = (e) => {
     if (e.key === 'Enter') {
@@ -49,10 +54,26 @@ export const Chatbody = () => {
       setMessage('')
     }
   }
+  
+  const onClickSend = (e) => {
+    e.preventDefault();
+    mutation.mutate({
+      message,
+      roomId
+    })
+    setMessage('')
+  }
 
   const handleVoiceRecorder = (recorder) => {
     mutation.mutate({
       audio: recorder,
+      roomId
+    })
+  }
+  
+  const handleImage = (img) => {
+    mutation.mutate({
+      image: img,
       roomId
     })
   }
@@ -78,10 +99,14 @@ export const Chatbody = () => {
           <div className="pb-5" ref={bottomRef} />
         </div>
         <NavbarBottomChat
+          showAttach={showAttach}
+          setShowAttach={setShowAttach}
+          handleImage={handleImage}
           handleVoiceRecorder={handleVoiceRecorder}
           message={message}
           setMessage={setMessage}
           onEnter={onEnter}
+          onClickSend={onClickSend}
         />
       </section>
     </>
