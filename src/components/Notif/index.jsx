@@ -60,6 +60,9 @@ export const Notification = ({ closeModal }) => {
               ))
             ))
           }
+          {data?.pages[0] === null &&
+            <p className='text-center fw-semibold text-secondary my-auto border-bottom pb-1 mx-4'>Belum ada pemberitahuan baru!</p>
+          }
           <p ref={ref} className='text-center'>
             {isFetchingNextPage
               ? <Spinner />
@@ -73,7 +76,6 @@ export const Notification = ({ closeModal }) => {
 }
 
 const NotifItem = ({ data, markAllRead, closeModal }) => {
-  console.log(data)
   const formatDate = formattedDate(data?.created_at);
   const date = new Date(data?.created_at);
   const hours = date.getHours().toString().padStart(2, '0');
