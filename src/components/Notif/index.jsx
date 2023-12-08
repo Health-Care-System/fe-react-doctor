@@ -97,7 +97,7 @@ const NotifItem = ({ data, markAllRead, closeModal }) => {
           <Link
             onClick={() => closeModal(false)}
             className={`text-decoration-none ${markAllRead ? 'visited' : 'text-notif'}`}
-            to={`/chat/user?room=${data?.room_chat_id}`}
+            to={`/chat/user?status=all&room=${data?.room_chat_id}`}
           >
             <b className='fw-semibold'>{data?.fullname}</b> Menunggu konsultasi dengan anda, segera tinjau untuk memberikan tanggapan yang tepat.
           </Link>

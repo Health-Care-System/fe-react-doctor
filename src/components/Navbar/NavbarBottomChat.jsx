@@ -9,10 +9,12 @@ import EmojiPicker from 'emoji-picker-react';
 import useShortCutKeyboard from '../../hooks/useShortcutKeyboard';
 import './Navbar.css'
 import AudioReactRecorder, { RecordState } from 'audio-react-recorder'
+import { AttachmentModal } from '../ui/Modal/AttachmentModal'
 
 
 export const NavbarBottomChat = ({ message, setMessage, onEnter, handleVoiceRecorder }) => {
   const [showEmoji, setShowEmoji] = useState(false);
+  const [showAttach, setShowAttach] = useState(false);
   const [recordState, setRecordState] = useState(null);
   const [onRecord, setOnRecord] = useState(false);
 
@@ -33,6 +35,9 @@ export const NavbarBottomChat = ({ message, setMessage, onEnter, handleVoiceReco
   return (
     <>
       <div className='sticky-bottom z-1'>
+        {showAttach &&
+          <AttachmentModal />
+        }
         {showEmoji &&
           <div className='emoji-wrapper'>
             <EmojiPicker onEmojiClick={onEmojiClick} />
@@ -43,7 +48,7 @@ export const NavbarBottomChat = ({ message, setMessage, onEnter, handleVoiceReco
           <Button className={'p-0'} onClick={() => setShowEmoji(!showEmoji)} >
             <img height={'24px'} src={emojiIcon} alt='Emoji' />
           </Button>
-          <Button className={'p-0'}>
+          <Button onClick={() => setShowAttach(!showAttach)} className={'p-0'}>
             <img height={'24px'} src={plusIcon} alt='Insert' />
           </Button>
           <input
