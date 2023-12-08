@@ -9,14 +9,14 @@ export const RowTable = ({
   refetch,
   isPending,
   isFetchingNextPage,
-  
+
   // useRef untuk infinite scroll
   reffer,
-  
+
   // Searching...
   isDebounce,
   searchValue,
-  
+
   // Styling & conditionals
   ifEmpty,
   totalCol,
@@ -24,14 +24,12 @@ export const RowTable = ({
   paddingError,
   renderItem,
 }) => {
-
   if (isPending) {
     return (
       <ColumnSkeleton totalRow={totalRow} totalCol={totalCol} />
     )
   }
-  
-  
+
   // Jika fetching data gagal error status http = 4xx & 5xx, maka kode dibawah yang akan dirender
   if (isError) {
     return (
@@ -57,18 +55,21 @@ export const RowTable = ({
     )
   }
 
+  if (data?.length < 1 || data[0] === null) {
+    return (
+      <tr>
+        <td colSpan={totalRow} className="text-center rounded-3 fs-2">{ifEmpty}</td>
+      </tr>
+    )
+  }
   // Jika input search tidak ada valuenya, maka kode dibawah yang akan dipakai untuk mapping data di dalam table
   return (
     <>
-      {data?.length > 0
-
-        ? data?.map((item) => (
-          item?.results?.map((res, index) => (
-            renderItem(res, index, item?.pagination?.offset)
-          ))))
-        : <tr>
-          <td colSpan={totalRow} className="text-center py-5 rounded-3 fs-2">{ifEmpty}</td>
-        </tr>
+      {data?.map((item) => (
+        item?.results?.map((res, index) => (
+          renderItem(res, index, item?.pagination?.offset)
+        ))
+      ))
       }
 
       {/* kode dibawah yg memicu infinite scrolling */}

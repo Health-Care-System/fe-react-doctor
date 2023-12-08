@@ -9,6 +9,7 @@ export const TableContainer = ({
   children,
   placeHolder,
   maxHeight,
+  minHeight,
   className,
   thead,
   bgThead,
@@ -36,7 +37,7 @@ export const TableContainer = ({
           </div>
         }
       </div>
-      <div className="table-responsive table-wrapper" style={{ height:'fit-content', maxHeight: maxHeight }}>
+      <div className="table-responsive table-wrapper" style={{ minHeight: minHeight, maxHeight: maxHeight }}>
         <table className="table table-borderless table-striped align-middle" >
           <thead className='sticky-top z-0 '>
             <tr>

@@ -254,7 +254,6 @@ export const PatientList = ({ height }) => {
   }, [debouncedValue]);
 
   const tableHeight = height ?? '30rem';
-
   return (
     <>
       <TableContainer

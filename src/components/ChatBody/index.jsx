@@ -30,6 +30,9 @@ export const Chatbody = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['roomChatDetails'] })
+      queryClient.setQueryData(['allRoomChat'], oldData => {
+        console.log(oldData)
+      })
       scrollToBottom();
     }
   })

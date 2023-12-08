@@ -20,9 +20,7 @@ const getNewPatinets = async ({ pageParam = 0 }) => {
 		return res.data;
 	} catch (error) {
 		if (error.response && error.response.status === 404) {
-			return {
-				results: [],
-			};
+			return null;
 		}
 		throw error;
 	}

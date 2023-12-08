@@ -17,18 +17,17 @@ export const NewPatients = () => {
     isError, 
     hasNextPage,
     isFetchingNextPage,
-    fetchNextPage
+    fetchNextPage,
   } = useGetNewPatients();
-  
+    
   // Effect Infinite Scroling...
   const { ref, inView } = useInView();
   useEffect(() => {
     if (inView && hasNextPage) {
       fetchNextPage();
     }
-  }, [inView, hasNextPage, fetchNextPage]);
-  
-  
+  }, [inView, hasNextPage, fetchNextPage]);  
+    
   return (
     <>
       <TableContainer
@@ -37,21 +36,23 @@ export const NewPatients = () => {
         thead={newPatientsThead}
         bgThead={'bg-white'}
         maxHeight={'8rem'}
+        minHeight={'8rem'}
         name={null}
       >
         <RowTable
+          // Handle react query
+          reffer={ref}
           isError={isError}
-          isPending={isPending}
           refetch={refetch}
           data={data?.pages}
-          reffer={ref}
+          isPending={isPending}
           isFetchingNextPage={isFetchingNextPage}
-          ifEmpty={'Tidak Ada Pasien'}
+          
+          ifEmpty={'Tidak ada pasien baru'}
           paddingError={'2rem'}
           totalCol={1}
           totalRow={4}
           renderItem={(data, index) => {
-            console.log(data)
             return (
               <tr className="text-nowrap" key={index}>
                 <td>{data?.user_id}</td>
