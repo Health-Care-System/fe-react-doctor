@@ -13,6 +13,7 @@ import arrowLeft from '../../assets/icon/arrowL.svg';
 import mailIcon from '../../assets/icon/mail-fill.svg';
 import './Navbar.css';
 import { Notification } from '../Notif';
+import client from '../../utils/auth';
 
 export const Navbar = () => {
   const isActive = useStatus((state) => state.isActive);
@@ -33,7 +34,17 @@ export const Navbar = () => {
   const handleMailIconClick = () => {
     setIsChatbotOpen(!isChatbotOpen); // Toggle isChatbotOpen state
   };
-
+  
+  const handleStatusDoctor = async () => {
+    handleStatus();
+    try {
+      await client.put('/doctors/status', {
+        status: !isActive
+      })
+    } catch (error) {
+      console.error(error?.response?.data?.meta?.message);
+    }
+  }
 
   return (
     <header className='navbar p-0'>
@@ -66,7 +77,7 @@ export const Navbar = () => {
                 className="form-check-input"
                 value={isActive}
                 checked={isActive}
-                onChange={handleStatus}
+                onChange={handleStatusDoctor}
                 type="checkbox"
                 role="switch"
                 id="isActiveSwitchCheck"
