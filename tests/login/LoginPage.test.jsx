@@ -8,7 +8,7 @@ const renderLogin = () => {
     )
 }
 
-describe('test login page', () => {
+describe('test login page form', () => {
 
     test('should display username and password error', async () => {
         renderLogin()
