@@ -83,9 +83,12 @@ body{
 .text-royal-blue{
   color: #0B3048;
 }
+.text-green-200 {
+  color: #0C714A;
+}
 .avatar {
   vertical-align: middle;
-  border-radius: 50%;
+  border-radius: 100%;
 }
 .shadow-base {
   box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.10); 
@@ -140,6 +143,16 @@ body{
   .flex-xl-row {
     display: flex;
     flex-direction: column;
+  }
+}
+
+@media (min-width: 2000px) {
+  .drawer-content {
+    max-width: calc(1900px - 17rem);
+  }
+  .main-layout {
+    margin: auto;
+    justify-content: center;
   }
 }
 

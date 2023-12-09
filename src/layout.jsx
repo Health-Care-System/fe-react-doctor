@@ -14,7 +14,7 @@ export const Layout = () => {
   const [menu, setMenu] = useState(false);
 
   return (
-    <main className="h-100 d-flex flex-row">
+    <main className="h-100 d-flex flex-row main-layout">
 
       <div className="d-none d-md-flex">
         <MemoizedSidebar />

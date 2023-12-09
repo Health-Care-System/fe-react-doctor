@@ -12,6 +12,11 @@
   top: 20%;
   left: 20%;
 }
+.edit-modal {
+  width: 100% !important;
+  height: 43.75rem !important;
+  max-width: 51.25rem !important;
+}
 
 .modal-avatar {
   width: 6rem !important;
@@ -54,6 +59,33 @@ Select option:focus {
 .btn-outline-primary{
   color: #008772;
   border-radius: 0.75rem;
+}
+
+/* Input Image */
+.inputImage + label {
+  padding: 0.75rem 1rem; 
+  border-radius: 0.5rem; 
+  width: fit-content;
+  font-size: 1rem;
+  font-weight: 600;
+  display: inline-block;
+}
+.inputImage + label {
+  background-color: #fff;
+  color: white;
+
+}
+.article-edit-icon {
+  position: absolute;
+  width: 2.5rem;
+  left: 40%;
+  top: 40%;
+}
+.inputImage:focus + label {
+  background-color: #fff;
+}
+.inputImage + label {
+	cursor: pointer;
 }
 
 @media (min-width: 768px) {

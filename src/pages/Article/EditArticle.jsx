@@ -3,7 +3,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useQueryClient } from "@tanstack/react-query";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 // Utils & Custom hooks
 import useForm from "../../hooks/useForm";
@@ -33,12 +33,13 @@ const initialError = {
 
 export const EditArticle = () => {
   let { id } = useParams();
+  const navigate = useNavigate();
   const {
     data,
     isPending,
     isError,
     refetch
-  } = useGetQuery('articleEdit', `/doctors/articles/${id}`);
+  } = useGetQuery('articleEdit', `/doctors/articles/${id}`, 0);
   
   if (isPending) {
     return (
@@ -59,7 +60,11 @@ export const EditArticle = () => {
       </div>
     )
   }
-    
+  
+  
+  if (!data?.results?.title || !data?.results?.content) {
+    navigate('/articles');
+  }
   
   return (
     <EditorArticle data={data} />
@@ -68,9 +73,7 @@ export const EditArticle = () => {
 
 
 const EditorArticle = ({ data }) => {
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const idArticle = searchParams.get('id');
+  let { id } = useParams();
 
   const initialState = {
     title: data?.results?.title,
@@ -117,10 +120,11 @@ const EditorArticle = ({ data }) => {
   const queryClient = useQueryClient();
   const navigate = useNavigate()
   const handlePost = async () => {
-    const res = await handleEditArticle(form, content, idArticle, setError, setLoading);
+    const res = await handleEditArticle(form, content, id, setError, setLoading);
     if (res) {
       navigate('/articles');
       queryClient.invalidateQueries({ queryKey: ['articles'] });
+      queryClient.invalidateQueries({ queryKey: ['articlesDashboard'] });
       toast.success('Artikel berhasil diedit!', {
         delay: 800
       });
