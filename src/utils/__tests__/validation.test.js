@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import { validateArticleForm } from '../validation';
+import { validateArticleForm, validateFormLogin } from '../validation';
 
 const mockSetErrors = vi.fn();
 describe('validateArticleForm', () => {
@@ -64,6 +64,128 @@ describe('validateArticleForm', () => {
       title: '',
       image: '',
       content: '',
+    });
+  });
+});
+
+// Form Login
+const validateFormLoginWrapper = (formData) => validateFormLogin(formData, mockSetErrors);
+
+describe('validateFormLogin', () => {
+  it('should return true for valid input', () => {
+    const formData = {
+      email: 'test@example.com',
+      password: 'Password1',
+    };
+
+    const isValid = validateFormLoginWrapper(formData);
+
+    expect(isValid).toBe(true);
+    expect(mockSetErrors).toHaveBeenCalledWith({ email: '', password: '' });
+  });
+
+  it('should set errors for empty email and password', () => {
+    const formData = {
+      email: '',
+      password: '',
+    };
+
+    const isValid = validateFormLoginWrapper(formData);
+
+    expect(isValid).toBe(false);
+    expect(mockSetErrors).toHaveBeenCalledWith({
+      email: 'Email wajib diisi!',
+      password: 'Password wajib diisi!',
+    });
+  });
+
+  it('should set errors for invalid email format', () => {
+    const formData = {
+      email: 'invalidemail',
+      password: 'Password1',
+    };
+
+    const isValid = validateFormLoginWrapper(formData);
+
+    expect(isValid).toBe(false);
+    expect(mockSetErrors).toHaveBeenCalledWith({
+      email: 'Format email tidak valid!',
+      password: '',
+    });
+  });
+
+  it('should set errors for password length and format', () => {
+    const formData = {
+      email: 'test@example.com',
+      password: 'pass',
+    };
+
+    const isValid = validateFormLoginWrapper(formData);
+
+    expect(isValid).toBe(false);
+    expect(mockSetErrors).toHaveBeenCalledWith({
+      email: '',
+      password: 'Password harus memiliki setidaknya 8 karakter!',
+    });
+  });
+
+  it('should set errors for password format (no number)', () => {
+    const formData = {
+      email: 'test@example.com',
+      password: 'password',
+    };
+
+    const isValid = validateFormLoginWrapper(formData);
+
+    expect(isValid).toBe(false);
+    expect(mockSetErrors).toHaveBeenCalledWith({
+      email: '',
+      password: 'Password harus mengandung setidaknya satu angka!',
+    });
+  });
+
+  it('should set errors for password format (no letter)', () => {
+    const formData = {
+      email: 'test@example.com',
+      password: '12345678',
+    };
+
+    const isValid = validateFormLoginWrapper(formData);
+
+    expect(isValid).toBe(false);
+    expect(mockSetErrors).toHaveBeenCalledWith({
+      email: '',
+      password: 'Password harus mengandung setidaknya satu huruf!',
+    });
+  });
+
+  it('should set errors for password format (only letters)', () => {
+    const formData = {
+      email: 'test@example.com',
+      password: 'abcdefgh',
+    };
+
+    const isValid = validateFormLoginWrapper(formData);
+
+    expect(isValid).toBe(false);
+    expect(mockSetErrors).toHaveBeenCalledWith({
+      email: '',
+      password: 'Password harus mengandung setidaknya satu angka!',
+    });
+  });
+
+  it('should set errors for password format (only numbers)', () => {
+    const formData = {
+      email: 'test@example.com',
+      password: '12345678',
+    };
+
+    const isValid = validateFormLoginWrapper(formData);
+
+    expect(isValid).toBe(false);
+    expect(mockSetErrors).toHaveBeenCalledWith({
+      email: '',
+      password: 'Password harus mengandung setidaknya satu huruf!',
     });
   });
 });
