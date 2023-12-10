@@ -55,13 +55,13 @@ export const RowTable = ({
     )
   }
 
-  if (data?.length < 1 || data[0] === null) {
-    return (
-      <tr>
-        <td colSpan={totalRow} className="text-center rounded-3 fs-2">{ifEmpty}</td>
-      </tr>
-    )
-  }
+    if (data?.length < 1 || data[0] === null) {
+      return (
+        <tr>
+          <td colSpan={totalRow} className="text-center rounded-3 fs-2">{ifEmpty}</td>
+        </tr>
+      )
+    }
   // Jika input search tidak ada valuenya, maka kode dibawah yang akan dipakai untuk mapping data di dalam table
   return (
     <>
