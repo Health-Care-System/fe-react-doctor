@@ -6,6 +6,7 @@ import { postNewMessage, useGetRoomChatDetails } from "../../services/chat-servi
 import useAutoScroll from "../../hooks/useAutoScroll"
 import { useLocation } from "react-router-dom"
 import { Bubble } from "../ui/Bubble"
+import { toast } from "react-toastify"
 // import { io } from "socket.io-client"
 
 export const Chatbody = () => {
@@ -42,7 +43,6 @@ export const Chatbody = () => {
     }
   })
 
-  console.log(message);
   // Pesan akan terkirim jika klik user Enter
   const onEnter = (e) => {
     if (e.key === 'Enter') {
@@ -65,11 +65,24 @@ export const Chatbody = () => {
   }
 
   const handleVoiceRecorder = (recorder) => {
-    mutation.mutate({
-      audio: recorder,
-      roomId
-    })
-  }
+
+    if (recorder && recorder.blob instanceof Blob) {
+      const reader = new FileReader();
+  
+      reader.onload = () => {
+        const audioData = reader.result;
+  
+        mutation.mutate({
+          audio: audioData,
+          roomId
+        });
+      };
+  
+      reader.readAsDataURL(recorder.blob);
+    } else {
+      toast.error("Gagal mengirim pesan audio! Harap coba lagi!", { delay: 800});
+    }
+  };
   
   const handleImage = (img) => {
     mutation.mutate({

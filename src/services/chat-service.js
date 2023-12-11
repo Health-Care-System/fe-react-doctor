@@ -84,6 +84,8 @@ export const useGetRoomChatDetails = (roomId) => {
 }
 
 export const postNewMessage = async (newData) => {
+  console.log(newData?.audio)
+  console.log(newData?.image)
   const data = new FormData();
   data.append("message", newData?.message ?? '');
   data.append("image", newData?.image ?? '');
