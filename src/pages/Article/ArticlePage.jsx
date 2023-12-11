@@ -138,9 +138,9 @@ const ArticleWrapper = ({ item, ...props }) => {
           alt="Thumbnails" />
 
         <div className="d-flex flex-row justify-content-between gap-3 w-100">
-          <div className="d-flex flex-column gap-3">
+          <div className="d-flex flex-column h-100 justify-content-between align-content-between gap-3" style={{ minHeight: '13rem'}}>
             <h4 className="fw-semibold article-title">{item.title}</h4>
-            <p className="line-clamp-2 article-p">{item.content}</p>
+            <p className="line-clamp-2 article-p" style={{ minHeight: '7rem'}}>{item.content}</p>
             <div className="d-flex flex-row gap-2 align-items-center">
               <p className="article-p">Publish</p>
               <img src={bullet} width={6} height={6} alt="" />
