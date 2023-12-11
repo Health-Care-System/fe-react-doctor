@@ -8,7 +8,7 @@ export const useStatus = create((set) => ({
   fetch: async () => {
     try {
       const res = await client.get('/doctors/status');
-      set({ isActive: res?.data?.results?.status ?? false });
+      set({ isActive: res?.data?.results?.status });
     } catch (error) {
       toast.error('Gagal mengambil status dokter, harap muat ulang halaman!', { delay: 800});
     }
