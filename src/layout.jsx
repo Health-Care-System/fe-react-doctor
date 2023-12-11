@@ -43,6 +43,7 @@ export const Layout = () => {
         <ToastContainer
           position="bottom-left"
           autoClose={2000}
+          limit={3}
           hideProgressBar={true}
           newestOnTop={false}
           rtl={false}

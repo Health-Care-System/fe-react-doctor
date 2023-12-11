@@ -25,12 +25,11 @@ const Chatbot = () => {
   const { bottomRef, scrollToBottom } = useAutoScroll();
   const { shortcutInputBot } = useShortCutKeyboard('k');
 
-
   const handleClearChat = () => {
     setMenu(false);
     setHistoryChats([]);
   }
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     handleMessageChatBot(
@@ -44,13 +43,15 @@ const Chatbot = () => {
   const onEnter = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      handleMessageChatBot(
-        setMessage,
-        setHistoryChats,
-        setLoading,
-        message,
-        scrollToBottom
-      );
+      if (message && !loading) {
+        handleMessageChatBot(
+          setMessage,
+          setHistoryChats,
+          setLoading,
+          message,
+          scrollToBottom
+        );
+      }
     }
   }
   return (
@@ -110,11 +111,10 @@ const Chatbot = () => {
       <form className="user-input">
         <div className='position-relative w-100'>
           <input
+            ref={shortcutInputBot}
             name={'Input-bot'}
             type="text"
-            ref={shortcutInputBot}
             value={message}
-            disabled={loading}
             onChange={(e) => setMessage(e.target.value)}
             onKeyDown={(e) => onEnter(e)}
             placeholder="Kirim Pertanyaan"
@@ -123,7 +123,7 @@ const Chatbot = () => {
           <button
             onClick={(e) => handleSubmit(e)}
             type="button"
-            disabled={loading}
+            disabled={loading || !message}
             style={{
               right: loading ? '10px' : '30px'
             }}
