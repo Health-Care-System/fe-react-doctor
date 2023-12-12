@@ -4,13 +4,11 @@ import { Link } from "react-router-dom";
 // Components
 import { Input } from '../../components/ui/Form';
 import { Button } from '../../components/ui/Button';
-// import { ErrorMsg } from "../../components/Error/ErrorMsg";
-
-// Assets
 import visibility from '../../assets/icon/visibility.svg'
 import brandLogo from '../../assets/icon/brandLogo.png'
 import doctorLogin from '../../assets/image/doctorLogin.png'
 import { useState } from "react";
+import client from "../../utils/auth";
 
 export const ForgotPasswordPage = () => {
     return (
@@ -32,9 +30,11 @@ const LoginForm = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [email, setEmail] = useState('');
 
     const handleResetPassword = (e) => {
         e.preventDefault();
+        handleCreateOTP();
         setStep(2);
     };
 
@@ -45,6 +45,7 @@ const LoginForm = () => {
 
     const handleCreateNewPassword = (e) => {
         e.preventDefault();
+        handleChangePassword();
     };
 
     const togglePasswordVisibility = () => {
@@ -57,6 +58,55 @@ const LoginForm = () => {
         placeholder: "Masukkan password baru",
         onChange: (e) => setPassword(e.target.value)
     };
+
+    const handleChangePassword = async () => {
+        try {
+            const endpoint = '/doctors/change-password';
+            const requestBody = {
+                email: email,
+                otp: '0468',
+                password: password
+            };
+    
+            const response = await client.post(endpoint, requestBody, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+    
+            if (response?.status === 200) {
+                console.log('Password berhasil diubah:', response.data.meta.message);
+            } else {
+                console.error('Gagal mengubah password:', response?.data.error);
+            }
+        } catch (error) {
+            console.error('Terjadi kesalahan saat mengubah password:', error);
+        }
+    };
+
+    const handleCreateOTP = async () => {
+        try {
+            const postEndpoint = '/doctors/get-otp';
+    
+            const postRequestBody = { email };
+            const postResponse = await client.post(postEndpoint, postRequestBody);
+            console.log(postResponse);
+            console.log('test') 
+    
+            if (postResponse?.status === 200) {
+                console.log('OTP berhasil dibuat:', postResponse.data.meta.message);
+    
+                const otpInformation = postResponse.data;
+    
+                console.log('Informasi OTP:', otpInformation);
+            } else {
+                console.error('Gagal membuat OTP:', postResponse?.data.error);
+            }
+        } catch (error) {
+            console.error('Terjadi kesalahan saat membuat OTP:', error);
+        }
+    };
+    
 
     return (
         <>
@@ -88,10 +138,11 @@ const LoginForm = () => {
                             Email
                         </label>
                         <Input
-                            type="email"
-                            {...InputProps}
+                            type="text"
+                            // {...InputProps}
                             name="email"
                             placeholder="Masukkan email anda"
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
                 )}
