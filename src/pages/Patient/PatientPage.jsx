@@ -27,9 +27,11 @@ import { ModalEditPasien } from "../../components/ui/Modal/ModalEditPasien";
 
 // Assets
 import noMsg from '../../assets/image/noMsg.jpg'
+import noServe from '../../assets/icon/noMsg.png'
 import IconForAvatar from "../../assets/icon/avatar.svg";
 import "./Patient.css";
 import useDebounce from "../../hooks/useDebounce";
+import { useStatus } from "../../store/store";
 
 export const PatientPage = () => {
   return (
@@ -78,6 +80,18 @@ export const ListChat = () => {
   const handleNavigate = (id) => {
     navigate(`/chat/user?room=${id}`)
   }
+  
+  const isActive = useStatus((state) => state.isActive)
+  if (!isActive) {
+    return(
+      <>
+        <div className="text-center d-flex flex-column fw-semibold rounded-3 fs-3" style={{ paddingBottom: '0.8rem'}}>
+          <img src={noServe} className="mx-auto" width={100} height={100} alt="Tidak ada pesan" />
+          {'Sedang tidak melayani!'}
+        </div>
+      </>
+    )
+  }
 
   if (isPending) {
     return (
@@ -90,8 +104,8 @@ export const ListChat = () => {
   if (isError) {
     return <ErrorStatus title={"Gagal memuat data pesan!"} action={refetch} />;
   }
-
-  if (data?.pages?.length < 1) {
+  
+  if (data?.pages?.length < 1 || data?.pages[0] === null) {
     return (
       <>
         <div className="text-center d-flex flex-column fw-semibold rounded-3 fs-3">
