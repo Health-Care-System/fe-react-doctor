@@ -49,6 +49,7 @@ export const NewPatients = () => {
           isFetchingNextPage={isFetchingNextPage}
           
           ifEmpty={'Tidak ada pasien baru'}
+          name={'newPatients'}
           paddingError={'2rem'}
           totalCol={1}
           totalRow={4}

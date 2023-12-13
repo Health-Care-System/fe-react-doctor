@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useStatus } from '../../store/store';
 import { navbarTitle } from '../../utils/dataObject';
@@ -17,6 +17,7 @@ import client from '../../utils/auth';
 
 export const Navbar = () => {
   const isActive = useStatus((state) => state.isActive);
+  const fetch = useStatus((state) => state.fetch);
   const handleStatus = useStatus((state) => state.handleStatus);
   const articles = ['create', 'edit']
 
@@ -34,6 +35,11 @@ export const Navbar = () => {
   const handleMailIconClick = () => {
     setIsChatbotOpen(!isChatbotOpen); // Toggle isChatbotOpen state
   };
+  
+  useEffect(() => {
+    fetch();
+  }, []);
+  
   
   const handleStatusDoctor = async () => {
     handleStatus();

@@ -10,6 +10,7 @@ import useShortCutKeyboard from '../../hooks/useShortcutKeyboard';
 import './Navbar.css'
 import AudioReactRecorder, { RecordState } from 'audio-react-recorder'
 import { AttachmentModal } from '../ui/Modal/AttachmentModal'
+import { useStatus } from '../../store/store'
 
 
 export const NavbarBottomChat = ({ 
@@ -22,6 +23,7 @@ export const NavbarBottomChat = ({
   setShowAttach,
   onClickSend,
   }) => {
+  const isActive = useStatus((state) => state.isActive)
   const [showEmoji, setShowEmoji] = useState(false);
   const [recordState, setRecordState] = useState(null);
   const [onRecord, setOnRecord] = useState(false);
@@ -43,6 +45,8 @@ export const NavbarBottomChat = ({
   return (
     <>
       <div className='sticky-bottom z-1'>
+      {isActive
+        ? <>
         {showAttach &&
           <AttachmentModal handleImage={handleImage} />
         }
@@ -96,6 +100,10 @@ export const NavbarBottomChat = ({
             <AudioReactRecorder state={recordState} onStop={handleVoiceRecorder} />
           </div>
         </nav>
+          </>
+          : <h5 className='text-center bg-secondary-subtle py-3 mb-0 text-primary fw-semibold'>Sedang Tidak Melayani</h5>
+      }
+        
       </div>
     </>
   )
