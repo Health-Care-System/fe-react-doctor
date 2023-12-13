@@ -265,4 +265,4 @@ import client from "../../utils/auth";
         );
     };
 
- export default LoginForm;
+export default LoginForm;
