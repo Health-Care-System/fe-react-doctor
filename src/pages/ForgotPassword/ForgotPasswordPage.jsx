@@ -177,7 +177,6 @@ import client from "../../utils/auth";
           
               if (response?.status === 200) {
                 console.log('Password berhasil diubah:', response.data.meta.message);
-                // You might want to redirect the user to a login page or a success page here
               } else {
                 console.error('Gagal mengubah password:', response?.data.error);
               }
