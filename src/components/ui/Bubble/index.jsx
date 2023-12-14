@@ -4,6 +4,7 @@ Note:
 2. Cara pemanggilan jika ingin bubble berada di sebelah kanan: className="bg-transparent rounded-top-3 rounded-end-3"
 */
 import DOMPurify from 'dompurify';
+import copyIcon from '../../../assets/icon/copy.svg';
 
 export const Bubble = ({ data }) => {
   const {
@@ -17,6 +18,7 @@ export const Bubble = ({ data }) => {
     user_id !== 0
       ? "bg-neutral-300 rounded-top-4 rounded-end-4 align-self-start"
       : "bg-grey-300 rounded-top-4 rounded-start-4 align-self-end";
+
 
   const isUser = user_id === 0;
 
@@ -75,21 +77,36 @@ export const BubbleBot = ({ text, author, time }) => {
       : "bg-grey-300 rounded-top-4 rounded-start-4 align-self-end";
 
   const whoIs = author !== "answer";
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(text)
+      .then(() => {
+        // Teks berhasil disalin
+        alert('Teks berhasil disalin!');
+      })
+      .catch((err) => {
+        console.error('Gagal menyalin teks: ', err);
+      });
+  };
   return (
     <>
       <div className={`d-flex flex-column ${whoIs ? 'align-self-end' : 'align-self-start'}`}>
-        <div className={`${className}`}>
+        <div className={`${className}`} style={{ position: 'relative' }}>
           <p
-            className='text-black m-0'
+            className="text-black m-0"
             style={{ width: '20rem', padding: '1rem 1.5rem' }}
-            dangerouslySetInnerHTML=
-            {{
-              __html: DOMPurify.sanitize(text)?.replace(/\n/g, "<br>")
-            }} />
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(text)?.replace(/\n/g, '<br>')
+            }}
+          />
+          {author === 'answer' && (
+            <button className="copy-icon" onClick={handleCopy} style={{ position: 'absolute', top: '5px', right: '5px' }} title="Salin pesan">
+              <img src={copyIcon} alt="Copy" />
+            </button>
+          )}
         </div>
         <span className={`text-royal-blue fs-4 mt-1 ${whoIs ? 'text-end' : 'text-start'}`}>{time}</span>
       </div>
     </>
   );
 };
-
