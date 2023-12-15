@@ -1,9 +1,9 @@
 import useForm from "../../../hooks/useForm";
 import { validateExtImage } from "../../../utils/validation";
-import './Modal.css'
-import imageClip from '../../../assets/icon/image-clip.svg'
 import resep from '../../../assets/icon/resep-obat.svg'
+import imageClip from '../../../assets/icon/image-clip.svg'
 import { Button } from "../Button";
+import './Modal.css'
 
 const initialState = {
   image: null,
@@ -12,7 +12,7 @@ const initialError = {
   image: '',
 }
 
-export const AttachmentModal = ({ handleImage }) => {
+export const AttachmentModal = ({ handleImage, setShowPrescription, setShowAttach }) => {
   const {
     form,
     setForm,
@@ -44,6 +44,11 @@ export const AttachmentModal = ({ handleImage }) => {
       }
     }
   };
+  
+  const handlePrescriptionModal = () => {
+    setShowPrescription(true);
+    setShowAttach(false);
+  };
   return (
     <div className="bg-white p-2 d-flex flex-column gap-1 shadow rounded-2 position-absolute" 
       style={{ 
@@ -63,7 +68,7 @@ export const AttachmentModal = ({ handleImage }) => {
         <label htmlFor="fileWhite" className="text-black bg-white w-100 h-100 pt-2 cursor-pointer text-start fw-semibold bg-light">Gambar</label>
       </div>
 
-      <Button className={'d-flex p-0 flex-row align-items-center gap-2'}>
+      <Button onClick={handlePrescriptionModal} className={'d-flex p-0 flex-row align-items-center gap-2'}>
         <img src={resep} alt="" />
         <p className="fw-semibold">Resepkan Obat</p>
       </Button>

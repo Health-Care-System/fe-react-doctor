@@ -1,6 +1,7 @@
 import ImageWithFallback from '../../Error/ImageWithFallback';
 import './Card.css'
 import avatar from '../../../assets/icon/avatar.svg'
+import { isJSONString } from '../../../utils/helpers';
 
 export const ChatList = ({ item, hanldeUser }) => {
   const {
@@ -23,7 +24,10 @@ export const ChatList = ({ item, hanldeUser }) => {
         <section className="d-flex flex-row w-100">
           <div className="w-75">
             <h6 className=" fw-semibold line-clamp-1">{fullname}</h6>
-            <p className="line-clamp-1">{last_message}</p>
+            {isJSONString(last_message)
+              ? <p className="line-clamp-1">{'Resep Obat'}</p>
+              : <p className="line-clamp-1">{last_message}</p>
+            }
           </div>
           <div className="d-flex flex-column align-items-end gap-2 text-body-secondary w-25">
             <p className="fs-5">{formattedClock}</p>

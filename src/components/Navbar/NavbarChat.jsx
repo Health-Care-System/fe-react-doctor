@@ -1,19 +1,19 @@
-
-import cameraIcon from '../../assets/icon/camera.svg'
-import searchIconChat from '../../assets/icon/search-chat.svg'
-import arrowDownIcon from '../../assets/icon/arrow-down-2.svg'
-import arrowLeftIcon from '../../assets/icon/arrow-left.svg'
 import { Link } from 'react-router-dom'
-import './Navbar.css'
-import { Button } from '../ui/Button'
-import ImageWithFallback from '../Error/ImageWithFallback'
-import avatar from '../../assets/icon/avatar.svg'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css';
 
+import { Button } from '../ui/Button'
+import avatar from '../../assets/icon/avatar.svg'
+import { TimerChat } from '../ChatBody/TimerChat'
+import ImageWithFallback from '../Error/ImageWithFallback'
 
+import cameraIcon from '../../assets/icon/camera.svg'
+import arrowLeftIcon from '../../assets/icon/arrow-left.svg'
+import arrowDownIcon from '../../assets/icon/arrow-down-2.svg'
+import searchIconChat from '../../assets/icon/search-chat.svg'
+import './Navbar.css'
 
-export const NavbarChat = ({ data, isPending }) => {
+export const NavbarChat = ({ data, isPending, isSuccess, exp, setIsOver, status }) => {
   const navIconMenu = [
     { icon: cameraIcon, alt: 'Camera' },
     { icon: searchIconChat, alt: 'Search' },
@@ -29,7 +29,12 @@ export const NavbarChat = ({ data, isPending }) => {
           </Link>
           {isPending
             ? <Skeleton width={50} height={50} />
-            : <ImageWithFallback src={data?.profile_picture} fallback={avatar} width={50} height={50} className="rounded-3 object-fit-cover" />
+            : <ImageWithFallback 
+              src={data?.profile_picture} 
+              fallback={avatar} 
+              width={50} 
+              height={50} 
+              className="rounded-3 object-fit-cover" />
           }
 
           <div className="w-75 m-0">
@@ -58,6 +63,12 @@ export const NavbarChat = ({ data, isPending }) => {
           ))}
         </figure>
       </nav>
+      <TimerChat 
+        isPending={isPending} 
+        isSuccess={isSuccess} 
+        status={status} 
+        expirationTime={exp} 
+        setIsOver={setIsOver} />
     </>
   )
 }

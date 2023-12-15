@@ -13,12 +13,21 @@ const useForm = (initialState, initialError) => {
       })
   }
   
+  const handleChange = (name, value) => {
+    setForm(prevForm => ({
+      ...prevForm,
+      [name]: value
+    }));
+  };
+
+  
   return {
     form,
     setForm,
     error,
     setError,
     handleInput,
+    handleChange,
     setLoading,
     loading
   }
