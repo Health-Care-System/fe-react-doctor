@@ -6,6 +6,8 @@ Note:
 import DOMPurify from 'dompurify';
 import { Spinner } from '../../Loader/Spinner';
 import { isJSONString } from '../../../utils/helpers';
+import ImageWithFallback from '../../Error/ImageWithFallback';
+import imgAlter from '../../../assets/image/medicine.jpg'
 
 export const Bubble = ({ data, loading }) => {
   const {
@@ -36,7 +38,7 @@ export const Bubble = ({ data, loading }) => {
         <div className='d-flex flex-column gap-3 bg-white'>
           {formattedMessage.map((item, index) => (
             <div key={index} className='rounded-3'>
-              <img src={item?.image} width={186} className=' rounded-top-3' height={102} alt={item?.name} />
+              <ImageWithFallback src={item?.image} fallback={imgAlter} width={186} className=' rounded-top-3' height={102} alt={item?.name} />
               <div className='py-3 px-4 rounded-bottom-3 bg-primary text-white  '>
                 <p className='fw-semibold' style={{ height: '2.5rem'}}>{item?.name}</p>
                 <div className="d-flex  flex-row  gap-1 line-clamp-1 text-nowrap">
