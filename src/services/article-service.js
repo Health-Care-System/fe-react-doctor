@@ -81,8 +81,10 @@ const getAllArticles = async ({ pageParam}) => {
     const offset = pageParam * 4;
     const res = await client.get(`/doctors/articles?offset=${offset}&limit=4`);
     return res.data;
-  } catch (error) {    
-    console.log(error?.response?.data?.meta?.message)
+  } catch (error) {   
+    if (error?.response?.status === 404) {
+      return null;
+    }
   }
 }
 

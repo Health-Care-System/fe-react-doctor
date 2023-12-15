@@ -1,5 +1,5 @@
 import client from "../utils/auth";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 export const createMessage = (author, content, type) => {
   return {
@@ -71,19 +71,7 @@ export const handleMessageChatBot = async (
   }
 }
 
-export const useGetRoomChatDetails = (roomId) => {
-  return useQuery({
-    queryKey: ['roomChatDetails', roomId],
-    queryFn: async () => {
-      const res =  await client.get(`/doctors/chats/${roomId}`);
-      return res.data;
-    }
-  })
-}
-
 export const postNewMessage = async (newData) => {
-  console.log(newData?.audio)
-  console.log(newData?.image)
   const data = new FormData();
   data.append("message", newData?.message ?? '');
   data.append("image", newData?.image ?? '');

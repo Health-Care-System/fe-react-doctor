@@ -8,7 +8,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 // Utils / service / hooks
 import useForm from "../../hooks/useForm";
 // import useDebounce from "../../hooks/useDebounce";
-import { formattedDate } from "../../utils/helpers";
+import { formattedDate, isJSONString } from "../../utils/helpers";
 import { useGetAllRoomChat } from "../../services/chat-service";
 import { diagnosa, recentPatientsThead } from "../../utils/dataObject";
 import { editPatientStatusAndDiagnosa, getDoctorTransactionByID, useGetAllPatients } from "../../services/patient-service";
@@ -80,12 +80,12 @@ export const ListChat = () => {
   const handleNavigate = (id) => {
     navigate(`/chat/user?room=${id}`)
   }
-  
+
   const isActive = useStatus((state) => state.isActive)
   if (!isActive) {
-    return(
+    return (
       <>
-        <div className="text-center d-flex flex-column fw-semibold rounded-3 fs-3" style={{ paddingBottom: '0.8rem'}}>
+        <div className="text-center d-flex flex-column fw-semibold rounded-3 fs-3" style={{ paddingBottom: '0.8rem' }}>
           <img src={noServe} className="mx-auto" width={100} height={100} alt="Tidak ada pesan" />
           {'Sedang tidak melayani!'}
         </div>
@@ -105,7 +105,7 @@ export const ListChat = () => {
     return <ErrorStatus title={"Gagal memuat data pesan!"} action={refetch} />;
   }
   
-  if (data?.pages?.length < 1 || data?.pages[0] === null) {
+  if (data?.pages?.length < 1 || data?.pages[0] === null || !data?.pages[0]?.results) {
     return (
       <>
         <div className="text-center d-flex flex-column fw-semibold rounded-3 fs-3">
@@ -142,7 +142,10 @@ export const ListChat = () => {
                   </Link>
                 </div>
                 <div className="d-flex align-items-center justify-content-between">
-                  <p className="card-text fs-4 chat">{msg?.last_message}</p>
+                  {isJSONString(msg?.last_message)
+                    ? <p className="line-clamp-1">{'Resep Obat'}</p>
+                    : <p className="line-clamp-1">{msg?.last_message}</p>
+                  }
                   {/* <div className="badge bg-success-subtle rounded-circle text-primary fw-medium ">
                   {msg.text.length}
                 </div> */}

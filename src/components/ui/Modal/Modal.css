@@ -12,6 +12,16 @@
   top: 20%;
   left: 20%;
 }
+.prescription-modal {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 30rem;
+  z-index: 50;
+}
+
 .edit-modal {
   width: 100% !important;
   height: 43.75rem !important;
@@ -94,5 +104,11 @@ Select option:focus {
     z-index: 55;
     top: 20%;
     left: 42.5%;
+  }
+}
+
+@media (min-width: 992px) {
+  .prescription-modal {
+    max-width: 68rem;
   }
 }
