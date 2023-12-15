@@ -18,6 +18,7 @@ const getNewPatinets = async ({ pageParam = 0 }) => {
 	try {
 		const offset = pageParam * 4;
 		const res = await client.get(`/doctors/doctor-consultation?offset=${offset}&limit=4`);
+		console.log(res)
 		return res.data;
 	} catch (error) {
 		if (error.response && error.response.status === 404) {
@@ -35,9 +36,7 @@ const getAllPatients = async ({ pageParam = 0 }) => {
 		return res.data;
 	} catch (error) {
 		if (error.response && error.response.status === 404) {
-			return {
-				results: [],
-			};
+			return null;
 		}
 		throw error;
 	}

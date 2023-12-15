@@ -10,7 +10,7 @@ export const useStatus = create((set) => ({
       const res = await client.get('/doctors/status');
       set({ isActive: res?.data?.results?.status });
     } catch (error) {
-      toast.error('Gagal mengambil status dokter, harap muat ulang halaman!', { delay: 800});
+      toast.warning('Sedang memuat status dokter, harap tunggu!', { delay: 800});
     }
   },
   handleStatus: () => {
@@ -19,3 +19,26 @@ export const useStatus = create((set) => ({
     }))
   }
 }))
+
+export const useMedicineStore = create((set) => ({
+  medicineStore: [],
+  addMedicine: (newMedicine) => {
+    set((state) => {
+      const isMedicineExist = state.medicineStore.some((medicine) => medicine.id === newMedicine.id);
+      if (!isMedicineExist) {
+        return {
+          medicineStore: [...state.medicineStore, newMedicine],
+        };
+      }
+      return state;
+    });
+  },
+  removeMedicine: (medicineId) => {
+    set((state) => ({
+      medicineStore: state.medicineStore.filter((medicine) => medicine.id !== medicineId),
+    }));
+  },
+  clearMedicineStore: () => {
+    set({ medicineStore: [] });
+  },
+}));

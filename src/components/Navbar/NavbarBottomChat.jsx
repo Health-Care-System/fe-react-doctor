@@ -22,6 +22,9 @@ export const NavbarBottomChat = ({
   showAttach,
   setShowAttach,
   onClickSend,
+  showPrescription,
+  setShowPrescription,
+  isChatOver
   }) => {
   const isActive = useStatus((state) => state.isActive)
   const [showEmoji, setShowEmoji] = useState(false);
@@ -41,14 +44,22 @@ export const NavbarBottomChat = ({
     setRecordState(RecordState.STOP)
     setOnRecord(false)
   }
+  
+  if (!isActive) {
+    return <h5 className='text-center bg-secondary-subtle py-3 mb-0 text-primary fw-semibold'>Sedang Tidak Melayani</h5>
+  }
+  if (!isChatOver) {
+    return <h5 className='text-center bg-secondary-subtle py-3 mb-0 text-primary fw-semibold'>Konsultasi Selesai</h5>
+  }
 
   return (
     <>
       <div className='sticky-bottom z-1'>
-      {isActive
-        ? <>
         {showAttach &&
-          <AttachmentModal handleImage={handleImage} />
+          <AttachmentModal 
+            setShowAttach={setShowAttach}
+            setShowPrescription={setShowPrescription} 
+            handleImage={handleImage} />
         }
         {showEmoji &&
           <div className='emoji-wrapper'>
@@ -66,6 +77,7 @@ export const NavbarBottomChat = ({
           <input
             ref={shortcutDiv}
             type='text'
+            disabled={showPrescription}
             name='message'
             value={message}
             onChange={(e) => setMessage(e.target.value)}
@@ -100,10 +112,6 @@ export const NavbarBottomChat = ({
             <AudioReactRecorder state={recordState} onStop={handleVoiceRecorder} />
           </div>
         </nav>
-          </>
-          : <h5 className='text-center bg-secondary-subtle py-3 mb-0 text-primary fw-semibold'>Sedang Tidak Melayani</h5>
-      }
-        
       </div>
     </>
   )
