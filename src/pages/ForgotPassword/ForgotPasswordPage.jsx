@@ -1,5 +1,10 @@
 // Packages
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
+// Utils / services
+import { createOTP, verifyOTP } from "../../services/auth-service";
+import { forgotPasswordEmailValidation, passwordValidation } from "../../utils/validation";
 
 // Components
 import { Input } from '../../components/ui/Form';
@@ -7,11 +12,8 @@ import { Button } from '../../components/ui/Button';
 import visibility from '../../assets/icon/visibility.svg'
 import brandLogo from '../../assets/icon/brandLogo.png'
 import doctorLogin from '../../assets/image/doctorLogin.png'
-import { useState } from "react";
 import client from "../../utils/auth";
 import useForm from "../../hooks/useForm";
-import { createOTP, verifyOTP } from "../../services/auth-service";
-import { forgotPasswordEmailValidation, passwordValidation } from "../../utils/validation";
 import { ErrorMsg } from "../../components/Error/ErrorMsg";
 import { Spinner } from "../../components/Loader/Spinner";
 
