@@ -92,7 +92,7 @@ const ArticleBody = () => {
   }
   if (isError) return <ErrorStatus title={'Gagal memuat data artikel'} action={refetch} />
   
-  if (!data[0]) return <h5 className=" mx-auto fw-semibold text-secondary">Tidak ada data artikel</h5>
+  if (data[0] === null) return <h5 className=" mx-auto fw-semibold text-secondary">Tidak ada data artikel</h5>
 
   return (
     data?.pages?.map((item) => (
