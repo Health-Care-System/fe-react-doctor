@@ -38,7 +38,7 @@ export const convertPatientStatus = (text) => {
     status.toLowerCase().includes(lowercaseText)
   );
 
-  return statusMappings[matchedStatus] || 'unknown';
+  return statusMappings[matchedStatus] || text;
 }
 
 export const checkLastMessage = (data) => {

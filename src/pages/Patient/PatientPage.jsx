@@ -280,7 +280,7 @@ export const PatientList = ({ height }) => {
         minHeight={'12rem'}
         maxHeight={`calc(100vh - ${tableHeight})`}
         title={"Daftar Pasien"}
-        placeHolder={"Cari ID Transaksi, Status"}
+        placeHolder={"Cari Nama, Status,  ID Transaksi"}
         thead={recentPatientsThead}
         className={"border-top"}
         bgThead={"bg-light"}

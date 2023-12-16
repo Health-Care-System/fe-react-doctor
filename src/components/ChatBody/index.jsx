@@ -175,7 +175,6 @@ export const Chatbody = () => {
     created_at: new Date()
   }  
   
-  console.log(data)
   return (
     <>
       <section className="chat-body-wrapper position-relative">

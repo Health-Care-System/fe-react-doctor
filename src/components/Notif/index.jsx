@@ -31,8 +31,6 @@ export const Notification = ({ closeModal }) => {
     }
   }, [inView, hasNextPage, fetchNextPage]);
 
-  console.log(data)
-
   return (
     <div className="w-100 bg-white notif-modal rounded-3">
       <div className="d-flex flex-nowrap gap-3 align-items-center p-2 rounded-top-3 flex-row justify-content-between bg-neutral-300">
