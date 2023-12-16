@@ -18,7 +18,6 @@ const getNewPatinets = async ({ pageParam = 0 }) => {
 	try {
 		const offset = pageParam * 4;
 		const res = await client.get(`/doctors/doctor-consultation?offset=${offset}&limit=4`);
-		console.log(res)
 		return res.data;
 	} catch (error) {
 		if (error.response && error.response.status === 404) {
@@ -75,7 +74,7 @@ export const editPatientStatusAndDiagnosa = async (newData) => {
 
 export const getPatientByTransactionID = async (id) => {
 	const newStatus = convertPatientStatus(id);
-  const res = await client.get(`/doctors/manage-user?transaction_id=${id}&patient_status=${newStatus}&offset=0&limit=5`);
+  const res = await client.get(`/doctors/manage-user?keyword=${newStatus}&offset=0&limit=5`);
   return res?.data;
 }
 export const getDoctorTransactionByID = async (setLoadingSearch, setFilterData, id) => {

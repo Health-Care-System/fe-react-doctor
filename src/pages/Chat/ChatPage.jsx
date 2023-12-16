@@ -1,23 +1,27 @@
-import React, { Suspense, useEffect } from "react"
+import { useInView } from "react-intersection-observer"
+import React, { Suspense, useEffect, useState } from "react"
 import { Outlet, useLocation, useNavigate } from "react-router-dom"
-import './Chat.css'
 
+import useForm from "../../hooks/useForm"
+import useDebounce from "../../hooks/useDebounce"
 import { chatStatus } from "../../utils/dataObject"
 import searchIconGrey from '../../assets/icon/search-grey.svg'
+import { getPatientChatByNameService, useGetAllRoomChat } from "../../services/chat-service"
 
-import { UserChatListSkeleton } from "../../components/ui/Skeleton"
-import { ChatList } from "../../components/ui/Cards"
 import { Input } from "../../components/ui/Form"
-import { useGetAllRoomChat } from "../../services/chat-service"
-import { useInView } from "react-intersection-observer"
+import { ChatList } from "../../components/ui/Cards"
 import { Spinner } from "../../components/Loader/Spinner"
 import { ErrorStatus } from "../../components/Error/ErrorStatus"
+import { UserChatListSkeleton } from "../../components/ui/Skeleton"
+import './Chat.css'
 
 export const ChatPage = () => {
   // Buat nyari query url saat ini
   const navigate = useNavigate();
   const location = useLocation();
+  const { form, handleInput } = useForm({ searchUser: '' })
   const searchParams = new URLSearchParams(location.search);
+
   // set queary search params di url browser misal: https://chat?status=all
   const statusQuery = searchParams.get('status');
   const handleStatus = (value) => {
@@ -34,6 +38,39 @@ export const ChatPage = () => {
     ? 'd-none d-lg-flex'
     : 'chat-userlist__wrapper';
 
+  // Tanstack query untuk fetching semua data chat user
+  const {
+    data,
+    refetch,
+    isPending,
+    isError,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage
+  } = useGetAllRoomChat();
+
+  const { ref, inView } = useInView();
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, fetchNextPage]);
+
+  // Fitur searching
+  const [filterData, setFilterData] = useState([]);
+  const [loadingSearch, setLoadingSearch] = useState(false);
+
+  const debouncedValue = useDebounce(form?.searchUser, 500);
+  useEffect(() => {
+    if (debouncedValue !== '') {
+      getPatientChatByNameService(
+        setLoadingSearch,
+        setFilterData,
+        debouncedValue
+      )
+    }
+  }, [debouncedValue]);
+
   return (
     <>
       <div className="d-flex flex-row w-100">
@@ -41,7 +78,9 @@ export const ChatPage = () => {
           <section className="sticky-top d-flex flex-column gap-4 px-3">
             <div className="position-relative">
               <Input
-                name={'searchUserInput'}
+                value={form.searchUser}
+                handleChange={(e) => handleInput(e)}
+                name={'searchUser'}
                 placeHolder={'cari...'}
                 className={'rounded-5 ps-5 border-0 bg-white py-2'}
               />
@@ -82,7 +121,15 @@ export const ChatPage = () => {
           </section>
 
           <section className="chat-userlist-wrapper px-3">
-            <ChatListContainer handleCurrentUserChat={handleCurrentUserChat} />
+            <ChatListContainer
+              data={debouncedValue !== '' ? filterData : data?.pages}
+              isDebounce={debouncedValue !== ''}
+              isFetchingNextPage={isFetchingNextPage}
+              isPending={isPending || loadingSearch}
+              isError={isError}
+              refetch={refetch}
+              ref={ref}
+              handleCurrentUserChat={handleCurrentUserChat} />
           </section>
         </section>
         <section className="chat-body__wrapper">
@@ -93,24 +140,16 @@ export const ChatPage = () => {
   )
 }
 
-const ChatListContainer = ({ handleCurrentUserChat}) => {
-  // Tanstack query untuk fetching semua data chat user
-  const {
-    data,
-    refetch,
-    isPending,
-    isError,
-    hasNextPage,
-    isFetchingNextPage,
-    fetchNextPage
-  } = useGetAllRoomChat();
-
-  const { ref, inView } = useInView();
-  useEffect(() => {
-    if (inView && hasNextPage) {
-      fetchNextPage();
-    }
-  }, [inView, hasNextPage, fetchNextPage]);
+const ChatListContainer = ({
+  handleCurrentUserChat,
+  isFetchingNextPage,
+  isDebounce,
+  isPending,
+  refetch,
+  isError,
+  data,
+  ref,
+}) => {
 
   if (isPending) {
     return (
@@ -121,12 +160,30 @@ const ChatListContainer = ({ handleCurrentUserChat}) => {
       </>
     )
   }
-  
+
   if (isError) return <ErrorStatus title={'Gagal memuat data pesan'} action={refetch} />
+
+  if (isDebounce) {
+    return (
+      <>
+        {data?.map((item, index) => (
+          <Suspense
+            key={index}
+            fallback={<UserChatListSkeleton />}
+          >
+            <ChatList
+              item={item}
+              hanldeUser={handleCurrentUserChat}
+            />
+          </Suspense>
+        ))}
+      </>
+    )
+  }
 
   return (
     <>
-      {data?.pages?.map((user) => (
+      {data?.map((user) => (
         user?.results?.map((item, index) => (
           <Suspense
             key={index}
