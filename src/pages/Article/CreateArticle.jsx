@@ -77,8 +77,9 @@ export const CreateArticle = () => {
 
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const handlePost = async () => {
-    const res = await handlePostArticle(form, content, setError);
+    const res = await handlePostArticle(form, content, setError, setLoading);
     if (res) {
       navigate('/articles');
       queryClient.invalidateQueries({ queryKey: ['articles'] })
@@ -109,6 +110,7 @@ export const CreateArticle = () => {
               className={'border-start-0 border-top-0 border-2 bg-light rounded-0 border-end-0 fw-bold fs-2'}
             />
             <Button
+              disabled={loading}
               onClick={handlePost}
               className={'btn-primary text-white d-flex flex-row fkex-nowrap align-items-center'}>
               <img src={sendIcon} className="pe-3" alt="" />
