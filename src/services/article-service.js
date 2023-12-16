@@ -16,7 +16,9 @@ export const handlePostArticle = async (
   form,
   content,
   setError,
+  setLoading
 ) => {
+  setLoading(true);
   const data = prepareArticleData(form, content);
   if (validateArticleForm(form, content, setError)) {
     try {
@@ -27,6 +29,8 @@ export const handlePostArticle = async (
     } catch (error) {
       console.log(error?.response?.data?.meta?.message);
       return false;
+    } finally {
+      setLoading(false);
     }
   }
 }
