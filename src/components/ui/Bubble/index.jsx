@@ -3,11 +3,15 @@ Note:
 1. Cara pemanggilan jika ingin bubble berada di sebelah kiri: className="bg-success-subtle rounded-top-3 rounded-start-3 align-self-end"
 2. Cara pemanggilan jika ingin bubble berada di sebelah kanan: className="bg-transparent rounded-top-3 rounded-end-3"
 */
+import { useState } from 'react';
 import DOMPurify from 'dompurify';
 import { Spinner } from '../../Loader/Spinner';
 import { isJSONString } from '../../../utils/helpers';
 import ImageWithFallback from '../../Error/ImageWithFallback';
+import { Button } from '../Button';
 import imgAlter from '../../../assets/image/medicine.jpg'
+import copyIcon from '../../../assets/icon/copy.svg'
+import { toast } from 'react-toastify';
 
 export const Bubble = ({ data, loading }) => {
   const {
@@ -112,26 +116,56 @@ export const Bubble = ({ data, loading }) => {
 
 
 export const BubbleBot = ({ text, author, time }) => {
+  const [isHovered, setIsHovered] = useState(false);
   const className =
     author === "answer"
       ? "bg-green-50 rounded-top-4 rounded-end-4 align-self-start"
       : "bg-grey-300 rounded-top-4 rounded-start-4 align-self-end";
 
   const whoIs = author !== "answer";
+  
+  const handleCopyClick = async () => {
+    try {
+      await navigator.clipboard.writeText(text);
+      toast.success('Berhasil menyalin pesan', {
+        position: 'top-center'
+      });
+    } catch (err) {
+      toast.error('Gagal menyalin pesan', {
+        position: 'top-center'
+      });
+    }
+  };
   return (
     <>
       <div className={`d-flex flex-column ${whoIs ? 'align-self-end' : 'align-self-start'}`}>
+      <div
+        id='bubbleBot'
+        className={`d-flex flex-row align-items-center`}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        {isHovered && (
+          <Button
+            onClick={handleCopyClick}
+            className={`m-2 p-0 ${whoIs ? 'order-0' : 'order-1'}`}
+            style={{ height: 'fit-content' }}
+          >
+            <img src={copyIcon} width={24} height={24} alt='Copy' />
+          </Button>
+        )}
         <div className={`${className}`}>
           <p
             className='text-black m-0'
             style={{ width: '20rem', padding: '1rem 1.5rem' }}
-            dangerouslySetInnerHTML=
-            {{
+            dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(text)?.replace(/\n/g, "<br>")
-            }} />
+            }}
+          />
         </div>
-        <span className={`text-royal-blue fs-4 mt-1 ${whoIs ? 'text-end' : 'text-start'}`}>{time}</span>
       </div>
+      <span className={`text-royal-blue fs-4 mt-1 ${whoIs ? 'text-end' : 'text-start'}`}>{time}</span>
+    </div>
     </>
   );
 };
