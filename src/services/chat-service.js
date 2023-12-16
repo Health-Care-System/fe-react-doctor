@@ -71,6 +71,7 @@ export const handleMessageChatBot = async (
   }
 }
 
+// Mengirim pesan chat
 export const postNewMessage = async (newData) => {
   const data = new FormData();
   data.append("message", newData?.message ?? '');
@@ -87,4 +88,26 @@ export const postNewMessage = async (newData) => {
   } catch (error) {
     throw new Error(error.response ? error.response.data : 'Something went wrong');
   }
+}
+
+
+// Mencari chat user berdasarkan nama
+export const getPatientChatByNameService = async (setLoadingSearch, setFilterData, id) => {
+  try {
+    setLoadingSearch(true);
+    const data = await getPatientChatByName(id);
+    setFilterData(data && data.results ? data.results : []);
+  } catch (error) {
+    if (error.response.status === 404) {
+      setFilterData([]);
+    }
+    console.error("Error fetching user data:", error);
+  } finally {
+    setLoadingSearch(false);
+  }
+};
+
+export const getPatientChatByName = async (name) => {
+  const res = await client.get(`/doctors/chats?fullname=${name}&offset=0&limit=5`);
+  return res?.data;
 }
