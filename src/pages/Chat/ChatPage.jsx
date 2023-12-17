@@ -52,7 +52,6 @@ export const ChatPage = () => {
   const { ref, inView } = useInView();
   useEffect(() => {
     if (inView && hasNextPage) {
-      console.log('test')
       fetchNextPage();
     }
   }, [inView, hasNextPage, fetchNextPage]);
@@ -72,8 +71,6 @@ export const ChatPage = () => {
     }
   }, [debouncedValue]);
   
-  console.log(data);
-
   return (
     <>
       <div className="d-flex flex-row w-100">
