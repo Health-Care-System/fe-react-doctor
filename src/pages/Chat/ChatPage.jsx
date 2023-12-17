@@ -70,7 +70,7 @@ export const ChatPage = () => {
       )
     }
   }, [debouncedValue]);
-
+  
   return (
     <>
       <div className="d-flex flex-row w-100">
@@ -128,7 +128,7 @@ export const ChatPage = () => {
               isPending={isPending || loadingSearch}
               isError={isError}
               refetch={refetch}
-              ref={ref}
+              reffer={ref}
               handleCurrentUserChat={handleCurrentUserChat} />
           </section>
         </section>
@@ -148,7 +148,7 @@ const ChatListContainer = ({
   refetch,
   isError,
   data,
-  ref,
+  reffer,
 }) => {
 
   if (isPending) {
@@ -197,7 +197,7 @@ const ChatListContainer = ({
         ))
       ))
       }
-      <div ref={ref}>
+      <div ref={reffer}>
         {isFetchingNextPage
           ? <div className=" text-center"><Spinner /></div>
           : ''
