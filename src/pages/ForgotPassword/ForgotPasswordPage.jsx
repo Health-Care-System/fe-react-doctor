@@ -16,6 +16,7 @@ import client from "../../utils/auth";
 import useForm from "../../hooks/useForm";
 import { ErrorMsg } from "../../components/Error/ErrorMsg";
 import { Spinner } from "../../components/Loader/Spinner";
+import { handleResetPasswordError } from "../../utils/response-handler";
 
 export const ForgotPasswordPage = () => (
     <div className="min-vh-100 px-5">
@@ -82,7 +83,7 @@ const ForgotPasswordForm = () => {
                 navigate('/login');
             }
         } catch (error) {
-            handleResetPassword(error)
+            handleResetPasswordError(error)
         } finally {
             handleChange('loadingStep3', false)
         }
