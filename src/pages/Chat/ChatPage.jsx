@@ -52,6 +52,7 @@ export const ChatPage = () => {
   const { ref, inView } = useInView();
   useEffect(() => {
     if (inView && hasNextPage) {
+      console.log('test')
       fetchNextPage();
     }
   }, [inView, hasNextPage, fetchNextPage]);
@@ -70,6 +71,8 @@ export const ChatPage = () => {
       )
     }
   }, [debouncedValue]);
+  
+  console.log(data);
 
   return (
     <>
@@ -128,7 +131,7 @@ export const ChatPage = () => {
               isPending={isPending || loadingSearch}
               isError={isError}
               refetch={refetch}
-              ref={ref}
+              reffer={ref}
               handleCurrentUserChat={handleCurrentUserChat} />
           </section>
         </section>
@@ -148,7 +151,7 @@ const ChatListContainer = ({
   refetch,
   isError,
   data,
-  ref,
+  reffer,
 }) => {
 
   if (isPending) {
@@ -197,7 +200,7 @@ const ChatListContainer = ({
         ))
       ))
       }
-      <div ref={ref}>
+      <div ref={reffer}>
         {isFetchingNextPage
           ? <div className=" text-center"><Spinner /></div>
           : ''
