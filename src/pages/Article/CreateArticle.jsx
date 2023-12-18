@@ -205,7 +205,7 @@ export const EditButtonImage = ({ setForm, handleFileInputChange, tempImage }) =
         </div>
         <Button
           onClick={deleteImage}
-          className={'fw-semibold ps-5'}>
+          className={'fw-semibold text-center'}>
           {'Hapus Foto'}
         </Button>
       </div>
